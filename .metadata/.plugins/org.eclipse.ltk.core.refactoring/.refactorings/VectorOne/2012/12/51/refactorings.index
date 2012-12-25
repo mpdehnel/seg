@@ -1,1 +1,18 @@
 1356003970922	Delete element
+1356108666531	Extracts string 'RadioButton' into R.string.radiobutton
+1356109047394	Rename type 'Login'
+1356181732554	Rename local variable 'Name'
+1356190235830	Rename package 'data'
+1356190250732	Move compilation unit
+1356190259021	Move compilation unit
+1356190264405	Move compilation unit
+1356190269613	Move compilation unit
+1356190275294	Move compilation unit
+1356190280676	Move compilation unit
+1356190290278	Delete element
+1356190310927	Rename type 'Application'
+1356190332041	Rename type 'CachsSelection'
+1356190351307	Rename type 'Maps'
+1356190365515	Rename type 'LoginApplication'
+1356190376783	Rename type 'CachListApplication'
+1356190493949	Rename type 'LogInActivity'

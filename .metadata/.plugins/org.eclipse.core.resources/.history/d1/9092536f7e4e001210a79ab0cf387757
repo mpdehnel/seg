@@ -1,0 +1,27 @@
+package com.vectorone;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.Button;
+
+public class MenuActivity extends Activity {
+	
+	private Button cachsbutton;
+	private Button mapsbutton;
+	private Button settingsbutton;
+	private Button mebutton;
+	private String username;
+	
+	
+	
+	 @Override
+	  public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.activity_menue);
+	    
+	    
+	    
+	    
+	  }
+
+}

@@ -1,0 +1,35 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android1:columnCount="1" >
+
+    <RadioGroup
+        android1:id="@+id/radioGroup1"
+        android1:layout_column="0"
+        android1:orientation="horizontal"
+        android1:layout_gravity="center_horizontal"
+        android1:layout_row="1" >
+
+        <RadioButton
+            android1:id="@+id/radio0"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:checked="true"
+            android1:text="RadioButton" />
+
+        <RadioButton
+            android1:id="@+id/radio1"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:text="RadioButton" />
+
+        <RadioButton
+            android1:id="@+id/radio2"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:text="RadioButton" />
+    </RadioGroup>
+    
+
+</GridLayout>

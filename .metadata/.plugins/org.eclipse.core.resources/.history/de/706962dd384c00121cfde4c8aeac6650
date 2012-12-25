@@ -1,0 +1,19 @@
+package com.vectorone;
+
+public class Cach {
+
+	private double distance;
+	private String discripton;
+	private String name;
+	private double direction;
+	private int teamcolor;
+	
+	
+	public Cach(String name, double direction, double distance, String discription) {
+	this.name=name	;
+	this.direction=direction;
+	this.distance=distance;
+	this.discripton=discription;
+	}
+
+}

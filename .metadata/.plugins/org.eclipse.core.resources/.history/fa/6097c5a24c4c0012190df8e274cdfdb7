@@ -1,0 +1,93 @@
+package com.vectorone;
+
+import java.util.LinkedList;
+
+import com.data.DataBaseConnector;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
+
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ListView;
+
+public class Application extends Activity {
+
+	private LinkedList<Integer> history = new LinkedList<Integer>();
+	private CachsSelection cachselection;
+	private DataBaseConnector dbcon;
+	private ListView listviewcachs;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// TODO:
+		dbcon = new DataBaseConnector("192.168.1.1", 8800);
+		history.add(R.layout.activity_login);
+		listviewcachs=(ListView) findViewById(R.id.listView1);
+		
+		setContentView(R.layout.activity_login);
+
+	}
+
+	public void login(View view) {
+		String username = ((EditText) findViewById(R.id.Username)).getText()
+				.toString();
+		String password = ((EditText) findViewById(R.id.password)).getText()
+				.toString();
+		LoginValidation LogVal = new LoginValidation();
+		if (LogVal.isUser(username, password)) {
+			history.add(R.layout.activity_menue);
+			setContentView(R.layout.activity_menue);
+		} else {
+			// TODO:Error
+		}
+	}
+
+	public void clear() {
+		// TODO:
+	}
+
+	public void registration(View view) {
+		// TODO SERVERADDRESSE VIA Constant CLass
+		Uri uri = Uri.parse("http://www.google.com");
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+		startActivity(intent);
+
+	}
+
+	public void user(View view) {
+		history.add(R.layout.activity_user);
+		setContentView(R.layout.activity_user);
+	}
+
+	public void cachselect(View view) {
+		history.add(R.layout.activity_cachselect);
+		cachselection = new CachsSelection(this, dbcon,listviewcachs);
+		setContentView(R.layout.activity_cachselect);
+	}
+
+	public void settings(View view) {
+		history.add(R.layout.activity_settings);
+		setContentView(R.layout.activity_settings);
+	}
+
+	public void maps(View view) {
+		history.add(R.layout.activity_maps);
+		setContentView(R.layout.activity_maps);
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (history.size() > 1) {
+			history.removeLast();
+			setContentView(history.getLast());
+		}
+
+	}
+
+}

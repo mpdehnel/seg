@@ -14,7 +14,7 @@
         android:text="@string/lable_username" />
 
     <EditText
-        android:id="@+id/Username"
+        android:id="@+id/UsernameTextField"
         android:layout_column="2"
         android:layout_columnSpan="3"
         android:layout_gravity="left"
@@ -33,7 +33,7 @@
         android:text="@string/lable_password" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/loginbutton"
         android:layout_column="1"
         android:layout_columnSpan="3"
         android:layout_gravity="left|bottom"
@@ -42,7 +42,7 @@
         android:text="@string/button_login" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/PasswordTextField"
         android:layout_column="2"
         android:layout_columnSpan="3"
         android:layout_gravity="left"
@@ -51,7 +51,7 @@
         android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/clear"
+        android:id="@+id/clearbutton"
         android:layout_column="4"
         android:layout_gravity="left|bottom"
         android:layout_row="3"
@@ -59,7 +59,7 @@
         android:text="@string/button_clear" />
 
     <Button
-        android:id="@+id/registration"
+        android:id="@+id/registrationbutton"
         android:layout_column="0"
         android:layout_columnSpan="5"
         android:layout_gravity="center_horizontal"

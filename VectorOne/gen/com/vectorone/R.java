@@ -14,25 +14,31 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int TextView01=0x7f070002;
-        public static final int User=0x7f07000a;
-        public static final int Username=0x7f070001;
-        public static final int cachselect=0x7f070007;
-        public static final int clear=0x7f070005;
-        public static final int login=0x7f070003;
-        public static final int maps=0x7f070008;
-        public static final int password=0x7f070004;
-        public static final int registration=0x7f070006;
-        public static final int settings=0x7f070009;
+        public static final int PasswordTextField=0x7f070005;
+        public static final int TextView01=0x7f070003;
+        public static final int UsernameTextField=0x7f070002;
+        public static final int cachselectbutton=0x7f070009;
+        public static final int check=0x7f07000e;
+        public static final int clearbutton=0x7f070006;
+        public static final int label=0x7f07000d;
+        public static final int listView1=0x7f070001;
+        public static final int loginbutton=0x7f070004;
+        public static final int map_view=0x7f070008;
+        public static final int mapsbutton=0x7f07000a;
+        public static final int mebutton=0x7f07000c;
+        public static final int registrationbutton=0x7f070007;
+        public static final int settingsbutton=0x7f07000b;
         public static final int textView1=0x7f070000;
     }
     public static final class layout {
-        public static final int activity_cachselect=0x7f030000;
-        public static final int activity_login=0x7f030001;
-        public static final int activity_maps=0x7f030002;
-        public static final int activity_menue=0x7f030003;
-        public static final int activity_settings=0x7f030004;
-        public static final int activity_user=0x7f030005;
+        public static final int activity_cachinfo=0x7f030000;
+        public static final int activity_cachselect=0x7f030001;
+        public static final int activity_login=0x7f030002;
+        public static final int activity_maps=0x7f030003;
+        public static final int activity_menue=0x7f030004;
+        public static final int activity_settings=0x7f030005;
+        public static final int activity_user=0x7f030006;
+        public static final int rowbuttonlayout=0x7f030007;
     }
     public static final class menu {
         public static final int activity_login=0x7f060000;
@@ -48,6 +54,7 @@ public final class R {
         public static final int button_user=0x7f040004;
         public static final int lable_password=0x7f04000a;
         public static final int lable_username=0x7f040009;
+        public static final int radiobutton=0x7f04000b;
         public static final int username=0x7f040001;
     }
     public static final class style {

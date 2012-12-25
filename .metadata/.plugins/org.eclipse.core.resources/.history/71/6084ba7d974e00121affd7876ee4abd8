@@ -1,0 +1,52 @@
+package com.vectorone;
+
+import java.util.LinkedList;
+
+import com.data.Cach;
+import com.data.DataBaseConnector;
+
+import android.app.ListActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+
+public class CachListActivity extends ListActivity {
+
+	public final int NAME = 1;
+	public final int DISTANCE = 2;
+	public final int NEXTBESTTARGET = 3;
+//	public LinkedList<Cach> dummycachs;
+
+	public void onCreate(Bundle icicle) {
+		super.onCreate(icicle);
+		//dummycachs.add(new Cach("cach1", 12.2, 4.3, "testDiscription"));
+		//dummycachs.add(new Cach("cach2", 1.2, 23.3, "testDiscription"));
+		
+		ListView listView = (ListView) findViewById(R.id.listView1);
+		String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
+		  "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
+		  "Linux", "OS/2" };
+
+		// First paramenter - Context
+		// Second parameter - Layout for the row
+		// Third parameter - ID of the TextView to which the data is written
+		// Forth - the Array of data
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+		  android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+		// Assign adapter to ListView
+		listView.setAdapter(adapter); 
+	}
+
+	private String[] listtostring(LinkedList<Cach> dummycachs2) {
+		String[] cachlist = new String[dummycachs2.size()];
+		for (int i = 0; i < cachlist.length; i++)
+			cachlist[i] = dummycachs2.get(i).toString();
+		return cachlist;
+	}
+
+}

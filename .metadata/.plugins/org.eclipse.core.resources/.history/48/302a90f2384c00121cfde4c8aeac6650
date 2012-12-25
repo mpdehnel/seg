@@ -1,0 +1,31 @@
+package com.vectorone;
+
+import java.util.LinkedList;
+
+public class DataBaseConnector {
+
+	
+	public DataBaseConnector(){
+		
+		//startConnectin to dataBase
+		
+	}
+	
+	
+	
+	
+	public DataBaseConnector(String ip, int port) {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+	private void getCachsfromDatabase(){
+		//TODO: get use connection and Parse to a Linked List of Cachs
+	}
+	
+	
+	
+	
+}

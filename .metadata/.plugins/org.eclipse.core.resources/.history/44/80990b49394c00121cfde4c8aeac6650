@@ -1,0 +1,24 @@
+package com.vectorone;
+
+public class CachsSelection {
+	
+	public final int NAME=1;
+	public final int DISTANCE=2;
+	public final int NEXTBESTTARGET=3;
+	
+	public Cach[] dummycachs={new Cach("cach1",12.2,4.3,"testDiscription"),new Cach("cach2",1.2,23.3,"testDiscription")};
+	
+	
+
+	public CachsSelection(Application application, DataBaseConnector dbcon) {
+		// TODO Auto-generated constructor stub
+	}
+	private double distance;
+	private String discripton;
+	private double direction;
+	private int teamcolor;
+	
+	
+	
+	
+}

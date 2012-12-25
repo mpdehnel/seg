@@ -1,2 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="android.view.View"/>
+<fullyQualifiedTypeName name="android.net.Uri"/>
+<fullyQualifiedTypeName name="com.vectorone.GeoLocation"/>
+<fullyQualifiedTypeName name="com.vectorone.Application"/>
+<fullyQualifiedTypeName name="android.app.Application"/>
+<fullyQualifiedTypeName name="com.vectorone.Cachs"/>
+<fullyQualifiedTypeName name="com.vectorone.DataBaseConnector"/>
+<fullyQualifiedTypeName name="com.vectorone.Cach"/>
+<fullyQualifiedTypeName name="com.vectorone.CachsSelection"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="android.widget.ArrayAdapter"/>
+<fullyQualifiedTypeName name="android.widget.ListAdapter"/>
+<fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
+<fullyQualifiedTypeName name="android.R.layout"/>
+<fullyQualifiedTypeName name="android.app.ListActivity"/>
+<fullyQualifiedTypeName name="com.vectorone.MenuActivity"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="com.data.LoginValidation"/>
+<fullyQualifiedTypeName name="android.widget.EditText"/>
+<fullyQualifiedTypeName name="android.os.Parcelable"/>
+<fullyQualifiedTypeName name="com.vectorone.R"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="com.vectorone.R.id"/>
+<fullyQualifiedTypeName name="com.vectorone.SettingsActivity"/>
+<fullyQualifiedTypeName name="com.vectorone.MeActivity"/>
+<fullyQualifiedTypeName name="com.data.GeoLocation"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="com.vectorone.MainLogInActivity"/>
+<fullyQualifiedTypeName name="com.vectorone.CachListActivity"/>
+<fullyQualifiedTypeName name="android.os.Bundle"/>
+<fullyQualifiedTypeName name="com.vectorone.PlanActivity"/>
+<fullyQualifiedTypeName name="com.vectorone.MapsActivity"/>
+<fullyQualifiedTypeName name="com.google.android.maps.MapView"/>
+<fullyQualifiedTypeName name="com.google.android.maps.MapActivity"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.id"/>
+<fullyQualifiedTypeName name="com.data.Model"/>
+<fullyQualifiedTypeName name="android.widget.ListView"/>
+<fullyQualifiedTypeName name="android.widget.AdapterView.OnItemLongClickListener"/>
+<fullyQualifiedTypeName name="android.app.Activity"/>
+</qualifiedTypeNameHistroy>

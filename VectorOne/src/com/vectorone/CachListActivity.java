@@ -3,6 +3,7 @@ package com.vectorone;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.data.Listadapter;
 import com.data.Model;
 
 import android.app.ListActivity;
@@ -24,7 +25,7 @@ public class CachListActivity extends ListActivity {
 
 	private List<Model> getModel() {
 		List<Model> list = new ArrayList<Model>();
-		list.add(get("Cach1   4.2    12¡"));
+		list.add(get("Cach1   4.2    12Â°"));
 		list.add(get("Cach2"));
 		list.add(get("Cach3"));
 	

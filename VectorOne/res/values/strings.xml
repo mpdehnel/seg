@@ -11,6 +11,11 @@
     <string name="button_registration">registration</string>
     <string name="lable_username">username:</string>
     <string name="lable_password">password:</string>
-    <string name="radiobutton">RadioButton</string>
-	
+   	 <string-array name="FindingViews">
+   	     <item>MapView</item>
+        <item>Map</item>
+        <item>Cam</item>
+        <item>Radar</item>
+       
+    </string-array>
 </resources>

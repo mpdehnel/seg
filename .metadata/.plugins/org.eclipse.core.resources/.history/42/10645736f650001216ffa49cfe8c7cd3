@@ -1,0 +1,20 @@
+package com.vectorone;
+
+import android.app.Activity;
+
+import com.adapterandlistener.SpinnerListener;
+
+public class RadarActivity extends Activity {
+
+	
+	
+	
+	
+	
+	
+	@Override
+	 public void onBackPressed() {
+	 SpinnerListener.setflagfalse();
+	 super.onBackPressed();
+	}
+}

@@ -1,9 +1,0 @@
-package com.vectorone;
-
-public class Cach {
-
-	public Cach(String string, double direction, double distance, int color) {
-		// TODO Auto-generated constructor stub
-	}
-
-}

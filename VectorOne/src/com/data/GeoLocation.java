@@ -17,12 +17,13 @@ public class GeoLocation implements LocationListener {
 	private double lat;
 	private double lng;
 	private MapController mc;
-	
+
 	public GeoLocation(MapsActivity app, MapView mapView) {
-		this.gmapsActivity=app;
+		this.gmapsActivity = app;
 		mc = mapView.getController();
 		// Get the location manager
-		locationManager = (LocationManager) gmapsActivity.getSystemService(Context.LOCATION_SERVICE);
+		locationManager = (LocationManager) gmapsActivity
+				.getSystemService(Context.LOCATION_SERVICE);
 		// Define the criteria how to select the locatioin provider -> use
 		// default
 		// Criteria criteria = new Criteria();
@@ -35,17 +36,14 @@ public class GeoLocation implements LocationListener {
 			System.out.println("Provider " + provider + " has been selected.");
 			onLocationChanged(location);
 		} else {
-			lng=54*Math.pow(10,6 );
-			lat=-1*Math.pow(10, 6);
-		
-			mc.animateTo(new GeoPoint((int) lat,(int) lng));
+			lng = 54 * Math.pow(10, 6);
+			lat = -1 * Math.pow(10, 6);
+
+			mc.animateTo(new GeoPoint((int) lat, (int) lng));
 			mc.setZoom(17);
 		}
-		
+
 	}
-
-
-
 
 	/* Request updates at startup */
 	protected void onResume() {
@@ -59,12 +57,12 @@ public class GeoLocation implements LocationListener {
 
 	@Override
 	public void onLocationChanged(Location location) {
-		lng=location.getLongitude()*Math.pow(10, 6);
-		lat=location.getLatitude()*Math.pow(10, 6);
-		
-		mc.animateTo(new GeoPoint((int) lat,(int) lng));
+		lng = location.getLongitude() * Math.pow(10, 6);
+		lat = location.getLatitude() * Math.pow(10, 6);
+
+		mc.animateTo(new GeoPoint((int) lat, (int) lng));
 		mc.setZoom(17);
-		
+
 	}
 
 	@Override
@@ -84,5 +82,13 @@ public class GeoLocation implements LocationListener {
 	public void onProviderDisabled(String provider) {
 		Toast.makeText(gmapsActivity, "Disabled provider " + provider,
 				Toast.LENGTH_SHORT).show();
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public double getLng() {
+		return lng;
 	}
 }

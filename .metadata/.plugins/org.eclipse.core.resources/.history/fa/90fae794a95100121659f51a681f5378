@@ -1,7 +1,0 @@
-package com.vectorone;
-
-import com.google.android.maps.ItemizedOverlay;
-
-public class ItemOverlay extends ItemizedOverlay<OverlayItem> {
-
-}

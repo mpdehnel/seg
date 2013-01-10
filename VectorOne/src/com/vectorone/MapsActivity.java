@@ -16,7 +16,7 @@ public class MapsActivity extends MapActivity {
 
 	private MapView mapView;
 	private GeoLocation locclac;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,27 +25,26 @@ public class MapsActivity extends MapActivity {
 		mapView = (MapView) findViewById(R.id.map_view);
 		mapView.setBuiltInZoomControls(true);
 		locclac = new GeoLocation(this, mapView);
-		
-		
-		List<Overlay> mapOverlays = mapView.getOverlays();
-		Drawable drawable = this.getResources().getDrawable(R.drawable.roterpunkt);
-		ItemOverlay itemizedoverlay = new ItemOverlay(drawable, this);
-		/*
-		 * 
-		 * add Overlay!!!l
-		 * 
-		 */
-		GeoPoint point = new GeoPoint((int)locclac.getLat(),(int)locclac.getLng());
-		OverlayItem overlayitem = new OverlayItem(point, "Hi", "Here i am!");
-		
-		itemizedoverlay.addOverlay(overlayitem);
-		mapOverlays.add(itemizedoverlay);
+		addOverlay(R.drawable.roterpunkt, new GeoPoint((int) locclac.getLat(),
+				(int) locclac.getLng()), "Hi", "Here i am!");
+
 	}
 
 	@Override
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void addOverlay(int id_image, GeoPoint where, String topic,
+			String discription) {
+		List<Overlay> mapOverlays = mapView.getOverlays();
+		Drawable drawable = this.getResources().getDrawable(id_image);
+		ItemOverlay itemizedoverlay = new ItemOverlay(drawable, this);
+		OverlayItem overlayitem = new OverlayItem(where, topic, discription);
+
+		itemizedoverlay.addOverlay(overlayitem);
+		mapOverlays.add(itemizedoverlay);
 	}
 
 }

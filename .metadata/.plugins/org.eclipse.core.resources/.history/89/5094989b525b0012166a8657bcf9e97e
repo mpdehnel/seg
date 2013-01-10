@@ -1,0 +1,34 @@
+package com.vectorone;
+
+import com.vectorone.R.drawable;
+
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Picture;
+import android.graphics.Point;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.PictureDrawable;
+import android.widget.FrameLayout;
+
+public class CamOverlay {
+	private FrameLayout preview;
+	private CamActivity cam;
+
+	public CamOverlay(CamActivity cam, FrameLayout preview) {
+		this.preview = preview;
+		this.cam = cam;
+		compasmethod();
+	}
+
+	private void compasmethod() {
+		preview.setForeground(genereateDrawable());
+
+	}
+
+	public Drawable genereateDrawable(){
+		return null;
+			
+	}
+}

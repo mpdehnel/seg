@@ -1,9 +1,0 @@
-package com.data;
-
-public class Snippet {
-	 <activity
-	            android:name="com.vectorone.MenuActivity"
-	            android:label="@string/app_name" >
-	        </activity>
-}
-

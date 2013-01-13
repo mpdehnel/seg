@@ -7,3 +7,31 @@
 1357852991108	Delete element
 1357853634680	Delete element
 1357853639124	Delete element
+1358031678726	Delete element
+1358031682851	Delete element
+1358031690259	Delete element
+1358031695845	Delete element
+1358031703954	Delete element
+1358032188426	Delete element
+1358032239478	Delete element
+1358102167196	Rename field 'cachs'
+1358102182907	Rename type 'Cach'
+1358102631246	Rename field 'settingsbutton'
+1358102640220	Rename field 'mebutton'
+1358102657495	Rename field 'cachsselectbutton'
+1358107529789	Rename type 'CachListActivity'
+1358108010518	Rename method 'setDiscripton'
+1358108015968	Rename local variable 'discripton'
+1358108021223	Rename field 'discripton'
+1358108025293	Rename method 'getDiscripton'
+1358108032070	Rename local variable 'discription'
+1358108052696	Rename method 'getCachsfromDatabase'
+1358108058844	Rename method 'getCachsefromDatabase'
+1358108163425	Rename field 'mapsactiv'
+1358108207525	Rename type 'Listadapter'
+1358108236349	Rename field 'isfound'
+1358108442683	Rename local variable 'teamcolor'
+1358108450733	Rename local variable 'discription'
+1358108678208	Rename local variable 'discription'
+1358108725312	Rename local variable 'teamcolor'
+1358108736216	Rename method 'getTeamcolor'

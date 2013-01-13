@@ -1,0 +1,13 @@
+package com.vectorone;
+
+import android.content.Context;
+import android.view.SurfaceView;
+
+public class CameraOverlay extends SurfaceView {
+
+	public CameraOverlay(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+
+}

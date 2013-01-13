@@ -1,0 +1,50 @@
+package com.data;
+
+import com.google.android.maps.GeoPoint;
+
+public class Cach {
+
+	private GeoPoint geopoint;
+	private String discripton;
+	private String name;
+	private int teamcolor;
+
+	public Cach(String name, GeoPoint geopoint, String discription) {
+		this.name = name;
+		this.geopoint = geopoint;
+		this.discripton = discription;
+	}
+
+	public String getDiscripton() {
+		return discripton;
+	}
+
+	public void setDiscripton(String discripton) {
+		this.discripton = discripton;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getTeamcolor() {
+		return teamcolor;
+	}
+
+	public void setTeamcolor(int teamcolor) {
+		this.teamcolor = teamcolor;
+	}
+
+	public GeoPoint getGeopoint() {
+		return geopoint;
+	}
+
+	public void setGeopoint(GeoPoint geopoint) {
+		this.geopoint = geopoint;
+	}
+
+}

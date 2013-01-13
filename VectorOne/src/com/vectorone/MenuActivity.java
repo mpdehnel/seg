@@ -17,9 +17,9 @@ import android.widget.Toast;
 
 public class MenuActivity extends Activity {
 
-	private Button cachsselectbutton;
-	private Button settingsbutton;
-	private Button mebutton;
+	private Button cachesSelectButton;
+	private Button settingsButton;
+	private Button meButton;
 	private String username;
 
 	private OnClickListener clickhandler = new OnClickListener() {
@@ -34,15 +34,15 @@ public class MenuActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menue);
 		Intent intent = getIntent();
-		username = intent.getStringExtra("unsername");
+		username = intent.getStringExtra("username");
 
-		cachsselectbutton = (Button) findViewById(R.id.cachselectbutton);
-		mebutton = (Button) findViewById(R.id.mebutton);
-		settingsbutton = (Button) findViewById(R.id.settingsbutton);
+		cachesSelectButton = (Button) findViewById(R.id.cachselectbutton);
+		meButton = (Button) findViewById(R.id.mebutton);
+		settingsButton = (Button) findViewById(R.id.settingsbutton);
 
-		cachsselectbutton.setOnClickListener(clickhandler);
-		mebutton.setOnClickListener(clickhandler);
-		settingsbutton.setOnClickListener(clickhandler);
+		cachesSelectButton.setOnClickListener(clickhandler);
+		meButton.setOnClickListener(clickhandler);
+		settingsButton.setOnClickListener(clickhandler);
 
 		Spinner spinner = (Spinner) findViewById(R.id.FindingViewSpinner);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -56,15 +56,15 @@ public class MenuActivity extends Activity {
 	private void clickhandle(View v) {
 		Intent intent;
 
-		if (v == cachsselectbutton) {
+		if (v == cachesSelectButton) {
 			startActivity(new Intent(getApplicationContext(),
-					CachListActivity.class));
+					CacheListActivity.class));
 		}
-		if (v == mebutton) {
+		if (v == meButton) {
 			intent = new Intent(getApplicationContext(), MeActivity.class);
 			startActivity(intent);
 		}
-		if (v == settingsbutton) {
+		if (v == settingsButton) {
 			intent = new Intent(getApplicationContext(), SettingsActivity.class);
 			startActivity(intent);
 		}

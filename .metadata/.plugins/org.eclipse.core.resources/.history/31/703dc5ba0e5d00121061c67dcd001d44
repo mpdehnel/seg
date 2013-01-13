@@ -1,0 +1,25 @@
+package com.vectorone;
+
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.Window;
+import android.widget.FrameLayout;
+
+import com.data.GeoLocation;
+import com.google.android.maps.MapView;
+
+public class RadarActivity extends Activity {
+	private FrameLayout preview;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_radar);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		preview = (FrameLayout) findViewById(R.id.radar_preview);
+		preview.setBackgroundColor(Color.GREEN);
+		preview.addView(new RadarBackgroudOverlay(this));
+
+	}
+
+}

@@ -2,7 +2,7 @@ package com.data;
 
 public class LoginValidation {
 
-	public boolean isfound;
+	public boolean isFound;
 
 	public LoginValidation(DataBaseConnector db) {
 		// TODO ServerConnection Database 

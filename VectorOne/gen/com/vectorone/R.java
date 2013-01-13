@@ -27,13 +27,14 @@ public final class R {
         public static final int UsernameTextField=0x7f080003;
         public static final int cachselectbutton=0x7f08000b;
         public static final int camera_preview=0x7f080002;
-        public static final int check=0x7f080010;
+        public static final int check=0x7f080011;
         public static final int clearbutton=0x7f080007;
-        public static final int label=0x7f08000f;
+        public static final int label=0x7f080010;
         public static final int listView1=0x7f080001;
         public static final int loginbutton=0x7f080005;
         public static final int map_view=0x7f080009;
         public static final int mebutton=0x7f08000e;
+        public static final int radar_preview=0x7f08000f;
         public static final int registrationbutton=0x7f080008;
         public static final int settingsbutton=0x7f08000d;
         public static final int textView1=0x7f080000;

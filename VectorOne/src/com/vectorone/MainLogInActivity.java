@@ -1,6 +1,7 @@
 package com.vectorone;
 
 import com.data.DataBaseConnector;
+import com.data.DataClass;
 import com.data.GeoLocation;
 import com.data.LoginValidation;
 import android.app.Activity;
@@ -29,7 +30,7 @@ public class MainLogInActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	
+		new DataClass();
 		dbcon = new DataBaseConnector("IP", 8800);
 		setContentView(R.layout.activity_login);
 		loginbutton = (Button) findViewById(R.id.loginbutton);

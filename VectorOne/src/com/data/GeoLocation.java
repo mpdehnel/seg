@@ -3,6 +3,7 @@ package com.data;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.vectorone.CamActivity;
 import com.vectorone.MainLogInActivity;
 import com.vectorone.MapsActivity;
 
@@ -17,19 +18,19 @@ import android.widget.Toast;
 public class GeoLocation implements LocationListener {
 	private LocationManager locationManager;
 	private String provider;
-	private MapsActivity mapsactiv;
+	private MapsActivity mapsActiv;
 	private double lat;
 	private double lng;
 	private Location location;
 	private MapController mc;
 
 	public GeoLocation(MapsActivity mapactiv, MapView mapView) {
-		this.mapsactiv = mapactiv;
+		this.mapsActiv = mapactiv;
 		// Get the location manager
-		locationManager = (LocationManager) mapsactiv
+		locationManager = (LocationManager) mapsActiv
 				.getSystemService(Context.LOCATION_SERVICE);
 
-		// Define the criteria how to select the locatioin provider -> use
+		// Define the criteria how to select the location provider -> use
 		// default
 		// Criteria criteria = new Criteria();
 		// provider = locationManager.getBestProvider(criteria, false);
@@ -50,13 +51,14 @@ public class GeoLocation implements LocationListener {
 		}
 
 	}
+	
 
 	/* Request updates at startup */
 	protected void onResume() {
-		locationManager.requestLocationUpdates(provider, 400, 1, this);
+		locationManager.requestLocationUpdates(provider, 100, 1, this);
 	}
 
-	/* Remove the locationlistener updates when Activity is paused */
+	/* Remove the locationListener updates when Activity is paused */
 	protected void onPause() {
 		locationManager.removeUpdates(this);
 	}
@@ -68,7 +70,7 @@ public class GeoLocation implements LocationListener {
 
 		mc.animateTo(new GeoPoint((int) lat, (int) lng));
 		mc.setZoom(17);
-
+		
 	}
 
 	@Override
@@ -79,14 +81,14 @@ public class GeoLocation implements LocationListener {
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		Toast.makeText(mapsactiv, "Enabled new provider " + provider,
+		Toast.makeText(mapsActiv, "Enabled new provider " + provider,
 				Toast.LENGTH_SHORT).show();
 
 	}
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		Toast.makeText(mapsactiv, "Disabled provider " + provider,
+		Toast.makeText(mapsActiv, "Disabled provider " + provider,
 				Toast.LENGTH_SHORT).show();
 	}
 

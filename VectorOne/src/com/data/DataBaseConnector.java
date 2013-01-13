@@ -11,8 +11,8 @@ public class DataBaseConnector{
 		// TODO Auto-generated constructor stub
 	}
 
-	private void getCachsfromDatabase() {
-		// TODO: get use connection and Parse to a Linked List of Cachs
+	private void getCachesFromDatabase() {
+		// TODO: get use connection and Parse to a Linked List of Caches
 	}
 
 	public boolean loginvalidate(String username, String password) {

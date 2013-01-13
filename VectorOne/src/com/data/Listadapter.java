@@ -13,12 +13,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-public class Listadapter extends ArrayAdapter<Model> {
+public class ListAdapter extends ArrayAdapter<Model> {
 
   private final List<Model> list;
   private final Activity context;
 
-  public Listadapter(Activity context, List<Model> list) {
+  public ListAdapter(Activity context, List<Model> list) {
     super(context, R.layout.rowbuttonlayout, list);
     this.context = context;
     this.list = list;

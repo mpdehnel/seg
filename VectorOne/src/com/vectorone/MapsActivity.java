@@ -4,7 +4,9 @@ import java.util.List;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Window;
 
+import com.data.DataClass;
 import com.data.GeoLocation;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -20,6 +22,7 @@ public class MapsActivity extends MapActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_maps);
 		SpinnerListener.setFlag(false);
 		mapView = (MapView) findViewById(R.id.map_view);
@@ -27,6 +30,15 @@ public class MapsActivity extends MapActivity {
 		locclac = new GeoLocation(this, mapView);
 		addOverlay(R.drawable.roterpunkt, new GeoPoint((int) locclac.getLat(),
 				(int) locclac.getLng()), "Hi", "Here i am!");
+		for (int i = 0; i < DataClass.caches.size(); i++) {
+			//map points;
+			int teamColour=  DataClass.caches.get(i).getTeamcolour();
+			int image = R.drawable.roterpunkt;// point image;
+			GeoPoint gp = DataClass.caches.get(i).getGeopoint();
+			String name = DataClass.caches.get(i).getName();
+			String description = DataClass.caches.get(i).getDescripton();
+			addOverlay(image, gp, name, description);
+		}
 
 	}
 

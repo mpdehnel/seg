@@ -1,16 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-  >
-
-    <com.google.android.maps.MapView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/map_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:apiKey="0V6xQLvd8dvSkzw9Kgs1rhw4-f_RgPNZhhrusag"
-        android:clickable="true"
-        android:enabled="true" />
+    android:layout_height="match_parent" 
+    android:id="@+id/settings_layout">
 
 </RelativeLayout>

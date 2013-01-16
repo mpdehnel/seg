@@ -3,10 +3,10 @@ package com.data;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
-import com.vectorone.CamActivity;
 import com.vectorone.MainLogInActivity;
 import com.vectorone.MapsActivity;
 
+import OutSourced.CamActivity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -27,17 +27,17 @@ public class GeoLocation implements LocationListener {
 	public GeoLocation(MapsActivity mapactiv, MapView mapView) {
 		this.mapsActiv = mapactiv;
 		// Get the location manager
+		mc = mapView.getController();
 		locationManager = (LocationManager) mapsActiv
 				.getSystemService(Context.LOCATION_SERVICE);
 
 		// Define the criteria how to select the location provider -> use
 		// default
-		// Criteria criteria = new Criteria();
-		// provider = locationManager.getBestProvider(criteria, false);
-		provider = locationManager.GPS_PROVIDER;
-		location = locationManager.getLastKnownLocation(provider);
+		Criteria criteria = new Criteria();
 
-		mc = mapView.getController();
+		provider = locationManager.getBestProvider(criteria, false);
+		// provider = locationManager.GPS_PROVIDER;
+		location = locationManager.getLastKnownLocation(provider);
 
 		// Initialize the location fields
 		if (location != null) {
@@ -51,7 +51,6 @@ public class GeoLocation implements LocationListener {
 		}
 
 	}
-	
 
 	/* Request updates at startup */
 	protected void onResume() {
@@ -70,7 +69,7 @@ public class GeoLocation implements LocationListener {
 
 		mc.animateTo(new GeoPoint((int) lat, (int) lng));
 		mc.setZoom(17);
-		
+
 	}
 
 	@Override

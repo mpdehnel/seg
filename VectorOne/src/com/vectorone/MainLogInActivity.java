@@ -1,9 +1,8 @@
 package com.vectorone;
 
-import com.data.DataBaseConnector;
+import com.data.DataBaseServerConnector;
 import com.data.DataClass;
 import com.data.GeoLocation;
-import com.data.LoginValidation;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +11,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.Toast;
 
 public class MainLogInActivity extends Activity {
 
@@ -21,18 +22,22 @@ public class MainLogInActivity extends Activity {
 			clickhandle(v);
 		}
 	};
-	private DataBaseConnector dbcon;
+	private DataBaseServerConnector dbcon;
 	private Button loginbutton;
 	private Button clearbutton;
 	private Button registerbutton;
-	private LoginValidation loginvalidator;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		new DataClass();
-		dbcon = new DataBaseConnector("IP", 8800);
+		dbcon = new DataBaseServerConnector("IP", 8800);
 		setContentView(R.layout.activity_login);
+		
+		GridLayout gridlayout = (GridLayout) findViewById(R.id.login_layout);
+		gridlayout.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.background));
+		
 		loginbutton = (Button) findViewById(R.id.loginbutton);
 		clearbutton = (Button) findViewById(R.id.clearbutton);
 		registerbutton = (Button) findViewById(R.id.registrationbutton);
@@ -53,12 +58,13 @@ public class MainLogInActivity extends Activity {
 					.getText().toString();
 
 			if (dbcon.loginvalidate(username, password)) {
-
+				finish();
 				intent = new Intent(getApplicationContext(), MenuActivity.class);
 				intent.putExtra("username", username);
 				startActivity(intent);
+				
 			} else {
-				// TODO: ERROR wrong password//user
+			Toast.makeText(this, "Unkowen User/Password combination", Toast.LENGTH_LONG).show();
 			}
 
 		}

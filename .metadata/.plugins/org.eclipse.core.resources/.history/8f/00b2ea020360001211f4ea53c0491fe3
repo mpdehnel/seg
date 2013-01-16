@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/dialog_Text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:textColor="#FFF" />
+
+    <Button
+        android:id="@+id/dialogButtonClose"
+        android:layout_width="150px"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/dialog_Text"
+        android:layout_marginTop="40dp"
+        android:text=" Close" />
+
+    <Button
+        android:id="@+id/dialogButtonLogOut"
+        android:layout_width="150px"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dialogButtonClose"
+        android:layout_alignBottom="@+id/dialogButtonClose"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="27dp"
+        android:text=" LogOut " />
+
+    <Button
+        android:id="@+id/dialogButtonCancel"
+        android:layout_width="150px"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dialogButtonLogOut"
+        android:layout_alignBottom="@+id/dialogButtonLogOut"
+        android:layout_toLeftOf="@+id/dialogButtonClose"
+        android:text=" Cancel " />
+
+</RelativeLayout>

@@ -1,0 +1,47 @@
+package com.vectorone;
+
+import com.data.DataClass;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MeActivity extends Activity{
+	private TextView name;
+	private TextView nickname;
+	private TextView team;
+	private TextView totalpoints;
+	private TextView totalchaches;
+	private ImageView image;
+	  @Override
+	  public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_user);
+		name= (TextView) findViewById(R.id.name);
+		nickname  = (TextView) findViewById(R.id.nickname);
+		team= (TextView) findViewById(R.id.team);
+		totalpoints= (TextView) findViewById(R.id.totalPoints);
+		totalchaches= (TextView) findViewById(R.id.totalNumberOfChaches);
+		/*image = (ImageView) findViewById(R.id.avatar);
+		
+		name.setText(DataClass.user.getUsername());
+		nickname.setText(DataClass.user.getNickname());
+		team.setText(DataClass.user.getTeam());
+		totalpoints.setText(DataClass.user.getTotalpoints());
+		*/
+		
+		
+		
+		
+		
+	
+	  }
+	}

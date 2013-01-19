@@ -9,7 +9,7 @@ package com.vectorone;
 
 public final class R {
     public static final class array {
-        /** 
+        /**   
         <item>Cam</item>
         <item>Radar</item>
         
@@ -27,57 +27,70 @@ public final class R {
         public static final int roterpunkt_th=0x7f020005;
     }
     public static final class id {
-        public static final int Cachs_select_Layout=0x7f080001;
-        public static final int FindingViewSpinner=0x7f080010;
-        public static final int MenueUsername=0x7f08000e;
-        public static final int PasswordTextField=0x7f080009;
-        public static final int TextView01=0x7f080007;
-        public static final int UsernameTextField=0x7f080006;
-        public static final int archivments=0x7f08001d;
-        public static final int avatar=0x7f080018;
-        public static final int cachselectbutton=0x7f08000f;
-        public static final int camera_preview=0x7f080003;
-        public static final int check=0x7f080024;
-        public static final int clearbutton=0x7f08000a;
-        public static final int dialogButtonCancel=0x7f080022;
-        public static final int dialogButtonClose=0x7f080020;
-        public static final int dialogButtonLogOut=0x7f080021;
-        public static final int dialog_Text=0x7f08001f;
-        public static final int label=0x7f080023;
-        public static final int listView1=0x7f080002;
-        public static final int logText=0x7f080004;
-        public static final int log_button=0x7f08001e;
-        public static final int login_layout=0x7f080005;
-        public static final int loginbutton=0x7f080008;
-        public static final int logout_button=0x7f080013;
-        public static final int map_view=0x7f08000c;
-        public static final int me_layout=0x7f080016;
-        public static final int mebutton=0x7f080012;
-        public static final int menue_layout=0x7f08000d;
-        public static final int name=0x7f080017;
-        public static final int nickname=0x7f080019;
-        public static final int radar_preview=0x7f080014;
-        public static final int registrationbutton=0x7f08000b;
-        public static final int settings_layout=0x7f080015;
-        public static final int settingsbutton=0x7f080011;
-        public static final int team=0x7f08001a;
-        public static final int textView1=0x7f080000;
-        public static final int totalNumberOfChaches=0x7f08001b;
-        public static final int totalPoints=0x7f08001c;
+        public static final int CachName=0x7f08000c;
+        public static final int CacheDiscription=0x7f08000d;
+        public static final int CacheNameText=0x7f080003;
+        public static final int Cachs_select_Layout=0x7f080007;
+        public static final int FindingViewSpinner=0x7f08001c;
+        public static final int MenueUsername=0x7f08001a;
+        public static final int PasswordTextField=0x7f080014;
+        public static final int TextView01=0x7f080012;
+        public static final int UsernameTextField=0x7f080011;
+        public static final int addCache=0x7f080000;
+        public static final int add_button=0x7f080001;
+        public static final int archivments=0x7f080029;
+        public static final int avatar=0x7f080024;
+        public static final int cacheDiscriptionText=0x7f080006;
+        public static final int cacheshowlayout=0x7f080009;
+        public static final int cachselectbutton=0x7f08001b;
+        public static final int camera_preview=0x7f08000e;
+        public static final int cancel_button=0x7f080004;
+        public static final int check=0x7f08002c;
+        public static final int clearbutton=0x7f080015;
+        public static final int dialogButtonCancel=0x7f080030;
+        public static final int dialogButtonClose=0x7f08002e;
+        public static final int dialogButtonLogOut=0x7f08002f;
+        public static final int dialog_Text=0x7f08002d;
+        public static final int label=0x7f08002b;
+        public static final int listView1=0x7f080008;
+        public static final int logText=0x7f08000f;
+        public static final int log_button=0x7f08002a;
+        public static final int login_layout=0x7f080010;
+        public static final int loginbutton=0x7f080013;
+        public static final int logout_button=0x7f08001f;
+        public static final int map_view=0x7f080017;
+        public static final int me_layout=0x7f080022;
+        public static final int mebutton=0x7f08001e;
+        public static final int menue_layout=0x7f080019;
+        public static final int name=0x7f080023;
+        public static final int nickname=0x7f080025;
+        public static final int no_button=0x7f08000b;
+        public static final int radar_preview=0x7f080020;
+        public static final int registrationbutton=0x7f080016;
+        public static final int setMyPositionasNewCacheButto=0x7f080018;
+        public static final int settings_layout=0x7f080021;
+        public static final int settingsbutton=0x7f08001d;
+        public static final int team=0x7f080026;
+        public static final int textView1=0x7f080002;
+        public static final int textView2=0x7f080005;
+        public static final int totalNumberOfChaches=0x7f080027;
+        public static final int totalPoints=0x7f080028;
+        public static final int yes_button=0x7f08000a;
     }
     public static final class layout {
-        public static final int activity_cachinfo=0x7f030000;
+        public static final int activity_addcache=0x7f030000;
         public static final int activity_cachselect=0x7f030001;
-        public static final int activity_cam=0x7f030002;
-        public static final int activity_log=0x7f030003;
-        public static final int activity_login=0x7f030004;
-        public static final int activity_maps=0x7f030005;
-        public static final int activity_menue=0x7f030006;
-        public static final int activity_radar=0x7f030007;
-        public static final int activity_settings=0x7f030008;
-        public static final int activity_user=0x7f030009;
-        public static final int dialog_logout=0x7f03000a;
-        public static final int rowbuttonlayout=0x7f03000b;
+        public static final int activity_cachshow=0x7f030002;
+        public static final int activity_cam=0x7f030003;
+        public static final int activity_log=0x7f030004;
+        public static final int activity_login=0x7f030005;
+        public static final int activity_maps=0x7f030006;
+        public static final int activity_menue=0x7f030007;
+        public static final int activity_radar=0x7f030008;
+        public static final int activity_settings=0x7f030009;
+        public static final int activity_user=0x7f03000a;
+        public static final int cache_list_element=0x7f03000b;
+        public static final int dialog_logout=0x7f03000c;
     }
     public static final class menu {
         public static final int activity_login=0x7f070000;

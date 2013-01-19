@@ -46,5 +46,9 @@ public class Cache {
 	public void setGeopoint(GeoPoint geopoint) {
 		this.geopoint = geopoint;
 	}
+	@Override
+	public String toString(){
+		return name;
+	}
 
 }

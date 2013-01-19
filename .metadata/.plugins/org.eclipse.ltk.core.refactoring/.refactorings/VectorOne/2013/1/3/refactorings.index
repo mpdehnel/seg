@@ -16,3 +16,22 @@
 1358350887180	Rename type 'CacheListActivity'
 1358359099068	Delete element
 1358359625130	Delete element
+1358365121342	Delete element
+1358365148078	Delete element
+1358365204687	Rename resource 'rowbuttonlayout.xml'
+1358365228968	Rename resource 'CacheListElement.xml'
+1358365291140	Delete elements
+1358421398048	Delete element
+1358422775421	Rename local variable 'i'
+1358431444815	Rename field 'caches'
+1358434124239	Delete elements
+1358434196522	Rename package 'OutSourced'
+1358434223480	Rename package 'com.OutSourced'
+1358596959140	Rename local variable 'x1'
+1358596970562	Rename local variable 'y1'
+1358596987987	Rename local variable 'x2'
+1358596996481	Rename local variable 'y2'
+1358603488674	Move compilation unit
+1358603516335	Delete element
+1358603561277	Rename type 'CacheShow'
+1358606910123	Rename type 'AddCachActivity'

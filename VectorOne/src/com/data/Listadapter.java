@@ -2,16 +2,21 @@ package com.data;
 
 import java.util.List;
 
+import com.vectorone.CacheShowActivity;
+import com.vectorone.MenuActivity;
 import com.vectorone.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListAdapter extends ArrayAdapter<Model> {
 
@@ -19,7 +24,7 @@ public class ListAdapter extends ArrayAdapter<Model> {
   private final Activity context;
 
   public ListAdapter(Activity context, List<Model> list) {
-    super(context, R.layout.rowbuttonlayout, list);
+    super(context, R.layout.cache_list_element, list);
     this.context = context;
     this.list = list;
   }
@@ -30,13 +35,25 @@ public class ListAdapter extends ArrayAdapter<Model> {
   }
 
   @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
+  public View getView(final int position, View convertView, ViewGroup parent) {
     View view = null;
     if (convertView == null) {
       LayoutInflater inflator = context.getLayoutInflater();
-      view = inflator.inflate(R.layout.rowbuttonlayout, null);
+      view = inflator.inflate(R.layout.cache_list_element, null);
       final ViewHolder viewHolder = new ViewHolder();
       viewHolder.text = (TextView) view.findViewById(R.id.label);
+			viewHolder.text.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			Intent intent= new Intent();
+			intent = new Intent(getContext(), CacheShowActivity.class);
+			intent.putExtra("CacheIndex", position);
+			getContext().startActivity(intent);
+		}
+	});
+      
+      
       viewHolder.checkbox = (CheckBox) view.findViewById(R.id.check);
       viewHolder.checkbox
           .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

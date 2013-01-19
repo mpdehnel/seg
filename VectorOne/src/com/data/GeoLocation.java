@@ -3,10 +3,10 @@ package com.data;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.outsourced.CamActivity;
 import com.vectorone.MainLogInActivity;
 import com.vectorone.MapsActivity;
 
-import OutSourced.CamActivity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;

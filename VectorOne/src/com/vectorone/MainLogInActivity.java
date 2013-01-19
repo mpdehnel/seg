@@ -41,6 +41,7 @@ public class MainLogInActivity extends Activity {
 		loginbutton = (Button) findViewById(R.id.loginbutton);
 		clearbutton = (Button) findViewById(R.id.clearbutton);
 		registerbutton = (Button) findViewById(R.id.registrationbutton);
+		registerbutton.setBackgroundDrawable(getResources().getDrawable(R.drawable.red_dot));
 
 		loginbutton.setOnClickListener(clickhandler);
 		clearbutton.setOnClickListener(clickhandler);

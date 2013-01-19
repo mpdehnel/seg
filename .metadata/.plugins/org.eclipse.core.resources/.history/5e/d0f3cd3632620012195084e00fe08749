@@ -1,0 +1,50 @@
+package com.data;
+
+import android.location.Location;
+
+import com.google.android.maps.GeoPoint;
+
+public class SegMathClass {
+
+	public static double calculateDistance(GeoPoint start, GeoPoint target) {
+		Location A = new Location("A");
+		A.setLatitude(((double) start.getLatitudeE6()) / 1E6);
+		A.setLongitude(((double) start.getLongitudeE6()) / 1E6);
+		Location B = new Location("B");
+		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
+		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
+
+		return A.distanceTo(B);
+
+	}
+
+	public static String calculateDirection(GeoPoint start, GeoPoint target) {
+		int startx = start.getLongitudeE6();
+		int starty = start.getLatitudeE6();
+		int targetx = target.getLongitudeE6();
+		int targety = target.getLatitudeE6();
+
+		String direction = "";
+
+		double m = ((double) (targety - starty)) / (targetx - startx);
+
+		double alpha = Math.atan(m);
+
+		if (targety - starty > 0) {
+			direction = direction + "N";
+
+		} else if (targety - starty <= 0) {
+			direction = direction + "S";
+		} 
+		if (targetx - startx > 0) {
+			direction = direction + "E";
+
+		} else if (targetx - startx <= 0) {
+			direction = direction + "W";
+		} else {
+
+		}
+
+		return direction;
+	}
+}

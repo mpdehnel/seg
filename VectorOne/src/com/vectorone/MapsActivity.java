@@ -4,18 +4,22 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.Toast;
-import android.widget.ZoomButtonsController.OnZoomListener;
 
 import com.data.DataClass;
-import com.data.GeoLocation;
+import com.data.Model;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -34,6 +38,8 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	private double lat;
 	private double lng;
 	private MapController mc;
+	private List<Overlay> mapOverlays;
+	private Button setNewCache;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +48,12 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		setContentView(R.layout.activity_maps);
 		mapView = (MapView) findViewById(R.id.map_view);
 		mapView.setBuiltInZoomControls(true);
-		
-
-		// TEST _____________________________________________________
-		
-		
-		
-		
-		
+		mapOverlays = mapView.getOverlays();
+		removeallOverlaysandaddnew();
 		mc = mapView.getController();
-		
+
+		// locclac = new GeoLocation(this, mapView);
+
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		Criteria criteria = new Criteria();
@@ -68,18 +70,37 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 			mc.animateTo(new GeoPoint((int) lat, (int) lng));
 			mc.setZoom(17);
+
 		}
 
-		// locclac = new GeoLocation(this, mapView);
-		addOverlay(R.drawable.roterpunkt, new GeoPoint((int) getLat(),
-				(int) getLng()), "Hi", "Here i am!");
-		for (int i = 0; i < DataClass.caches.size(); i++) {
+		setNewCache = (Button) findViewById(R.id.setMyPositionasNewCacheButto);
+		setNewCache.setBackgroundColor(Color.GREEN);
+		setNewCache.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(),AddCacheActivity.class);
+					intent.putExtra("lng", lng);
+					intent.putExtra("lat", lat);
+					
+					startActivity(intent);
+			
+			}
+		});
+
+	}
+
+	private void removeallOverlaysandaddnew() {
+		for (int i = 0; i < mapOverlays.size(); i++)
+			mapOverlays.remove(i);
+		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
 			// map points;
-			int teamColour = DataClass.caches.get(i).getTeamcolour();
+			int teamColour = DataClass.selectedCaches.get(i).getTeamcolour();
 			int image = R.drawable.roterpunkt;// point image;
-			GeoPoint gp = DataClass.caches.get(i).getGeopoint();
-			String name = DataClass.caches.get(i).getName();
-			String description = DataClass.caches.get(i).getDescripton();
+			GeoPoint gp = DataClass.selectedCaches.get(i).getGeopoint();
+			String name = DataClass.selectedCaches.get(i).getName();
+			String description = DataClass.selectedCaches.get(i)
+					.getDescripton();
 			addOverlay(image, gp, name, description);
 		}
 	}
@@ -92,16 +113,14 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 	public void addOverlay(int id_image, GeoPoint where, String topic,
 			String discription) {
-		List<Overlay> mapOverlays = mapView.getOverlays();
+		// Toast.makeText(this, mapOverlays.size() + "asd", Toast.LENGTH_SHORT)
+		// .show();
 		Drawable drawable = this.getResources().getDrawable(id_image);
 		ItemOverlay itemizedoverlay = new ItemOverlay(drawable, this);
 		OverlayItem overlayitem = new OverlayItem(where, topic, discription);
+
 		itemizedoverlay.addOverlay(overlayitem);
 		mapOverlays.add(itemizedoverlay);
-	}
-
-	public void update() {
-
 	}
 
 	@Override
@@ -109,8 +128,11 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		lng = location.getLongitude() * Math.pow(10, 6);
 		lat = location.getLatitude() * Math.pow(10, 6);
 		mc.animateTo(new GeoPoint((int) lat, (int) lng));
+		removeallOverlaysandaddnew();
+		addOverlay(R.drawable.roterpunkt, new GeoPoint((int) getLat(),
+				(int) getLng()), "Hi", "Here i am!");
 		
-		
+		Model.setMyPosition(new GeoPoint((int) lat, (int) lng));
 
 	}
 

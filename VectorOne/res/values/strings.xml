@@ -15,7 +15,7 @@
     <string-array name="FindingViews">
         <item>MapView</item>
         <item>Map</item>
-        <!--
+        <!--  
         <item>Cam</item>
         <item>Radar</item>
         -->

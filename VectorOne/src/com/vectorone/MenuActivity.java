@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -28,6 +29,7 @@ public class MenuActivity extends Activity {
 	private Button settingsButton;
 	private Button meButton;
 	private Button logout;
+	private TextView usernameTextView;
 	private String username;
 
 	private OnClickListener clickhandler = new OnClickListener() {
@@ -47,7 +49,8 @@ public class MenuActivity extends Activity {
 				R.drawable.background));
 		Intent intent = getIntent();
 		username = intent.getStringExtra("username");
-
+		usernameTextView = (TextView) findViewById(R.id.MenueUsername);
+		usernameTextView.setText(username);
 		cachesSelectButton = (Button) findViewById(R.id.cachselectbutton);
 		meButton = (Button) findViewById(R.id.mebutton);
 		settingsButton = (Button) findViewById(R.id.settingsbutton);
@@ -102,7 +105,8 @@ public class MenuActivity extends Activity {
 		text.setText("What You want to do?");
 		text.setTextSize(30);
 
-		Button cancelButton = (Button) dialog.findViewById(R.id.dialogButtonCancel);
+		Button cancelButton = (Button) dialog
+				.findViewById(R.id.dialogButtonCancel);
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -121,12 +125,11 @@ public class MenuActivity extends Activity {
 				startActivity(new Intent(getApplicationContext(),
 						MainLogInActivity.class));
 			}
-			
-			
-			
+
 		});
-		
-		Button closeAppButton = (Button) dialog.findViewById(R.id.dialogButtonClose);
+
+		Button closeAppButton = (Button) dialog
+				.findViewById(R.id.dialogButtonClose);
 		closeAppButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -136,6 +139,5 @@ public class MenuActivity extends Activity {
 
 		dialog.show();
 
-		
 	}
 }

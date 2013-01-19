@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class DataBaseServerConnector{
+public class DataBaseServerConnector {
 
 	public DataBaseServerConnector(String ip, int port) {
 		// TODO Auto-generated constructor stub
@@ -19,9 +19,7 @@ public class DataBaseServerConnector{
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	
-	
+
 	public static void main(String[] args) {
 		new DataBaseServerConnector("IP", 8080);
 	}

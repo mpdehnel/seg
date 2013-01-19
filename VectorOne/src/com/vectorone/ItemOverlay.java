@@ -17,11 +17,11 @@ public class ItemOverlay extends ItemizedOverlay<OverlayItem> {
 		super(defaultMarker);
 		// TODO Auto-generated constructor stub
 	}
+
 	public ItemOverlay(Drawable defaultMarker, Context context) {
-		  super(boundCenterBottom(defaultMarker));
-		  mContext = context;
-		}
-	
+		super(boundCenterBottom(defaultMarker));
+		mContext = context;
+	}
 
 	@Override
 	protected OverlayItem createItem(int i) {
@@ -37,14 +37,20 @@ public class ItemOverlay extends ItemizedOverlay<OverlayItem> {
 		mOverlays.add(overlay);
 		populate();
 	}
+
+	public void removeOverlay(OverlayItem overlay) {
+		mOverlays.remove(overlay);
+		populate();
+	}
+
 	@Override
 	protected boolean onTap(int index) {
-	  OverlayItem item = mOverlays.get(index);
-	  AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-	  dialog.setTitle(item.getTitle());
-	  dialog.setMessage(item.getSnippet());
-	  dialog.show();
-	  return true;
+		OverlayItem item = mOverlays.get(index);
+		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+		dialog.setTitle(item.getTitle());
+		dialog.setMessage(item.getSnippet());
+		dialog.show();
+		return true;
 	}
 
 }

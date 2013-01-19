@@ -1,0 +1,49 @@
+package com.data;
+
+import android.location.Location;
+
+import com.google.android.maps.GeoPoint;
+
+public class SegMathClass {
+
+	public static double calculateDistance(GeoPoint start, GeoPoint target) {
+		Location A = new Location("A");
+		A.setLatitude(((double) start.getLatitudeE6()) / 1E6);
+		A.setLongitude(((double) start.getLongitudeE6()) / 1E6);
+		Location B = new Location("B");
+		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
+		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
+		return A.distanceTo(B);
+
+	}
+
+	public static String calculateDirection(GeoPoint start, GeoPoint target) {
+		Location A = new Location("A");
+		A.setLatitude(((double) start.getLatitudeE6()) / 1E6);
+		A.setLongitude(((double) start.getLongitudeE6()) / 1E6);
+		Location B = new Location("B");
+		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
+		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
+
+		float degree = A.bearingTo(B);
+		String direction;
+		if (degree < 22 || degree > 338)
+			direction = "N";
+		if (degree >= 22 && degree < 66)
+			direction = "NE";
+		if (degree >= 66 && degree < 110)
+			direction = "E";
+		if (degree >= 110 && degree < 154)
+			direction = "SE";
+		if (degree >= 154 && degree < 198)
+			direction = "S";
+		if (degree >= 198 && degree < 242)
+			direction = "SW";
+		if (degree >= 242 && degree < 286)
+			direction = "W";
+		if (degree >= 286 && degree < 330)
+			direction = "NW";
+
+		return direction;
+	}
+}

@@ -1,7 +1,8 @@
 package com.vectorone;
 
-import OutSourced.CamActivity;
-import OutSourced.RadarActivity;
+import com.outsourced.CamActivity;
+import com.outsourced.RadarActivity;
+
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;

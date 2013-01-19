@@ -54,12 +54,21 @@
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>
+     
         <activity
-            android:name="com.vectorone.RadarActivity"
+            android:name="com.outsourced.RadarActivity"
             android:label="@string/app_name" >
         </activity>
          <activity
             android:name="com.vectorone.LogActivity"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="com.vectorone.CacheShowActivity"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="com.vectorone.AddCacheActivity"
             android:label="@string/app_name" >
         </activity>
 

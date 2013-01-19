@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    android:orientation="horizontal" >
+
+    <com.google.android.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_row="0"
+        android:layout_rowSpan="2"
+        android:apiKey="0V6xQLvd8dvSkzw9Kgs1rhw4-f_RgPNZhhrusag"
+        android:clickable="true"
+        android:enabled="true" />
+
+    <Button
+        android:id="@+id/setMyPositionasNewCacheButto"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_gravity="left"
+        android:layout_row="1"
+        android:text="SetNewCache" />
+
+</GridLayout>

@@ -2,7 +2,6 @@ package com.vectorone;
 
 import com.data.DataBaseServerConnector;
 import com.data.DataClass;
-import com.data.GeoLocation;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;

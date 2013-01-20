@@ -16,6 +16,15 @@ public class Cache {
 	}
 
 	public String getDescripton() {
+		
+		if(DataClass.myGeoPoint!=null){
+		
+		return descripton
+				+ "\n"
+				+ "Distance:   "
+				+ SegMathClass.calculateDistance(DataClass.myGeoPoint,
+						this.geopoint) +"km"+ "\n" + "Direction:   "+SegMathClass.calculateDirection(DataClass.myGeoPoint, this.geopoint);
+	}
 		return descripton;
 	}
 
@@ -45,10 +54,6 @@ public class Cache {
 
 	public void setGeopoint(GeoPoint geopoint) {
 		this.geopoint = geopoint;
-	}
-	@Override
-	public String toString(){
-		return name;
 	}
 
 }

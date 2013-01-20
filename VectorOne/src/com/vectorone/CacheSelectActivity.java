@@ -38,12 +38,12 @@ public class CacheSelectActivity extends ListActivity {
 
 	private List<Model> initModel() {
 
-		DataClass.caches.add(addModel(new Cache("Cache10", new GeoPoint(
-				54768637, -1573577), "TestCache1")));
-		DataClass.caches.add(addModel(new Cache("Cache20", new GeoPoint(
-				41768637, -1401577), "TestCache2")));
-		DataClass.caches.add(addModel(new Cache("Cache30", new GeoPoint(
-				53768637, -1673577), "TestCache3")));
+		DataClass.caches.add(addModel(new Cache("Durham", new GeoPoint(
+				54768637, -1573577), "Durham-Cathedrale")));
+		DataClass.caches.add(addModel(new Cache("NewYork", new GeoPoint(
+				40748297,-73990173), "Manhatten")));
+		DataClass.caches.add(addModel(new Cache("Berlin", new GeoPoint(
+				 52620298,13221917), "Robby`s Home")));
 
 		// Initially select one of the items
 		DataClass.caches.get(1).setSelected(true);

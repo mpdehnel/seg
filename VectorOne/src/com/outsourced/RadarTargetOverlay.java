@@ -2,7 +2,6 @@ package com.outsourced;
 
 import com.data.Cache;
 import com.data.DataClass;
-import com.data.GeoLocation;
 import com.google.android.maps.GeoPoint;
 
 import android.content.Context;

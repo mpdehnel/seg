@@ -31,8 +31,19 @@ public class CacheShowActivity extends Activity {
 		TextView CacheDiscription = (TextView) findViewById(R.id.CacheDiscription);
 		
 		CacheName.setText(DataClass.caches.get(cacheindex).getCach().getName());
-		CacheDiscription.setText(DataClass.caches.get(cacheindex).getName());
+		CacheDiscription.setText(DataClass.caches.get(cacheindex).getCach().getDescripton());
 		
+		Button yes_with_routing = (Button) findViewById(R.id.routing_button);
+		
+		yes_with_routing.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				DataClass.routing=cacheindex;
+				DataClass.caches.get(cacheindex).setSelected(true);
+				onBackPressed();
+			}
+		});
 		
 		
 		Button yes_Button = (Button) findViewById(R.id.yes_button);

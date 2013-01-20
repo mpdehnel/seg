@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.FrameLayout;
 
-import com.data.GeoLocation;
 import com.google.android.maps.MapView;
 import com.vectorone.R;
 import com.vectorone.R.id;

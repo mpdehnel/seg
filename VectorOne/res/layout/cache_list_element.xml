@@ -19,5 +19,5 @@
         android:layout_marginLeft="4px"
         android:layout_marginRight="10px" >
     </CheckBox>
-
+    
 </RelativeLayout> 

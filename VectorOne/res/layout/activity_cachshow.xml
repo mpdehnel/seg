@@ -4,26 +4,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >
 
-        <Button
-            android:id="@+id/yes_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="45dp"
-            android:layout_marginLeft="42dp"
-            android:text="Yes" />
-
-        <Button
-            android:id="@+id/no_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/yes_button"
-            android:layout_alignBottom="@+id/yes_button"
-            android:layout_alignRight="@+id/textView1"
-            android:layout_marginRight="48dp"
-            android:text="No" />
-
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -50,5 +30,30 @@
             android:layout_below="@+id/CachName"
             android:layout_marginTop="50dp"
             android:text="TextView" />
+
+        <Button
+            android:id="@+id/routing_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView1"
+            android:text="YesWithRouting" />
+
+        <Button
+            android:id="@+id/no_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView1"
+            android:text="No" />
+
+        <Button
+            android:id="@+id/yes_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="45dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/no_button"
+            android:text="Yes" />
 
     </RelativeLayout>

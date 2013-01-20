@@ -1,8 +1,6 @@
 package com.outsourced;
 
-import com.data.GeoLocation;
 import com.vectorone.R;
-import com.vectorone.R.id;
 import com.vectorone.R.layout;
 
 import android.app.Activity;

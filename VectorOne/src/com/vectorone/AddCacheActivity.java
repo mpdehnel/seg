@@ -25,11 +25,7 @@ public class AddCacheActivity extends Activity {
 		RelativeLayout relativlayout = (RelativeLayout) findViewById(R.id.addCache);
 		relativlayout.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.background));
-
-		Intent intent = getIntent();
-		final int lat = intent.getIntExtra("lat", 0);
-		final int lng = intent.getIntExtra("lng", 0);
-
+		
 		final EditText cacheName = (EditText) findViewById(R.id.CacheNameText);
 		final EditText cacheDiscription = (EditText) findViewById(R.id.cacheDiscriptionText);
 
@@ -39,9 +35,7 @@ public class AddCacheActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				DataClass.caches.add(new Model(new Cache(cacheName.getText()
-						.toString(), new GeoPoint(lat, lng), cacheDiscription
-						.getText().toString())));
+				DataClass.caches.add(new Model(new Cache(cacheName.getText().toString(), new GeoPoint(DataClass.getMylat(), DataClass.getMylng()), cacheDiscription.getText().toString())));
 				onBackPressed();
 			}
 		});

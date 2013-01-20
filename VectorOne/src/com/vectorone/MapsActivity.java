@@ -12,14 +12,17 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.ContactsContract.Contacts.Data;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.data.Cache;
 import com.data.DataClass;
 import com.data.Model;
+import com.data.SegMathClass;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -63,13 +66,13 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		location = locationManager.getLastKnownLocation(provider);
 		if (location != null) {
 			onLocationChanged(location);
-			mc.setZoom(17);
+			mc.setZoom(15);
 		} else {
 			lng = 54 * Math.pow(10, 6);
 			lat = -1 * Math.pow(10, 6);
 
 			mc.animateTo(new GeoPoint((int) lat, (int) lng));
-			mc.setZoom(17);
+			mc.setZoom(15);
 
 		}
 
@@ -79,28 +82,30 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getApplicationContext(),AddCacheActivity.class);
-					intent.putExtra("lng", lng);
-					intent.putExtra("lat", lat);
-					
-					startActivity(intent);
-			
+				Intent intent = new Intent(getApplicationContext(),
+						AddCacheActivity.class);
+
+				startActivity(intent);
+
 			}
 		});
 
 	}
 
 	private void removeallOverlaysandaddnew() {
+
 		for (int i = 0; i < mapOverlays.size(); i++)
 			mapOverlays.remove(i);
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
 			// map points;
+
 			int teamColour = DataClass.selectedCaches.get(i).getTeamcolour();
 			int image = R.drawable.roterpunkt;// point image;
 			GeoPoint gp = DataClass.selectedCaches.get(i).getGeopoint();
 			String name = DataClass.selectedCaches.get(i).getName();
 			String description = DataClass.selectedCaches.get(i)
 					.getDescripton();
+
 			addOverlay(image, gp, name, description);
 		}
 	}
@@ -127,12 +132,38 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	public void onLocationChanged(Location location) {
 		lng = location.getLongitude() * Math.pow(10, 6);
 		lat = location.getLatitude() * Math.pow(10, 6);
-		mc.animateTo(new GeoPoint((int) lat, (int) lng));
+		DataClass.setMylat((int) lat);
+		DataClass.setMylng((int) lng);
+		DataClass.setMyGeoPoint();
+		mc.animateTo(DataClass.getMyGeoPoint());
 		removeallOverlaysandaddnew();
 		addOverlay(R.drawable.roterpunkt, new GeoPoint((int) getLat(),
 				(int) getLng()), "Hi", "Here i am!");
-		
-		Model.setMyPosition(new GeoPoint((int) lat, (int) lng));
+		if (DataClass.routing > 0)
+			drawroute(DataClass.routing);
+	}
+
+	private void drawroute(int routecache) {
+		Cache target = DataClass.caches.get(routecache).getCach();
+
+		GeoPoint start = DataClass.myGeoPoint;
+		GeoPoint targetpoint = target.getGeopoint();
+
+		int id_image = R.drawable.cross;
+		int numberofcross = 100;
+
+		String cachname = target.getName();
+		int longi = (start.getLongitudeE6() - targetpoint.getLongitudeE6())
+				/ numberofcross;
+		int lati = (start.getLatitudeE6() - targetpoint.getLatitudeE6())
+				/ numberofcross;
+
+		for (int i = 0; i < numberofcross; i++) {
+
+			addOverlay(id_image, new GeoPoint(start.getLatitudeE6() - lati * i,
+					start.getLongitudeE6() - longi * i), "way to" + cachname, i
+					+ "%to target");
+		}
 
 	}
 
@@ -173,6 +204,12 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	protected void onPause() {
 		super.onPause();
 		locationManager.removeUpdates(this);
+	}
+
+	@Override
+	public void onBackPressed() {
+		finish();
+		super.onBackPressed();
 	}
 
 }

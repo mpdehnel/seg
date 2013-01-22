@@ -1,0 +1,57 @@
+package com.vectorone;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.view.View;
+
+public class MyScale extends Drawable{
+	private int zoomLvl;
+	
+	  public MyScale(Bitmap bitmap, int zoomlevel) {
+
+		    BitmapShader shader;
+		    shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP,
+		        Shader.TileMode.CLAMP);
+		    paint = new Paint();
+		    paint.setAntiAlias(true);
+		    paint.setShader(shader);
+		  }
+	@Override 
+    protected void onDraw(Canvas canvas) { 
+            // TODO Auto-generated method stub 
+			float midx = 160;
+			float midy = 240;
+            Paint paint = new Paint(); 
+            paint.setStyle(Paint.Style.STROKE); 
+            paint.setColor(Color.GRAY);
+            canvas.drawCircle(midx, midy, 50, paint);
+            canvas.drawCircle(midx, midy, 100, paint);
+            canvas.drawCircle(midx, midy, 150, paint);
+            canvas.drawCircle(midx, midy, 200, paint);
+            super.onDraw(canvas); 
+    }
+	@Override
+	public void draw(Canvas canvas) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public int getOpacity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void setAlpha(int alpha) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void setColorFilter(ColorFilter cf) {
+		// TODO Auto-generated method stub
+		
+	} 
+}

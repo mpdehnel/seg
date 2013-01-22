@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnCount="2"
+    android:columnCount="3"
     android:orientation="horizontal" >
 
     <com.google.android.maps.MapView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/map_view"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_column="0"
-        android:layout_columnSpan="2"
-        android:layout_row="0"
-        android:layout_rowSpan="2"
+        android:layout_height="match_parent"
         android:apiKey="0V6xQLvd8dvSkzw9Kgs1rhw4-f_RgPNZhhrusag"
         android:clickable="true"
         android:enabled="true" />
@@ -21,11 +17,19 @@
     <Button
         android:id="@+id/setMyPositionasNewCacheButto"
         style="?android:attr/buttonStyleSmall"
-        android:layout_column="0"
-        android:layout_columnSpan="2"
-        android:layout_gravity="right"
-        android:layout_row="1"
-        android:text="NewCache" 
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="NewCache" />
 
-</GridLayout>
+    <TextView
+        android:id="@+id/scale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>

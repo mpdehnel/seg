@@ -23,7 +23,7 @@ public class Cache {
 				+ "\n"
 				+ "Distance:   "
 				+ SegMathClass.calculateDistance(DataClass.myGeoPoint,
-						this.geopoint) +"km"+ "\n" + "Direction:   "+SegMathClass.calculateDirection(DataClass.myGeoPoint, this.geopoint);
+						this.geopoint) + "\n" + "Direction:   "+SegMathClass.calculateDirection(DataClass.myGeoPoint, this.geopoint);
 	}
 		return descripton;
 	}

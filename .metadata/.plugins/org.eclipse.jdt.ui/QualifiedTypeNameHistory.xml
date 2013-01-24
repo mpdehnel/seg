@@ -27,7 +27,6 @@
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="com.data.Model"/>
 <fullyQualifiedTypeName name="com.vectorone.AddCachActivity"/>
-<fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="android.widget.RadioButton"/>
 <fullyQualifiedTypeName name="android.widget.CompoundButton.OnCheckedChangeListener"/>
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
@@ -40,7 +39,6 @@
 <fullyQualifiedTypeName name="android.widget.ZoomButtonsController.OnZoomListener"/>
 <fullyQualifiedTypeName name="com.vectorone.ScaleOverlay"/>
 <fullyQualifiedTypeName name="android.provider.ContactsContract.Contacts.Data"/>
-<fullyQualifiedTypeName name="com.data.DataClass"/>
 <fullyQualifiedTypeName name="android.widget.ImageView"/>
 <fullyQualifiedTypeName name="com.vectorone.R.id"/>
 <fullyQualifiedTypeName name="android.graphics.drawable.ScaleDrawable"/>
@@ -53,11 +51,13 @@
 <fullyQualifiedTypeName name="com.vectorone.MyScale"/>
 <fullyQualifiedTypeName name="android.graphics.RectF"/>
 <fullyQualifiedTypeName name="android.graphics.Paint.Style"/>
-<fullyQualifiedTypeName name="android.graphics.Color"/>
-<fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.view.MotionEvent"/>
 <fullyQualifiedTypeName name="android.view.View.OnTouchListener"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="android.graphics.Color"/>
+<fullyQualifiedTypeName name="android.widget.TextView"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="com.data.DataClass"/>
 </qualifiedTypeNameHistroy>

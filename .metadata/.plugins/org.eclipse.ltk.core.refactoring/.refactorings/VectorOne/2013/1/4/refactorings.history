@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;VectorOne/res/raw/BossDeath.ogg&apos; to &apos;bossdeath.ogg&apos;" description="Rename resource &apos;BossDeath.ogg&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/raw/BossDeath.ogg" name="bossdeath.ogg" stamp="1359045840549" updateReferences="true"/>
+</session>

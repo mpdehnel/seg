@@ -1,7 +1,5 @@
 package com.data;
 
-import com.google.android.maps.GeoPoint;
-
 public class Model {
 
 	private String name;
@@ -25,7 +23,6 @@ public class Model {
 	public boolean isSelected() {
 		return selected;
 	}
-	
 
 	public void setSelected(boolean selected) {
 		this.selected = selected;
@@ -34,5 +31,5 @@ public class Model {
 	public Cache getCach() {
 		return cache;
 	}
-	
+
 }

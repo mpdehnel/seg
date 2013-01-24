@@ -22,10 +22,10 @@ public class DataClass {
 	public DataClass() {
 
 		selectedCaches.add(new Cache("Cache1", new GeoPoint((int) (54 * 1E6),
-				(int) (-3 * 1E6)), "test1"));
-		selectedCaches.add(new Cache("Cache2", new GeoPoint(0, 0), "test2"));
+				(int) (-3 * 1E6)), "test1",true));
+		selectedCaches.add(new Cache("Cache2", new GeoPoint(0, 0), "test2",true));
 		
-		selectedCaches.add(new Cache("Cache3", new GeoPoint(54781626,-1541696), "test212"));
+		selectedCaches.add(new Cache("Cache3", new GeoPoint(54781626,-1541696), "test212",false));
 
 		user = new User("Robert", "robby", "RED", 12, 1245, R.drawable.avatar);
 		for (int i = 0; i < 300; i++)

@@ -35,7 +35,7 @@ public class AddCacheActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				DataClass.caches.add(new Model(new Cache(cacheName.getText().toString(), new GeoPoint(DataClass.getMylat(), DataClass.getMylng()), cacheDiscription.getText().toString())));
+				DataClass.caches.add(new Model(new Cache(cacheName.getText().toString(), new GeoPoint(DataClass.getMylat(), DataClass.getMylng()), cacheDiscription.getText().toString(),true)));
 				onBackPressed();
 			}
 		});

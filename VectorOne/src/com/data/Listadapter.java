@@ -8,6 +8,7 @@ import com.vectorone.R;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,6 +44,12 @@ public class ListAdapter extends ArrayAdapter<Model> {
 			view = inflator.inflate(R.layout.cache_list_element, null);
 			final ViewHolder viewHolder = new ViewHolder();
 			viewHolder.text = (TextView) view.findViewById(R.id.label);
+			if(DataClass.caches.get(position).getCach().isFound()){
+				viewHolder.text.setTextColor(Color.GREEN);
+			}else{
+				viewHolder.text.setTextColor(Color.BLACK);
+			}
+			
 			viewHolder.text.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -64,9 +71,9 @@ public class ListAdapter extends ArrayAdapter<Model> {
 							Model element = (Model) viewHolder.checkbox
 									.getTag();
 							element.setSelected(buttonView.isChecked());
-							
-							if(!isChecked)
-								DataClass.routing=-1;
+
+							if (!isChecked)
+								DataClass.routing = -1;
 
 						}
 					});

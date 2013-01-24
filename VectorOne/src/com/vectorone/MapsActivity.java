@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.ContactsContract.Contacts.Data;
 import android.view.MotionEvent;
@@ -68,7 +70,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		scale.setText("|_______|");
 
 		// locclac = new GeoLocation(this, mapView);
-		
+
 		mapView.getZoomButtonsController().setOnZoomListener(
 				new OnZoomListener() {
 
@@ -90,7 +92,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 						retextScale(mapView.getZoomLevel());
 					}
 				});
-		
+
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		Criteria criteria = new Criteria();
@@ -152,18 +154,20 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	private void retextScale(int zoomLevel) {
 		String space = "__________";
 		int distance = 0;
-		//Toast.makeText(getApplicationContext(), zoomLevel+"a", Toast.LENGTH_SHORT).show();
-		//scale.setText("|"+space+"|");
-		//Toast.makeText(getApplicationContext(), scale.getWidth()+"w", Toast.LENGTH_SHORT).show();
-		double calcdistance = (40075.017 / 256.0)*110/Math.pow(2, zoomLevel - 1);//*0.621371192;// meter
-		if(calcdistance>50){
-			distance=(int)calcdistance;
-			scale.setText("|" + space + "|" + distance  + "km");
-		}else{
-			distance=(int)(calcdistance*1000);
+		// Toast.makeText(getApplicationContext(), zoomLevel+"a",
+		// Toast.LENGTH_SHORT).show();
+		// scale.setText("|"+space+"|");
+		// Toast.makeText(getApplicationContext(), scale.getWidth()+"w",
+		// Toast.LENGTH_SHORT).show();
+		double calcdistance = (40075.017 / 256.0) * 110
+				/ Math.pow(2, zoomLevel - 1);// *0.621371192;// meter
+		if (calcdistance > 50) {
+			distance = (int) calcdistance;
+			scale.setText("|" + space + "|" + distance + "km");
+		} else {
+			distance = (int) (calcdistance * 1000);
 			scale.setText("|" + space + "|" + distance + "m");
 		}
-		
 
 	}
 
@@ -192,6 +196,46 @@ public class MapsActivity extends MapActivity implements LocationListener {
 				(int) getLng()), "Hi", "Here i am!");
 		if (DataClass.routing > 0)
 			drawroute(DataClass.routing);
+		check_If_I_Found_a_Cache();
+	}
+
+	private void check_If_I_Found_a_Cache() {
+		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
+			if (DataClass.selectedCaches.get(i).isIslessthan50m()) {
+				final Dialog dialog = new Dialog(this);
+				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				dialog.setContentView(R.layout.dialog_cache_found);
+				TextView text = (TextView) dialog
+						.findViewById(R.id.dialog_cachefound_Text);
+				text.setBackgroundColor(Color.BLACK);
+				text.setText("Awesome You found the Cache" + "\n"
+						+ DataClass.selectedCaches.get(i).getName());
+				text.setTextSize(30);
+
+				Button cancelButton = (Button) dialog
+						.findViewById(R.id.dialogButtonOk);
+				cancelButton.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+					}
+				});
+				playSound();
+				dialog.show();
+
+			}
+		}
+	}
+
+	private void playSound() {
+		new Thread() {
+			public void run() {
+				MediaPlayer mp = MediaPlayer.create(getApplicationContext(),
+						R.raw.bossdeath);
+				mp.start();
+			}
+		}.start();
+
 	}
 
 	private void drawroute(int routecache) {

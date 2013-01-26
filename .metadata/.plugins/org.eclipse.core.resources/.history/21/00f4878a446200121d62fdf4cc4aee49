@@ -1,7 +1,0 @@
-package com.vectorone;
-
-import android.app.Activity;
-
-public class AddCachActivity extends Activity {
-
-}

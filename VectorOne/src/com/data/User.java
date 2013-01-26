@@ -3,13 +3,15 @@ package com.data;
 public class User {
 	private String username;
 	private String nickname;
+	private int id;
 	private String team;
 	private int totalcaches;
 	private int totalpoints;
 	private int image;
 
 	public User(String username, String nickname, String team,
-			int totalchaches, int totalpoints, int drawable) {
+			int totalchaches, int totalpoints, int drawable, int id) {
+		this.id=id;
 		this.image = drawable;
 		this.nickname = nickname;
 		this.username = username;
@@ -17,6 +19,10 @@ public class User {
 		this.totalcaches = totalchaches;
 		this.totalpoints = totalpoints;
 
+	}
+
+	public User() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getUsername() {
@@ -43,11 +49,11 @@ public class User {
 		this.team = team;
 	}
 
-	public int getTotalchaches() {
+	public int getTotalcaches() {
 		return totalcaches;
 	}
 
-	public void setTotalchaches(int totalchaches) {
+	public void setTotalcaches(int totalchaches) {
 		this.totalcaches = totalchaches;
 	}
 

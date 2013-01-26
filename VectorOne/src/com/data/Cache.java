@@ -20,6 +20,10 @@ public class Cache {
 		this.founded = founded;
 	}
 
+	public Cache() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getDescripton() {
 
 		if (DataClass.myGeoPoint != null) {

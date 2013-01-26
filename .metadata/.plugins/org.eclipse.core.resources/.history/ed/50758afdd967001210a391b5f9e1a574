@@ -1,0 +1,20 @@
+package com.vectorone;
+
+import com.data.DataClass;
+import com.data.MyHttpClient;
+
+import android.os.AsyncTask;
+import android.provider.ContactsContract.Contacts.Data;
+
+
+
+public class httprequestTask extends AsyncTask<String, String, String>{
+
+	@Override
+	protected String doInBackground(String... params) {
+		DataClass.addCachesFromDataBase(new MyHttpClient("http://www.netroware.co.uk/test/").getCachesfromDatabase("asd"));
+		
+		return null;
+	}
+	
+}

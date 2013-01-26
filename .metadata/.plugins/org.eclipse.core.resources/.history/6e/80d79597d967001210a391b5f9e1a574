@@ -1,0 +1,9 @@
+package com.vectorone;
+
+import android.os.AsyncTask;
+
+
+
+public class RequestTask extends AsyncTask<String, String, String>{
+	
+}

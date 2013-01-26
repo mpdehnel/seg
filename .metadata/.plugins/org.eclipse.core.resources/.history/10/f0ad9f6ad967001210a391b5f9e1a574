@@ -1,0 +1,15 @@
+
+
+class RequestTask extends AsyncTask<String, String, String>{
+
+    @Override
+    protected void doInBackground(String... uri) {
+       
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        super.onPostExecute(result);
+        //Do anything with response..
+    }
+}

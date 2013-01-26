@@ -26,28 +26,10 @@ public class CacheSelectActivity extends ListActivity {
 
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		if (adapter == null) {
-			adapter = new ListAdapter(this, initModel());
-		} else {
-			adapter = new ListAdapter(this, DataClass.caches);
-		}
+		adapter = new ListAdapter(this, DataClass.caches);
 
 		setListAdapter(adapter);
 
-	}
-
-	private List<Model> initModel() {
-
-		DataClass.caches.add(addModel(new Cache("Durham", new GeoPoint(
-				54768637, -1573577), "Durham-Cathedrale", true)));
-		DataClass.caches.add(addModel(new Cache("NewYork", new GeoPoint(
-				40748297, -73990173), "Manhatten", false)));
-		DataClass.caches.add(addModel(new Cache("Berlin", new GeoPoint(
-				52620298, 13221917), "Robby`s Home", true)));
-
-		// Initially select one of the items
-		DataClass.caches.get(1).setSelected(true);
-		return DataClass.caches;
 	}
 
 	private List<Model> initModel(Cache[] items) {

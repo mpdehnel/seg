@@ -26,6 +26,7 @@ public final class R {
         public static final int red_dot=0x7f020004;
         public static final int roterpunkt=0x7f020005;
         public static final int roterpunkt_th=0x7f020006;
+        public static final int tets=0x7f020007;
     }
     public static final class id {
         public static final int CachName=0x7f09000b;

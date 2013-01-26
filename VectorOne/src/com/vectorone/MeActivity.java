@@ -51,7 +51,7 @@ public class MeActivity extends Activity {
 		nickname.setText("Nickname: " + DataClass.user.getNickname());
 		team.setText("Team: " + DataClass.user.getTeam());
 		totalpoints.setText("TotalPoints: " + DataClass.user.getTotalpoints());
-		totalcaches.setText("TotalCaches: " + DataClass.user.getTotalchaches());
+		totalcaches.setText("TotalCaches: " + DataClass.user.getTotalcaches());
 		image.setImageDrawable(getResources().getDrawable(
 				DataClass.user.getImage()));
 		

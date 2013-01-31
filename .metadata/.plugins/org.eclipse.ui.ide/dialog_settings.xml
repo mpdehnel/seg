@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="ChooseWorkspaceDialogSettings">
+		<item value="197" key="DIALOG_Y_ORIGIN"/>
+		<item value="202" key="DIALOG_X_ORIGIN"/>
+	</section>
 	<section name="org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog">
 		<item value="true" key="ShowStatusLine"/>
 		<item value="false" key="ShowDerived"/>
@@ -12,6 +16,10 @@
 			<item value="420" key="DIALOG_X_ORIGIN"/>
 			<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 		</section>
+	</section>
+	<section name="WORKBENCH_SETTINGS">
+		<list key="ENABLED_TRANSFERS">
+		</list>
 	</section>
 	<section name="ResourceNavigator">
 		<item value="" key="ResourceWorkingSetFilter.STORE_WORKING_SET"/>

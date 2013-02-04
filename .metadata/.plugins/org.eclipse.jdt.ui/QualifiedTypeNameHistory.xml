@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.google.android.maps.OverlayItem"/>
 <fullyQualifiedTypeName name="com.google.android.maps.ItemizedOverlay"/>
 <fullyQualifiedTypeName name="com.vectorone.ItemOverlay"/>
 <fullyQualifiedTypeName name="java.lang.Override"/>
@@ -45,19 +44,20 @@
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="com.vectorone.R.drawable"/>
 <fullyQualifiedTypeName name="android.graphics.Color"/>
-<fullyQualifiedTypeName name="com.google.android.maps.GeoPoint"/>
-<fullyQualifiedTypeName name="com.data.Model"/>
 <fullyQualifiedTypeName name="android.os.StrictMode"/>
 <fullyQualifiedTypeName name="android.os.AsyncTask"/>
 <fullyQualifiedTypeName name="android.provider.ContactsContract.Contacts.Data"/>
-<fullyQualifiedTypeName name="com.data.DataClass"/>
 <fullyQualifiedTypeName name="com.data.MyHttpClient"/>
 <fullyQualifiedTypeName name="com.vectorone.MainLogInActivity"/>
 <fullyQualifiedTypeName name="com.vectorone.httprequestTask"/>
 <fullyQualifiedTypeName name="com.loopj.android.http.AsyncHttpClient"/>
 <fullyQualifiedTypeName name="com.loopj.android.http.AsyncHttpResponseHandler"/>
-<fullyQualifiedTypeName name="com.data.Cache"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
 <fullyQualifiedTypeName name="java.lang.Runnable"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="com.data.DataClass"/>
+<fullyQualifiedTypeName name="com.data.Model"/>
+<fullyQualifiedTypeName name="com.data.Cache"/>
+<fullyQualifiedTypeName name="com.google.android.maps.GeoPoint"/>
+<fullyQualifiedTypeName name="android.location.Criteria"/>
 </qualifiedTypeNameHistroy>

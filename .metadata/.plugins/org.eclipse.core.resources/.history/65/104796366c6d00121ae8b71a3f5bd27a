@@ -4,11 +4,8 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
-import com.data.Cache;
 import com.data.DataClass;
-import com.data.Model;
 import com.data.MyHttpClient;
-import com.google.android.maps.GeoPoint;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -87,7 +84,6 @@ public class MainLogInActivity extends Activity {
 					try {
 						DataClass.addCachesFromDataBase(httpClient
 								.getCachesfromDatabase("test"));
-						DataClass.caches.add(new Model(new Cache("Martins", new GeoPoint(54772993,-1576238), "thats his home", false)));
 					} catch (ClientProtocolException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -124,11 +120,4 @@ public class MainLogInActivity extends Activity {
 		}
 
 	}
-
-	@Override
-	public void onBackPressed() {
-		finish();
-		super.onBackPressed();
-	}
-	
 }

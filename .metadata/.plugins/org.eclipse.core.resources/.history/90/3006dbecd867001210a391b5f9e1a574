@@ -1,7 +1,0 @@
-package com.vectorone;
-
-import android.os.AsyncTask;
-
-public class Networkcommunication extends AsyncTask<Params, Progress, Result> {
-
-}

@@ -77,13 +77,13 @@ public class Cache {
 		this.founded = found;
 	}
 
-	public boolean isIslessthan50m() {
+	public boolean isIslessthanXXXm(int xxx) {
 		String distance = SegMathClass.calculateDistance(DataClass.myGeoPoint,
 				this.geopoint);
 		if (distance.charAt(distance.length() - 2) != 'k') {
 			int distanceInMeter = Integer.valueOf(distance.substring(0,
 					distance.length() - 1));
-			if (distanceInMeter <= 50) {
+			if (distanceInMeter <= xxx) {
 				setfounded(true);
 				return true;
 			} else

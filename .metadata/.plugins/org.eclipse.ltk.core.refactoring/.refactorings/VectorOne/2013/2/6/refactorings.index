@@ -1,0 +1,40 @@
+1360065898946	Rename local variable 'Cachname'
+1360168025686	Move compilation unit
+1360168968510	Rename resource 'BEBAS___.TTF'
+1360168990015	Rename resource 'fonts'
+1360169015252	Move folder
+1360169054173	Move folder
+1360169062923	Rename resource 'font'
+1360169076667	Move folder
+1360169084176	Delete element
+1360169279150	Delete element
+1360169925208	Rename resource 'BEBAS___.TTF'
+1360170101800	Move file
+1360181990051	Rename resource 'textEntry.png'
+1360182003240	Rename resource 'buttonSmall.png'
+1360182011772	Rename resource 'buttonLarge.png'
+1360182020171	Rename resource 'buttonMedium.png'
+1360184139624	Rename field 'usertext'
+1360184158566	Rename field 'passwordtext'
+1360184357187	Rename local variable 'textfield'
+1360184368265	Rename local variable 'button'
+1360185667060	Copy file
+1360186485696	Delete element
+1360186599880	Delete element
+1360186680313	Delete element
+1360186704070	Delete element
+1360186712951	Rename resource 'activity_loginn.xml'
+1360186719456	Delete element
+1360186893337	Delete element
+1360187292317	Delete element
+1360187500172	Delete element
+1360189153580	Delete element
+1360189360833	Delete element
+1360189649107	Delete element
+1360189715135	Delete element
+1360190814712	Rename resource 'checkbox.xml'
+1360192439686	Rename method 'setfont'
+1360192446359	Rename method 'setListener'
+1360192454494	Rename method 'setbackgroundimage'
+1360199845810	Rename field 'cacheName'
+1360199855067	Rename field 'cacheDiscription'

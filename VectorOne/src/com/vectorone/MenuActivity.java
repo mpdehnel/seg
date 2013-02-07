@@ -8,6 +8,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
@@ -19,6 +21,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,46 +31,131 @@ public class MenuActivity extends Activity {
 	private Button cachesSelectButton;
 	private Button settingsButton;
 	private Button meButton;
+	private Button mapsButton;
 	private Button logout;
+	private Button dialoglogoutButton;
+	private Button dialogcloseAppButton;
+	private Button dialogcancelButton;
+	private Dialog dialog;
 	private TextView usernameTextView;
 	private String username;
-
-	private OnClickListener clickhandler = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			clickhandle(v);
-		}
-	};
+	private GridLayout gridlayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_menue);
-		GridLayout gridlayout = (GridLayout) findViewById(R.id.menue_layout);
-		gridlayout.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.background));
+		gridlayout = (GridLayout) findViewById(R.id.menue_layout);
+
 		Intent intent = getIntent();
 		username = intent.getStringExtra("username");
-		usernameTextView = (TextView) findViewById(R.id.MenueUsername);
+		initfields();
+		setupListener();
+		setupbackgoundimages();
+		setupfonts();
 		usernameTextView.setText(username);
+
+	}
+
+	private void initfields() {
+		usernameTextView = (TextView) findViewById(R.id.MenueUsername);
 		cachesSelectButton = (Button) findViewById(R.id.cachselectbutton);
 		meButton = (Button) findViewById(R.id.mebutton);
 		settingsButton = (Button) findViewById(R.id.settingsbutton);
 		logout = (Button) findViewById(R.id.logout_button);
+		mapsButton = (Button) findViewById(R.id.button_maps);
+		intidialog();
+		dialoglogoutButton = (Button) dialog
+				.findViewById(R.id.dialogButtonLogOut);
+		dialogcloseAppButton = (Button) dialog
+				.findViewById(R.id.dialogButtonClose);
 
+		dialogcancelButton = (Button) dialog
+				.findViewById(R.id.dialogButtonCancel);
+	}
+
+	private void intidialog() {
+		dialog = new Dialog(this);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.dialog_logout);
+		// dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(
+		// R.drawable.background));
+		TextView text = (TextView) dialog.findViewById(R.id.dialog_Text);
+		text.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.background));
+
+//		relativ.setBackgroundDrawable(getResources().getDrawable(
+	//			R.drawable.background));
+		text.setText("What You want to do?");
+		text.setTextSize(30);
+	}
+
+	private void setupListener() {
 		cachesSelectButton.setOnClickListener(clickhandler);
 		meButton.setOnClickListener(clickhandler);
 		settingsButton.setOnClickListener(clickhandler);
 		logout.setOnClickListener(clickhandler);
+		mapsButton.setOnClickListener(clickhandler);
+		dialogcancelButton.setOnClickListener(clickhandler);
+		dialogcloseAppButton.setOnClickListener(clickhandler);
+		dialoglogoutButton.setOnClickListener(clickhandler);
+	}
 
-		Spinner spinner = (Spinner) findViewById(R.id.FindingViewSpinner);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				this, R.array.FindingViews,
-				android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(adapter);
-		spinner.setOnItemSelectedListener(new SpinnerListener(this, adapter));
+	private void setupfonts() {
+		Typeface font = Typeface
+				.createFromAsset(getAssets(), "fonts/bebas.ttf");
+		int buttoncolor = Color.parseColor("#45250F");
+		float textsize = 22;
+
+		cachesSelectButton.setTypeface(font);
+		cachesSelectButton.setTextSize(textsize);
+		cachesSelectButton.setTextColor(buttoncolor);
+
+		mapsButton.setTypeface(font);
+		mapsButton.setTextSize(textsize);
+		mapsButton.setTextColor(buttoncolor);
+
+		meButton.setTypeface(font);
+		meButton.setTextSize(textsize);
+		meButton.setTextColor(buttoncolor);
+
+		settingsButton.setTypeface(font);
+		settingsButton.setTextSize(textsize);
+		settingsButton.setTextColor(buttoncolor);
+
+		logout.setTypeface(font);
+		logout.setTextSize(textsize);
+		logout.setTextColor(buttoncolor);
+
+		dialogcancelButton.setTypeface(font);
+		dialogcancelButton.setTextSize(textsize);
+		dialogcancelButton.setTextColor(buttoncolor);
+
+		dialogcloseAppButton.setTypeface(font);
+		dialogcloseAppButton.setTextSize(textsize);
+		dialogcloseAppButton.setTextColor(buttoncolor);
+
+		dialoglogoutButton.setTypeface(font);
+		dialoglogoutButton.setTextSize(textsize);
+		dialoglogoutButton.setTextColor(buttoncolor);
+	}
+
+	private void setupbackgoundimages() {
+		Drawable buttonimage = getResources().getDrawable(
+				R.drawable.buttonmedium);
+		gridlayout.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.background));
+
+		cachesSelectButton.setBackgroundDrawable(buttonimage);
+		mapsButton.setBackgroundDrawable(buttonimage);
+		settingsButton.setBackgroundDrawable(buttonimage);
+		meButton.setBackgroundDrawable(buttonimage);
+		logout.setBackgroundDrawable(buttonimage);
+		dialogcancelButton.setBackgroundDrawable(buttonimage);
+		dialogcloseAppButton.setBackgroundDrawable(buttonimage);
+		dialoglogoutButton.setBackgroundDrawable(buttonimage);
+
 	}
 
 	private void clickhandle(View v) {
@@ -92,52 +180,38 @@ public class MenuActivity extends Activity {
 					MainLogInActivity.class);
 			startActivity(intent);
 		}
+		if (v == mapsButton) {
+			intent = new Intent(getApplicationContext(), MapsActivity.class);
+			startActivity(intent);
+		}
+		if (v == dialogcancelButton) {
+			dialog.dismiss();
+		}
+		if (v == dialoglogoutButton) {
+			finish();
+			DataClass.clear();
+			intent = new Intent(getApplicationContext(),
+					MainLogInActivity.class);
+			startActivity(intent);
+		}
+		if (v == dialogcloseAppButton) {
+
+		}
 
 	}
 
 	@Override
 	public void onBackPressed() {
-		final Dialog dialog = new Dialog(this);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.dialog_logout);
-		TextView text = (TextView) dialog.findViewById(R.id.dialog_Text);
-		text.setBackgroundColor(Color.BLACK);
-		text.setText("What You want to do?");
-		text.setTextSize(30);
-
-		Button cancelButton = (Button) dialog
-				.findViewById(R.id.dialogButtonCancel);
-		cancelButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-		});
-
-		Button logoutButton = (Button) dialog
-				.findViewById(R.id.dialogButtonLogOut);
-		logoutButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				DataClass.clear();
-
-				startActivity(new Intent(getApplicationContext(),
-						MainLogInActivity.class));
-			}
-
-		});
-
-		Button closeAppButton = (Button) dialog
-				.findViewById(R.id.dialogButtonClose);
-		closeAppButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
 
 		dialog.show();
 
 	}
+
+	private OnClickListener clickhandler = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			clickhandle(v);
+		}
+	};
+
 }

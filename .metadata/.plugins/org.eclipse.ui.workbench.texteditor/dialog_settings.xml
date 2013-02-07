@@ -13,12 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="request" key="selection"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
-			<item value="request"/>
-			<item value="setZoo"/>
-			<item value="move"/>
-			<item value="draw"/>
+			<item value="blac"/>
+			<item value="open"/>
+			<item value="closed"/>
+			<item value="box"/>
+			<item value="BOX"/>
+			<item value="T"/>
+			<item value="roter"/>
+			<item value="rot"/>
 		</list>
 		<list key="replacehistory">
 		</list>

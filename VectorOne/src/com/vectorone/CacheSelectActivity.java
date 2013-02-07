@@ -1,22 +1,14 @@
 package com.vectorone;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-
 import com.data.Cache;
 import com.data.DataClass;
 import com.data.ListAdapter;
 import com.data.Model;
-import com.google.android.maps.GeoPoint;
-
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract.Contacts.Data;
-
 import android.widget.ArrayAdapter;
-import android.widget.GridLayout;
-import android.widget.Toast;
 
 public class CacheSelectActivity extends ListActivity {
 
@@ -27,17 +19,10 @@ public class CacheSelectActivity extends ListActivity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 		adapter = new ListAdapter(this, DataClass.caches);
-
+		getListView().setBackgroundDrawable(
+				getResources().getDrawable(R.drawable.background));
 		setListAdapter(adapter);
 
-	}
-
-	private List<Model> initModel(Cache[] items) {
-		for (int j = 0; j < items.length; j++) {
-
-			DataClass.caches.add(addModel(items[j]));
-		}
-		return DataClass.caches;
 	}
 
 	public void addListItem(Cache item) {
@@ -55,7 +40,8 @@ public class CacheSelectActivity extends ListActivity {
 			if (DataClass.caches.get(i).isSelected())
 				DataClass.selectedCaches.add(DataClass.caches.get(i).getCach());
 		}
-
+		startActivity(new Intent(getApplicationContext(),
+				MenuActivity.class));
 		super.onBackPressed();
 	}
 

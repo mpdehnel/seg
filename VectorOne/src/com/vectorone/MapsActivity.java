@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -84,10 +85,10 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-		//Criteria criteria = new Criteria();
+		// Criteria criteria = new Criteria();
 
-		//provider = locationManager.getBestProvider(criteria, false);
-		 provider = locationManager.GPS_PROVIDER;
+		// provider = locationManager.getBestProvider(criteria, false);
+		provider = locationManager.GPS_PROVIDER;
 		location = locationManager.getLastKnownLocation(provider);
 		if (location != null) {
 			onLocationChanged(location);
@@ -100,8 +101,22 @@ public class MapsActivity extends MapActivity implements LocationListener {
 			mc.setZoom(15);
 
 		}
+
+		setupNewCachButton();
+
+	}
+
+	private void setupNewCachButton() {
+		Typeface font = Typeface
+				.createFromAsset(getAssets(), "fonts/bebas.ttf");
+
 		setNewCache = (Button) findViewById(R.id.setMyPositionasNewCacheButto);
-		setNewCache.setBackgroundColor(Color.GREEN);
+		setNewCache.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.buttonmedium));
+		setNewCache.setTypeface(font);
+		setNewCache.setTextColor(Color.parseColor("#45250F"));
+		setNewCache.setTextSize(22);
+
 		setNewCache.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -124,7 +139,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 			// map points;
 
 			int teamColour = DataClass.selectedCaches.get(i).getTeamcolour();
-			int image = R.drawable.roterpunkt;// point image;
+			int image = R.drawable.treasureclosed;// point image;
 			GeoPoint gp = DataClass.selectedCaches.get(i).getGeopoint();
 			String name = DataClass.selectedCaches.get(i).getName();
 			String description = DataClass.selectedCaches.get(i)
@@ -181,7 +196,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		DataClass.setMyGeoPoint();
 		mc.animateTo(DataClass.getMyGeoPoint());
 		removeallOverlaysandaddnew();
-		addOverlay(R.drawable.roterpunkt, new GeoPoint((int) getLat(),
+		addOverlay(R.drawable.crossred, new GeoPoint((int) getLat(),
 				(int) getLng()), "Hi", "Here i am!");
 		if (DataClass.routing > 0)
 			drawroute(DataClass.routing);
@@ -190,13 +205,13 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 	private void check_If_I_Found_a_Cache() {
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
-			if (DataClass.selectedCaches.get(i).isIslessthanXXXm(15)) {
+			if (DataClass.selectedCaches.get(i).isIslessthanXXXm(15)&&DataClass.selectedCaches.get(i).isFound()) {
 				final Dialog dialog = new Dialog(this);
 				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 				dialog.setContentView(R.layout.dialog_cache_found);
 				TextView text = (TextView) dialog
 						.findViewById(R.id.dialog_cachefound_Text);
-				text.setBackgroundColor(Color.BLACK);
+				text.setBackgroundDrawable(text.getContext().getResources().getDrawable(R.drawable.background));
 				text.setText("Awesome You found the Cache" + "\n"
 						+ DataClass.selectedCaches.get(i).getName());
 				text.setTextSize(30);
@@ -210,10 +225,29 @@ public class MapsActivity extends MapActivity implements LocationListener {
 					}
 				});
 				playSound();
+				setupLayoutDialog(text,cancelButton);
 				dialog.show();
 
 			}
 		}
+	}
+
+	private void setupLayoutDialog(TextView text, Button cancelButton) {
+		Typeface font = Typeface
+				.createFromAsset(getAssets(), "fonts/bebas.ttf");
+		Drawable buttonimage = getResources().getDrawable(
+				R.drawable.buttonmedium);
+		int buttoncolor = Color.parseColor("#45250F");
+		float textsize = 22;
+		
+		text.setTypeface(font);
+		text.setTextSize(textsize);
+		cancelButton.setTypeface(font);
+		cancelButton.setTextColor(buttoncolor);
+		cancelButton.setTextSize(textsize);
+		cancelButton.setBackgroundDrawable(buttonimage);
+		
+		
 	}
 
 	private void playSound() {
@@ -270,7 +304,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 	}
 
-	public double getLat() {
+	double getLat() {
 		return lat;
 	}
 

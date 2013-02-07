@@ -18,6 +18,7 @@ public class DataClass {
 	public static GeoPoint myGeoPoint;
 	public static int mylng;
 	public static int routing;
+	public static String server="http://www.netroware.co.uk/test/";
 
 	public DataClass() {
 

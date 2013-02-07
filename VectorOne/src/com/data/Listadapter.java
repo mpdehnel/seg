@@ -7,8 +7,10 @@ import com.vectorone.MenuActivity;
 import com.vectorone.R;
 
 import android.app.Activity;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,16 +40,21 @@ public class ListAdapter extends ArrayAdapter<Model> {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		View view = null;
+		final View view;
 		if (convertView == null) {
 			LayoutInflater inflator = context.getLayoutInflater();
 			view = inflator.inflate(R.layout.cache_list_element, null);
 			final ViewHolder viewHolder = new ViewHolder();
 			viewHolder.text = (TextView) view.findViewById(R.id.label);
+			Typeface font = Typeface
+					.createFromAsset(view.getContext().getAssets(), "fonts/bebas.ttf");
+			
+			viewHolder.text.setTypeface(font);
+			
 			if(DataClass.caches.get(position).getCach().isFound()){
 				viewHolder.text.setTextColor(Color.GREEN);
 			}else{
-				viewHolder.text.setTextColor(Color.BLACK);
+				viewHolder.text.setTextColor(Color.parseColor("#DECD87"));
 			}
 			
 			viewHolder.text.setOnClickListener(new OnClickListener() {
@@ -64,16 +71,21 @@ public class ListAdapter extends ArrayAdapter<Model> {
 			viewHolder.checkbox = (CheckBox) view.findViewById(R.id.check);
 			viewHolder.checkbox
 					.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
+						
+						
+						
 						@Override
 						public void onCheckedChanged(CompoundButton buttonView,
 								boolean isChecked) {
 							Model element = (Model) viewHolder.checkbox
 									.getTag();
 							element.setSelected(buttonView.isChecked());
-
-							if (!isChecked)
+							
+						
+													
+							if (!isChecked){
 								DataClass.routing = -1;
+							}
 
 						}
 					});

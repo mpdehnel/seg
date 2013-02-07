@@ -23,6 +23,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.google.android.maps.GeoPoint;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -33,34 +36,30 @@ public class MyHttpClient {
 
 	public MyHttpClient(String server) {
 		this.server = server;
-		/*try {
-			System.out.println(isUser("robert", "123"));
-			Cache[] test = getCachesfromDatabase("robert");
-			System.out.println(test[0].getName());
-			System.out.println(test[1].getName());
-			System.out.println(test[2].getName());
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+
+		/*
+		 * } catch (ClientProtocolException e) { // TODO Auto-generated catch
+		 * block e.printStackTrace(); } catch (IOException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); } } };
+		 * getCachesThread.run();
+		 */
+
 	}
 
 	public boolean isUser(final String username, String password)
 			throws ClientProtocolException, IOException {
-		
-		  HttpClient client = new DefaultHttpClient(); // TODO request with username and password; 
-		  HttpGet request = new HttpGet(this.server +
-		  "user"); HttpResponse response = client.execute(request);
-		  
-		  BufferedReader rd = new BufferedReader(new InputStreamReader(response
-		  .getEntity().getContent()));
-		  
-		  String line = ""; while ((line = rd.readLine()) != null) {
-		  parseUser(username, line); }
-		 
+
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(this.server + "user");
+		HttpResponse response = client.execute(request);
+
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response
+				.getEntity().getContent()));
+
+		String line = "";
+		while ((line = rd.readLine()) != null) {
+			parseUser(username, line);
+		}
 
 		return true;
 
@@ -113,18 +112,19 @@ public class MyHttpClient {
 
 	public final Cache[] getCachesfromDatabase(String username)
 			throws ClientProtocolException, IOException {
-		
-		  HttpClient client = new DefaultHttpClient(); // TODO request with  username and password; 
-		  HttpGet request = new HttpGet(this.server +
-		  "caches"); HttpResponse response = client.execute(request);
-		  
-		  BufferedReader rd = new BufferedReader(new InputStreamReader(response
-		  .getEntity().getContent()));
-		  
-		  String line = ""; while ((line = rd.readLine()) != null) { return
-		  parseCache(line); } return null;
-		 
 
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(this.server + "caches");
+		HttpResponse response = client.execute(request);
+
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response
+				.getEntity().getContent()));
+
+		String line = "";
+		while ((line = rd.readLine()) != null) {
+			return parseCache(line);
+		}
+		return null;
 
 	}
 
@@ -171,6 +171,21 @@ public class MyHttpClient {
 		return getCharacterDataFromElement(tagvalue);
 
 	}
+
+	public void addCacheToDatabase(Context context, int lon, int lat, String Cachename, String MyDescription) throws ClientProtocolException,
+			IOException {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet( this.server+"createCache.php?username=Robby"+"&userlat="+lat+"&userlon="+lon+"&description="+MyDescription);
+		HttpResponse response = client.execute(request);
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response
+				.getEntity().getContent()));
+
+		String line = "";
+		while ((line = rd.readLine()) != null) {
+			Toast.makeText(context, line, Toast.LENGTH_SHORT).show();
+		}
+	}
+
 	/*
 	 * public static void main(String[] args) { new
 	 * MyHttpClient("http://www.netroware.co.uk/test/"); }

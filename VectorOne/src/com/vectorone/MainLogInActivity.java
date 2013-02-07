@@ -120,6 +120,7 @@ public class MainLogInActivity extends Activity {
 		passwordlabel.setTextSize(textsize);
 		passwordlabel.setTypeface(font);
 	}
+		
 
 	private void clickhandle(View v) throws IOException {
 		Intent intent;
@@ -131,11 +132,16 @@ public class MainLogInActivity extends Activity {
 					.getText().toString();
 
 			if (/* httpClient.isUser(username, password) */true) {
-				DataClass.addCachesFromDataBase(httpClient
-						.getCachesfromDatabase("test"));
+
+				 Toast.makeText(this, "Connected to the database!",Toast.LENGTH_LONG).show();
+
+				 DataClass.addCachesFromDataBase(httpClient
+							.getCachesfromDatabase("test"));
 				DataClass.caches.add(new Model(new Cache("DurhamUniversitaet",
-						new GeoPoint(54767542, -1571993),
-						"thats CLC Main Entery", false)));
+						new GeoPoint(54767542, -1571993), //new GeoPoint(
+								//54767442, -1570993), 
+								"thats CLC Main Entry",
+						false)));
 				finish();
 				intent = new Intent(getApplicationContext(), MenuActivity.class);
 				intent.putExtra("username", username);
@@ -153,7 +159,8 @@ public class MainLogInActivity extends Activity {
 			startActivity(intent);
 		}
 		if (v == clearbutton) {
-			// TODO:
+			Toast.makeText(this, "ToDo:;)", Toast.LENGTH_LONG).show();
+
 		}
 
 	}
@@ -164,7 +171,7 @@ public class MainLogInActivity extends Activity {
 			try {
 				clickhandle(v);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 		}

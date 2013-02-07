@@ -7,7 +7,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -65,6 +68,10 @@ public class MenuActivity extends Activity {
 		settingsButton = (Button) findViewById(R.id.settingsbutton);
 		logout = (Button) findViewById(R.id.logout_button);
 		mapsButton = (Button) findViewById(R.id.button_maps);
+		RelativeLayout relativ= (RelativeLayout) findViewById(R.id.test);
+		//relativ.setBackgroundDrawable(getResources().getDrawable(R.drawable.databar));
+		relativ.addView(new DrawableStatusbar(this));
+		relativ.addView(new Backgroundview(this,getResources().getDrawable(R.drawable.databar)));
 		intidialog();
 		dialoglogoutButton = (Button) dialog
 				.findViewById(R.id.dialogButtonLogOut);
@@ -79,14 +86,9 @@ public class MenuActivity extends Activity {
 		dialog = new Dialog(this);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.dialog_logout);
-		// dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(
-		// R.drawable.background));
 		TextView text = (TextView) dialog.findViewById(R.id.dialog_Text);
 		text.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.background));
-
-//		relativ.setBackgroundDrawable(getResources().getDrawable(
-	//			R.drawable.background));
 		text.setText("What You want to do?");
 		text.setTextSize(30);
 	}
@@ -155,6 +157,7 @@ public class MenuActivity extends Activity {
 		dialogcancelButton.setBackgroundDrawable(buttonimage);
 		dialogcloseAppButton.setBackgroundDrawable(buttonimage);
 		dialoglogoutButton.setBackgroundDrawable(buttonimage);
+		
 
 	}
 

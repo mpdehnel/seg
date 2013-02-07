@@ -1,0 +1,7 @@
+package com.vectorone;
+
+import android.view.View;
+
+public class Backgroundview extends View {
+
+}

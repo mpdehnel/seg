@@ -84,7 +84,7 @@ public class Cache {
 			int distanceInMeter = Integer.valueOf(distance.substring(0,
 					distance.length() - 1));
 			if (distanceInMeter <= xxx) {
-				setfounded(true);
+				//setfounded(true);
 				return true;
 			} else
 				return false;

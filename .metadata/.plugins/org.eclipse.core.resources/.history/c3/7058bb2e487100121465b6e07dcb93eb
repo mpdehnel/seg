@@ -1,0 +1,46 @@
+package com.vectorone;
+
+import com.data.DataClass;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.view.View;
+
+public class DrawableStatusbar extends View {
+
+	public DrawableStatusbar(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public void onDraw(Canvas canvas) {
+		int greenportion = DataClass.greenportion;
+		int redportion = DataClass.redportion;
+		int purpleportion = DataClass.purpleportion;
+		int blueportion = DataClass.blueportion;
+		int red = Color.parseColor("930000");
+		int blue = Color.parseColor("338000");
+		int green = Color.parseColor("006680");
+		int purple = Color.parseColor("67215C");
+
+		Paint paint = new Paint();
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setColor(red);
+		canvas.drawRect(0, 0, redportion, 40, paint);
+		paint.setColor(blue);
+		canvas.drawRect(redportion, 0, redportion + blueportion, 40, paint);
+		paint.setColor(green);
+		canvas.drawRect(redportion + blueportion, 0, redportion + blueportion
+				+ greenportion, 40, paint);
+		paint.setColor(purple);
+		canvas.drawRect(redportion + blueportion + greenportion, 0, 320, 40,
+				paint);
+
+		super.onDraw(canvas);
+
+	}
+}

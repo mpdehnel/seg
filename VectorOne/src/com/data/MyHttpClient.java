@@ -114,7 +114,8 @@ public class MyHttpClient {
 			throws ClientProtocolException, IOException {
 
 		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet(this.server + "caches");
+		//HttpGet request = new HttpGet(this.server + "caches.php");
+		HttpGet request = new HttpGet(this.server + "getAllCaches.php");
 		HttpResponse response = client.execute(request);
 
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response
@@ -144,11 +145,12 @@ public class MyHttpClient {
 				Element element = (Element) nodes.item(i);
 				tmp.setName(getValueofTag("name", element));
 				tmp.setGeopoint(new GeoPoint(Integer.parseInt(getValueofTag(
-						"longitude", element)), Integer.parseInt(getValueofTag(
-						"latitude", element))));
+						"latitude", element)), Integer.parseInt(getValueofTag(
+						"longitude", element))));
 				tmp.setDescripton(getValueofTag("description", element));
 				tmp.setfounded(Boolean.valueOf(getValueofTag("found", element)));
 				cachelist.add(tmp);
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -184,6 +186,23 @@ public class MyHttpClient {
 		while ((line = rd.readLine()) != null) {
 			Toast.makeText(context, line, Toast.LENGTH_SHORT).show();
 		}
+	}
+	public void getportiondata() throws IllegalStateException, IOException{
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet( this.server+"getTeamSizes.php");
+		HttpResponse response = client.execute(request);
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response
+				.getEntity().getContent()));
+
+		String line = "";
+		while ((line = rd.readLine()) != null) {
+			String numbers[]=line.split(",");
+			DataClass.blueportion=Integer.parseInt(numbers[1]);
+			DataClass.redportion=Integer.parseInt(numbers[0]);
+			DataClass.greenportion=Integer.parseInt(numbers[2]);
+			DataClass.purpleportion=Integer.parseInt(numbers[3]);
+		}
+		
 	}
 
 	/*

@@ -19,6 +19,10 @@ public class DataClass {
 	public static int mylng;
 	public static int routing;
 	public static String server="http://www.netroware.co.uk/test/";
+	public static int greenportion=25;
+	public static int redportion=25;
+	public static int purpleportion=25;
+	public static int blueportion=25;
 
 	public DataClass() {
 
@@ -28,6 +32,9 @@ public class DataClass {
 	}
 
 	public static void clear() {
+		selectedCaches= new LinkedList<Cache>();
+		caches=new ArrayList<Model>();
+		
 		// TODO; clear the recived data;
 		// call by logout button meneu screen
 

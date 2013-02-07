@@ -30,6 +30,7 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.google.*;
 
 @SuppressLint("ShowToast")
 public class MapsActivity extends MapActivity implements LocationListener {
@@ -52,6 +53,8 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_maps);
 		mapView = (MapView) findViewById(R.id.map_view);
+		
+		
 		mapView.setBuiltInZoomControls(true);
 		mapOverlays = mapView.getOverlays();
 		removeallOverlaysandaddnew();
@@ -137,9 +140,15 @@ public class MapsActivity extends MapActivity implements LocationListener {
 			mapOverlays.remove(i);
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
 			// map points;
-
+		
+			
 			int teamColour = DataClass.selectedCaches.get(i).getTeamcolour();
-			int image = R.drawable.treasureclosed;// point image;
+			int image;
+			if(DataClass.selectedCaches.get(i).isFound()){
+			image=R.drawable.treasureopen;// point image;
+			}else{
+				image=R.drawable.treasureclosed;
+			}
 			GeoPoint gp = DataClass.selectedCaches.get(i).getGeopoint();
 			String name = DataClass.selectedCaches.get(i).getName();
 			String description = DataClass.selectedCaches.get(i)
@@ -196,7 +205,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		DataClass.setMyGeoPoint();
 		mc.animateTo(DataClass.getMyGeoPoint());
 		removeallOverlaysandaddnew();
-		addOverlay(R.drawable.crossred, new GeoPoint((int) getLat(),
+		addOverlay(R.drawable.flagred, new GeoPoint((int) getLat(),
 				(int) getLng()), "Hi", "Here i am!");
 		if (DataClass.routing > 0)
 			drawroute(DataClass.routing);
@@ -205,7 +214,8 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 	private void check_If_I_Found_a_Cache() {
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
-			if (DataClass.selectedCaches.get(i).isIslessthanXXXm(15)&&DataClass.selectedCaches.get(i).isFound()) {
+			if (DataClass.selectedCaches.get(i).isIslessthanXXXm(20)&&!DataClass.selectedCaches.get(i).isFound()) {
+				DataClass.selectedCaches.get(i).setfounded(true);
 				final Dialog dialog = new Dialog(this);
 				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 				dialog.setContentView(R.layout.dialog_cache_found);
@@ -315,7 +325,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	/* Request updates at startup */
 	protected void onResume() {
 		super.onResume();
-		locationManager.requestLocationUpdates(provider, 100, 1, this);
+		locationManager.requestLocationUpdates(provider, 500, 1, this);
 	}
 
 	/* Remove the locationListener updates when Activity is paused */

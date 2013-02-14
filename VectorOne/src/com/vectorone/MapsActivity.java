@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -24,6 +25,7 @@ import android.widget.ZoomButtonsController.OnZoomListener;
 
 import com.data.Cache;
 import com.data.DataClass;
+import com.game.memory.Game_memory_Activity;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -46,15 +48,16 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	private List<Overlay> mapOverlays;
 	private Button setNewCache;
 	private TextView scale;
+	private Dialog CacheFoundDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_maps);
 		mapView = (MapView) findViewById(R.id.map_view);
-		
-		
+
 		mapView.setBuiltInZoomControls(true);
 		mapOverlays = mapView.getOverlays();
 		removeallOverlaysandaddnew();
@@ -140,14 +143,13 @@ public class MapsActivity extends MapActivity implements LocationListener {
 			mapOverlays.remove(i);
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
 			// map points;
-		
-			
+
 			int teamColour = DataClass.selectedCaches.get(i).getTeamcolour();
 			int image;
-			if(DataClass.selectedCaches.get(i).isFound()){
-			image=R.drawable.treasureopen;// point image;
-			}else{
-				image=R.drawable.treasureclosed;
+			if (DataClass.selectedCaches.get(i).isFound()) {
+				image = R.drawable.treasureopen;// point image;
+			} else {
+				image = R.drawable.treasureclosed;
 			}
 			GeoPoint gp = DataClass.selectedCaches.get(i).getGeopoint();
 			String name = DataClass.selectedCaches.get(i).getName();
@@ -214,32 +216,47 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 	private void check_If_I_Found_a_Cache() {
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
-			if (DataClass.selectedCaches.get(i).isIslessthanXXXm(20)&&!DataClass.selectedCaches.get(i).isFound()) {
+			if (DataClass.selectedCaches.get(i).isIslessthanXXXm(20)
+					&& !DataClass.selectedCaches.get(i).isFound()) {
 				DataClass.selectedCaches.get(i).setfounded(true);
-				final Dialog dialog = new Dialog(this);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				dialog.setContentView(R.layout.dialog_cache_found);
-				TextView text = (TextView) dialog
-						.findViewById(R.id.dialog_cachefound_Text);
-				text.setBackgroundDrawable(text.getContext().getResources().getDrawable(R.drawable.background));
-				text.setText("Awesome You found the Cache" + "\n"
-						+ DataClass.selectedCaches.get(i).getName());
-				text.setTextSize(30);
-
-				Button cancelButton = (Button) dialog
-						.findViewById(R.id.dialogButtonOk);
-				cancelButton.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-					}
-				});
 				playSound();
-				setupLayoutDialog(text,cancelButton);
-				dialog.show();
+				/*
+				 * initDialog(); CacheFoundDialog.show();
+				 */
+
+				Intent intent = new Intent(getApplicationContext(),
+						CacheShowActivity.class);
+				intent.putExtra("CacheIndex", i);
+				intent.putExtra("maps", true);
+				startActivity(intent);
 
 			}
 		}
+	}
+
+	private void initDialog(int i) {
+		CacheFoundDialog = new Dialog(this);
+		CacheFoundDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		CacheFoundDialog.setContentView(R.layout.dialog_cache_found);
+		TextView text = (TextView) CacheFoundDialog
+				.findViewById(R.id.dialog_cachefound_Text);
+		text.setBackgroundDrawable(text.getContext().getResources()
+				.getDrawable(R.drawable.background));
+		text.setText("Awesome You found the Cache" + "\n"
+				+ DataClass.selectedCaches.get(i).getName());
+		text.setTextSize(30);
+
+		Button cancelButton = (Button) CacheFoundDialog
+				.findViewById(R.id.dialogButtonOk);
+		cancelButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				CacheFoundDialog.dismiss();
+			}
+		});
+
+		setupLayoutDialog(text, cancelButton);
+
 	}
 
 	private void setupLayoutDialog(TextView text, Button cancelButton) {
@@ -249,15 +266,14 @@ public class MapsActivity extends MapActivity implements LocationListener {
 				R.drawable.buttonmedium);
 		int buttoncolor = Color.parseColor("#45250F");
 		float textsize = 22;
-		
+
 		text.setTypeface(font);
 		text.setTextSize(textsize);
 		cancelButton.setTypeface(font);
 		cancelButton.setTextColor(buttoncolor);
 		cancelButton.setTextSize(textsize);
 		cancelButton.setBackgroundDrawable(buttonimage);
-		
-		
+
 	}
 
 	private void playSound() {

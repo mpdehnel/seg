@@ -4,24 +4,33 @@ import com.google.android.maps.GeoPoint;
 
 public class Cache {
 
+	private int _id;
 	private GeoPoint geopoint;
 	private String descripton;
 	private String name;
 	private int teamcolor;
 	private boolean islessthan50m;
-
 	private boolean founded;
 
 	public Cache(String name, GeoPoint geopoint, String description,
-			boolean founded) {
+			boolean founded,int id) {
 		this.name = name;
 		this.geopoint = geopoint;
 		this.descripton = description;
 		this.founded = founded;
+		this._id=id;
 	}
 
 	public Cache() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getID() {
+		return this._id;
+	}
+
+	public void setID(int id) {
+		this._id = id;
 	}
 
 	public String getDescripton() {
@@ -84,7 +93,7 @@ public class Cache {
 			int distanceInMeter = Integer.valueOf(distance.substring(0,
 					distance.length() - 1));
 			if (distanceInMeter <= xxx) {
-				//setfounded(true);
+				// setfounded(true);
 				return true;
 			} else
 				return false;

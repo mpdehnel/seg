@@ -13,6 +13,7 @@ import com.google.android.maps.MapView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -39,6 +40,7 @@ public class AddCacheActivity extends Activity {
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_addcache);
 
@@ -121,7 +123,7 @@ public class AddCacheActivity extends Activity {
 					.add(new Model(new Cache(cacheNameText.getText().toString(),
 							new GeoPoint(DataClass.getMylat(), DataClass
 									.getMylng()), cacheDiscriptionText.getText()
-									.toString(), true)));
+									.toString(), true,-1)));
 			MyHttpClient http = new MyHttpClient(DataClass.server);
 			try {
 				http.addCacheToDatabase(getApplicationContext(), DataClass

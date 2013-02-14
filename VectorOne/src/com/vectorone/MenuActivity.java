@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -47,6 +48,7 @@ public class MenuActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_menue);
 		gridlayout = (GridLayout) findViewById(R.id.menue_layout);
@@ -177,6 +179,7 @@ public class MenuActivity extends Activity {
 			startActivity(intent);
 		}
 		if (v == logout) {
+			dialog.dismiss();
 			finish();
 			DataClass.clear();
 			intent = new Intent(getApplicationContext(),
@@ -192,6 +195,7 @@ public class MenuActivity extends Activity {
 		}
 		if (v == dialoglogoutButton) {
 			finish();
+			dialog.dismiss();
 			DataClass.clear();
 			intent = new Intent(getApplicationContext(),
 					MainLogInActivity.class);

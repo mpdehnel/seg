@@ -1,0 +1,34 @@
+package com.game.memory;
+
+import java.util.LinkedList;
+
+import android.graphics.Color;
+import android.os.CountDownTimer;
+import android.widget.CheckBox;
+import android.widget.TextView;
+
+public class Game_memory_Time extends CountDownTimer {
+
+	private CheckBox t1;
+	private long millisInFuture;
+
+	public Game_memory_Time(long millisInFuture, long countDownInterval,
+			CheckBox t1) {
+		super(millisInFuture, countDownInterval);
+		this.millisInFuture=millisInFuture;
+		this.t1=t1;
+		t1.setTextColor(Color.WHITE);
+
+	}
+
+	@Override
+	public void onFinish() {
+		t1.setChecked(false);
+	}
+
+	@Override
+	public void onTick(long millisUntilFinished) {
+
+	}
+
+}

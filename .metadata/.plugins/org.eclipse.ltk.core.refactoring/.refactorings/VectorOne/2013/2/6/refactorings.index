@@ -39,3 +39,12 @@
 1360199845810	Rename field 'cacheName'
 1360199855067	Rename field 'cacheDiscription'
 1360252916650	Delete element
+1360332395447	Delete element
+1360332489987	Extracts string 'null' into R.string.leer
+1360332544973	Delete element
+1360333297090	Copy file
+1360338738657	Delete element
+1360338765440	Rename package 'game'
+1360338775470	Move compilation unit
+1360341690867	Delete element
+1360378662808	Rename type 'Testuhr'

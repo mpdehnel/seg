@@ -149,6 +149,7 @@ public class MyHttpClient {
 						"longitude", element))));
 				tmp.setDescripton(getValueofTag("description", element));
 				tmp.setfounded(Boolean.valueOf(getValueofTag("found", element)));
+				tmp.setID(Integer.valueOf(getValueofTag("id", element)));
 				cachelist.add(tmp);
 				
 			}

@@ -71,6 +71,14 @@
             android:name="com.vectorone.AddCacheActivity"
             android:label="@string/app_name" >
         </activity>
+         <activity
+            android:name="com.game.keepopen.Game_keepopen_Activity"
+            android:label="@string/app_name" >
+        </activity>
+           <activity
+            android:name="com.game.memory.Game_memory_Activity"
+            android:label="@string/app_name" >
+        </activity>
 
         <uses-library android:name="com.google.android.maps" />
     </application>

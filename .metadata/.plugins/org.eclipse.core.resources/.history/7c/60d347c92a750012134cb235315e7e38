@@ -1,0 +1,14 @@
+package com.game.memory;
+
+import android.content.Context;
+import android.widget.Button;
+import android.widget.CheckBox;
+
+public class MyMemoryButton extends CheckBox {
+
+	public MyMemoryButton(Context context) {
+		super(context);
+		// TODO Auto-generated constructor stub
+	}
+
+}

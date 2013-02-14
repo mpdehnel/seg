@@ -1,0 +1,40 @@
+package com.game;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.widget.CheckBox;
+import android.widget.Toast;
+
+public class gameThread implements Runnable {
+	private CheckBox[] lights;
+	private long starttime;
+	private Context cx;
+
+	public gameThread(CheckBox[] lights, Context cx) {
+		this.lights = lights;
+		this.cx = cx;
+		starttime = System.currentTimeMillis();
+	}
+
+	@Override
+	protected Boolean doInBackground(Integer... params) {
+
+		return null;
+	}
+
+	@Override
+	public void run() {
+		int secs = 0;
+		while (secs < 10) {
+			secs = (int) (System.currentTimeMillis() - starttime) / 1000;
+			lights[secs].setChecked(true);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+}

@@ -7,6 +7,7 @@ import com.data.ListAdapter;
 import com.data.Model;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
@@ -18,6 +19,7 @@ public class CacheSelectActivity extends ListActivity {
 
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		adapter = new ListAdapter(this, DataClass.caches);
 		getListView().setBackgroundDrawable(
 				getResources().getDrawable(R.drawable.background));

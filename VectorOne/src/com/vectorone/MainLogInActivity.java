@@ -6,13 +6,15 @@ import org.apache.http.client.ClientProtocolException;
 
 import com.data.Cache;
 import com.data.DataClass;
+import com.data.DatabaseHandler;
 import com.data.Model;
 import com.data.MyHttpClient;
+import com.game.keepopen.Game_keepopen_Activity;
+import com.game.memory.Game_memory_Activity;
 import com.google.android.maps.GeoPoint;
-import com.vectorone.R.drawable;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -23,7 +25,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class MainLogInActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
@@ -111,7 +113,6 @@ public class MainLogInActivity extends Activity {
 		registerbutton.setTypeface(font);
 		registerbutton.setTextSize(textsize);
 		registerbutton.setTextColor(buttoncolor);
-
 		usernamelabel.setTextColor(textcolor);
 		usernamelabel.setTextSize(textsize);
 		usernamelabel.setTypeface(font);
@@ -120,9 +121,8 @@ public class MainLogInActivity extends Activity {
 		passwordlabel.setTextSize(textsize);
 		passwordlabel.setTypeface(font);
 	}
-		
 
-	private void clickhandle(View v) throws IOException {
+	private void clickhandle(View v) {
 		Intent intent;
 
 		if (v == loginbutton) {
@@ -133,15 +133,29 @@ public class MainLogInActivity extends Activity {
 
 			if (/* httpClient.isUser(username, password) */true) {
 
-				 Toast.makeText(this, "Connected to the database!",Toast.LENGTH_LONG).show();
-
-				 DataClass.addCachesFromDataBase(httpClient
+				Toast.makeText(this, "Connected to the database!",
+						Toast.LENGTH_LONG).show();
+				DatabaseHandler dbhandler = new DatabaseHandler(
+						getApplicationContext());
+				try {
+					DataClass.addCachesFromDataBase(httpClient
 							.getCachesfromDatabase("test"));
+					dbhandler.remove();
+					dbhandler= new DatabaseHandler(getApplicationContext()	);
+					for (int i = 0; i < DataClass.caches.size(); i++) {
+						dbhandler.addCache(DataClass.caches.get(i).getCach());
+					}
+					
+					
+				} catch (Exception e) {
+					
+					dbhandler.getAllCache();
+
+				}
 				DataClass.caches.add(new Model(new Cache("DurhamUniversitaet",
-						new GeoPoint(54767542, -1571993), //new GeoPoint(
-								//54767442, -1570993), 
-								"thats CLC Main Entry",
-						false)));
+						new GeoPoint(54767542, -1571993), // new GeoPoint(
+						// 54767442, -1570993),
+						"thats CLC Main Entry", false, 666)));
 				finish();
 				intent = new Intent(getApplicationContext(), MenuActivity.class);
 				intent.putExtra("username", username);
@@ -159,6 +173,10 @@ public class MainLogInActivity extends Activity {
 			startActivity(intent);
 		}
 		if (v == clearbutton) {
+
+			intent = new Intent(getApplicationContext(),
+					Game_memory_Activity.class);
+			startActivity(intent);
 			Toast.makeText(this, "ToDo:;)", Toast.LENGTH_LONG).show();
 
 		}
@@ -168,12 +186,8 @@ public class MainLogInActivity extends Activity {
 	private OnClickListener clickhandler = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			try {
-				clickhandle(v);
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
+			clickhandle(v);
+
 		}
 	};
 

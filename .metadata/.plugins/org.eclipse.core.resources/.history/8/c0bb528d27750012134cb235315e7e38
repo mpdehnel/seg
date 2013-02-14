@@ -1,0 +1,28 @@
+package com.game.memory;
+
+import java.util.LinkedList;
+
+import android.os.CountDownTimer;
+
+public class Game_memory_Time extends CountDownTimer {
+	
+	LinkedList<Integer> field;
+
+	public Game_memory_Time(long millisInFuture, long countDownInterval,
+			LinkedList<Integer> field) {
+		super(millisInFuture, countDownInterval);
+		this.field=field;
+	}
+
+	@Override
+	public void onFinish() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTick(long millisUntilFinished) {
+		
+	}
+
+}

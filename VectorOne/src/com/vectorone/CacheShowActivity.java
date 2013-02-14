@@ -6,6 +6,7 @@ import com.data.DataClass;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -30,9 +31,12 @@ public class CacheShowActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_cachshow);
 		Intent intent = getIntent();
+		
+		//TODO: mapsboolen handel
 		cacheindex = intent.getIntExtra("CacheIndex", -1);
 
 		initfields();

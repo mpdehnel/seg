@@ -1,0 +1,30 @@
+package com.game;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.widget.CheckBox;
+
+
+public class gameThread extends AsyncTask<Integer, Integer, Boolean>{
+	private CheckBox[] lights;
+	private long starttime;
+	private Context cx;
+	
+	public gameThread(CheckBox[] lights, Context cx) {
+		this.lights=lights;
+		this.cx=cx;
+		 starttime= System.currentTimeMillis();
+	}
+
+	@Override
+	protected Boolean doInBackground(Integer... params) {
+	
+		int secs= (int)(System.currentTimeMillis()-starttime)/1000;
+//			lights[secs].setChecked(true);
+	
+		
+		
+		return null;
+	}
+
+}

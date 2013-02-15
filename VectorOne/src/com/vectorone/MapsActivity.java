@@ -49,6 +49,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	private Button setNewCache;
 	private TextView scale;
 	private Dialog CacheFoundDialog;
+	private Button refresh_button;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +109,11 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 		}
 
-		setupNewCachButton();
+		setupButtons();
 
 	}
 
-	private void setupNewCachButton() {
+	private void setupButtons() {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
 
@@ -134,6 +135,21 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 			}
 		});
+		
+		refresh_button= (Button) findViewById(R.id.refreshbutton);
+		refresh_button.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.buttonmedium));
+		refresh_button.setTypeface(font);
+		refresh_button.setTextColor(Color.parseColor("#45250F"));
+		refresh_button.setTextSize(22);
+		refresh_button.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "TODO:", Toast.LENGTH_SHORT).show();
+			}
+		});
+		
 
 	}
 

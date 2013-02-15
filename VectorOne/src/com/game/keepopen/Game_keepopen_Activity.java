@@ -2,6 +2,7 @@ package com.game.keepopen;
 
 import com.vectorone.R;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class Game_keepopen_Activity extends Activity {
 	private boolean hardcore = false;
 	private Game_KeepOpen_Time gametime;
 	private MediaPlayer mp;
+	private boolean withpoints;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,8 @@ public class Game_keepopen_Activity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_keepopen_game);
+		Intent intent= getIntent();
+		withpoints= intent.getBooleanExtra("withpoints", true);
 		for (int i = 0; i < numberoflights; i++) {
 			lights[i] = (CheckBox) findViewById(getid("light" + (i + 1)));
 			lights[i].setButtonDrawable(R.drawable.checkbox_keepopen_game);
@@ -133,9 +137,17 @@ public class Game_keepopen_Activity extends Activity {
 	}
 
 	private void calculatepoints() {
-		// TODO Auto-generated method stub
-
+		if(withpoints){
+			//TODO:
+		}
 	}
+	
+	@Override
+	public void onBackPressed() {
+		mp.stop();
+		super.onBackPressed();
+	}
+	
 
 	public void setHardcodeListener(boolean hardcore) {
 		if (hardcore) {

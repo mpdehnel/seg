@@ -3,11 +3,9 @@ package com.data;
 import java.util.List;
 
 import com.vectorone.CacheShowActivity;
-import com.vectorone.MenuActivity;
 import com.vectorone.R;
 
 import android.app.Activity;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -18,9 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ListAdapter extends ArrayAdapter<Model> {
 

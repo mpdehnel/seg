@@ -1,0 +1,20 @@
+package com.vectorone;
+
+import android.app.Application;
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+
+public class WifiSupport {
+
+	private WifiManager wifi;
+	private WifiInfo info;
+	private String TAG="WIFI";
+
+	public WifiSupport(Application app) {
+		wifi = (WifiManager) app.getSystemService(Context.WIFI_SERVICE);
+		info = wifi.getConnectionInfo();
+
+	}
+
+}

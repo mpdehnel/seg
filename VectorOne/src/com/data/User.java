@@ -1,5 +1,7 @@
 package com.data;
 
+import com.vectorone.R;
+
 public class User {
 	private String username;
 	private String nickname;
@@ -11,7 +13,7 @@ public class User {
 
 	public User(String username, String nickname, String team,
 			int totalchaches, int totalpoints, int drawable, int id) {
-		this.id=id;
+		this.id = id;
 		this.image = drawable;
 		this.nickname = nickname;
 		this.username = username;
@@ -66,11 +68,27 @@ public class User {
 	}
 
 	public int getImage() {
-		return image;
+		return R.drawable.avatar;
 	}
 
 	public void setImage(int image) {
 		this.image = image;
+	}
+
+	public String toString() {
+		String tmp = "ID:" + id + " Name:" + username + " nickname:" + nickname
+				+ " totalcaches:" + totalcaches + " totalpoints:" + totalpoints
+				+ " teamcolor:" + team + "imageid:" + image;
+		return tmp;
+
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 }

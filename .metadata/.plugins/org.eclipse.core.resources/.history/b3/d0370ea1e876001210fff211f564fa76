@@ -1,0 +1,74 @@
+package com.vectorone;
+
+import com.data.DataClass;
+import com.data.DatabaseCacheHandler;
+import com.data.MyHttpClient;
+
+import android.content.Context;
+import android.os.CountDownTimer;
+import android.widget.TextView;
+
+public class loadingtimer extends CountDownTimer {
+
+	private MyHttpClient httpClient = new MyHttpClient(DataClass.server);
+	
+	public loadingtimer(long millisInFuture, long countDownInterval, String username, String password, TextView prozent,Context cx) {
+		super(millisInFuture, countDownInterval);
+
+		
+		try {
+			if (httpClient.isUser(username, password)) {
+
+				DatabaseCacheHandler dbhandler = new DatabaseCacheHandler(
+						cx);
+				try {
+					DataClass.addCachesFromDataBase(httpClient
+							.getCachesfromDatabase("test"));
+					dbhandler.remove();
+					dbhandler = new DatabaseCacheHandler(
+							getApplicationContext());
+					for (int i = 0; i < DataClass.caches.size(); i++) {
+						dbhandler.addCache(DataClass.caches.get(i)
+								.getCach());
+					}
+
+				} catch (Exception e) {
+
+					dbhandler.getAllCache();
+
+				}
+				DataClass.caches.add(new Model(new Cache(
+						"DurhamUniversitaet", new GeoPoint(54767542,
+								-1571993), // new GeoPoint(
+						// 54767442, -1570993),
+						"thats CLC Main Entry", false, 666)));
+				finish();
+				intent = new Intent(getApplicationContext(),
+						MenuActivity.class);
+				intent.putExtra("username", username);
+				startActivity(intent);
+
+			} else {
+				Toast.makeText(this, "Unkown User/Password combination",
+						Toast.LENGTH_LONG).show();
+			}
+		} catch (Exception e) {
+			Toast.makeText(this, "No internet ",
+					Toast.LENGTH_LONG).show();
+		}
+	
+	}
+
+	@Override
+	public void onFinish() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTick(long millisUntilFinished) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

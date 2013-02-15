@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.vectorone.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ public class Game_memory_Activity extends Activity {
 	private LinkedList<Integer> field = new LinkedList<Integer>();
 	private int tmpBoxindex = -1;
 	private Game_memory_Time gametime;
+	private boolean withpoints;
 	private static final String TAG = "GameMemory";
 
 	@Override
@@ -29,6 +31,8 @@ public class Game_memory_Activity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_keepopen_game);
+		Intent intent = getIntent();
+		withpoints = intent.getBooleanExtra("withpoints", true);
 		generatefiled(field);
 		Log.i(TAG, field.toString());
 		intitfields();
@@ -244,6 +248,13 @@ public class Game_memory_Activity extends Activity {
 		return issame;
 	}
 
+	private void calculatepoints() {
+		if (withpoints) {
+
+			// TODO Auto-generated method stub
+		}
+	}
+
 	private OnClickListener clickhandler = new OnClickListener() {
 
 		@Override
@@ -264,7 +275,8 @@ public class Game_memory_Activity extends Activity {
 						CheckBox click1 = lights[tmpBoxindex];
 						CheckBox click2 = ((CheckBox) findViewById(v.getId()));
 						click2.setChecked(true);
-						new Game_memory_Time(1000, 100, click1, click2,lights).start();
+						new Game_memory_Time(1000, 100, click1, click2, lights)
+								.start();
 						tmpBoxindex = -1;
 					}
 				} else {

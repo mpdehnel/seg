@@ -5,6 +5,7 @@ import com.data.DataClass;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -13,7 +14,9 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.wifi.WifiInfo;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 import android.view.View;
@@ -42,8 +45,8 @@ public class MenuActivity extends Activity {
 	private Button dialogcancelButton;
 	private Dialog dialog;
 	private TextView usernameTextView;
-	private String username;
-	private GridLayout gridlayout;
+	private RelativeLayout layout;
+	private Vibrator vibrate ;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,15 +54,13 @@ public class MenuActivity extends Activity {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_menue);
-		gridlayout = (GridLayout) findViewById(R.id.menue_layout);
+		layout = (RelativeLayout) findViewById(R.id.menue_layout);
 
-		Intent intent = getIntent();
-		username = intent.getStringExtra("username");
 		initfields();
 		setupListener();
 		setupbackgoundimages();
 		setupfonts();
-		usernameTextView.setText(username);
+		usernameTextView.setText("Hello  "+DataClass.user.getNickname());
 
 	}
 
@@ -73,6 +74,7 @@ public class MenuActivity extends Activity {
 		RelativeLayout relativ= (RelativeLayout) findViewById(R.id.test);
 		//relativ.setBackgroundDrawable(getResources().getDrawable(R.drawable.databar));
 		relativ.addView(new DrawableStatusbar(this));
+		vibrate= (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		relativ.addView(new Backgroundview(this,getResources().getDrawable(R.drawable.databar)));
 		intidialog();
 		dialoglogoutButton = (Button) dialog
@@ -110,12 +112,17 @@ public class MenuActivity extends Activity {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
 		int buttoncolor = Color.parseColor("#45250F");
+		int textcolor=Color.parseColor("#DECD87");
 		float textsize = 22;
 
 		cachesSelectButton.setTypeface(font);
 		cachesSelectButton.setTextSize(textsize);
 		cachesSelectButton.setTextColor(buttoncolor);
-
+		
+		usernameTextView.setTypeface(font);
+		usernameTextView.setTextSize(textsize);
+		usernameTextView.setTextColor(textcolor);
+		
 		mapsButton.setTypeface(font);
 		mapsButton.setTextSize(textsize);
 		mapsButton.setTextColor(buttoncolor);
@@ -146,9 +153,11 @@ public class MenuActivity extends Activity {
 	}
 
 	private void setupbackgoundimages() {
-		Drawable buttonimage = getResources().getDrawable(
-				R.drawable.buttonmedium);
-		gridlayout.setBackgroundDrawable(getResources().getDrawable(
+		//Drawable buttonimage = getResources().getDrawable(
+			//	R.drawable.buttonmedium);
+		Drawable buttonimage= getResources().getDrawable(R.drawable.buttonmedium);
+		
+		layout.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.background));
 
 		cachesSelectButton.setBackgroundDrawable(buttonimage);
@@ -165,7 +174,7 @@ public class MenuActivity extends Activity {
 
 	private void clickhandle(View v) {
 		Intent intent;
-
+		vibrate.vibrate(50);
 		if (v == cachesSelectButton) {
 			startActivity(new Intent(getApplicationContext(),
 					CacheSelectActivity.class));
@@ -202,7 +211,8 @@ public class MenuActivity extends Activity {
 			startActivity(intent);
 		}
 		if (v == dialogcloseAppButton) {
-
+			dialog.dismiss();
+			finish();
 		}
 
 	}

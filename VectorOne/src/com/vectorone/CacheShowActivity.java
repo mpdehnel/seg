@@ -28,6 +28,7 @@ public class CacheShowActivity extends Activity {
 	private Button yes_Button;
 	private Button no_Button;
 	private int cacheindex;
+	private boolean frommap;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,8 +39,10 @@ public class CacheShowActivity extends Activity {
 		
 		//TODO: mapsboolen handel
 		cacheindex = intent.getIntExtra("CacheIndex", -1);
+		frommap=intent.getBooleanExtra("frommaps", false);
 
 		initfields();
+		handelfrommap();
 		setupListener();
 		setupfont();
 		setupbackgroundimage();
@@ -48,6 +51,18 @@ public class CacheShowActivity extends Activity {
 		CacheDiscription.setText(DataClass.caches.get(cacheindex).getCach()
 				.getDescripton());
 
+	}
+
+	private void handelfrommap() {
+		if(frommap){
+		no_Button.setVisibility(Button.INVISIBLE);
+		yes_Button.setText("Back to Map");
+		question.setVisibility(TextView.INVISIBLE);
+		}else{
+			no_Button.setVisibility(Button.VISIBLE);
+			question.setVisibility(TextView.VISIBLE);
+			yes_Button.setText("yes");
+		}
 	}
 
 	private void initfields() {
@@ -101,9 +116,15 @@ public class CacheShowActivity extends Activity {
 
 	private void clickhandle(View v) {
 		if (v == no_Button) {
+			if(frommap){
+				startActivity(new Intent(getApplicationContext(),
+						MapsActivity.class));
+				
+			}else{
 			DataClass.caches.get(cacheindex).setSelected(false);
 			startActivity(new Intent(getApplicationContext(),
 					CacheSelectActivity.class));
+			}
 		}
 		if (v == yes_Button) {
 			DataClass.caches.get(cacheindex).setSelected(true);

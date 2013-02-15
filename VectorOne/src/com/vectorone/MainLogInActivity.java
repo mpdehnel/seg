@@ -1,18 +1,14 @@
 package com.vectorone;
 
-import java.io.IOException;
-
-import org.apache.http.client.ClientProtocolException;
-
 import com.data.Cache;
 import com.data.DataClass;
-import com.data.DatabaseHandler;
+import com.data.DatabaseCacheHandler;
 import com.data.Model;
 import com.data.MyHttpClient;
 import com.game.keepopen.Game_keepopen_Activity;
-import com.game.memory.Game_memory_Activity;
 import com.google.android.maps.GeoPoint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -21,6 +17,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -38,9 +36,13 @@ public class MainLogInActivity extends Activity {
 	private EditText passwordText;
 	private TextView usernamelabel;
 	private TextView passwordlabel;
+	private Vibrator vibrate;
+	private WifiSupport wifi;
+
 	private RelativeLayout relativlayout;
 
 	private MyHttpClient httpClient = new MyHttpClient(DataClass.server);
+	private Button playgound;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +64,11 @@ public class MainLogInActivity extends Activity {
 		loginbutton.setOnClickListener(clickhandler);
 		clearbutton.setOnClickListener(clickhandler);
 		registerbutton.setOnClickListener(clickhandler);
+		playgound.setOnClickListener(clickhandler);
 
 	}
 
 	private void initdatafields() {
-
 		loginbutton = (Button) findViewById(R.id.loginbutton);
 		clearbutton = (Button) findViewById(R.id.clearbutton);
 		registerbutton = (Button) findViewById(R.id.registrationbutton);
@@ -75,11 +77,15 @@ public class MainLogInActivity extends Activity {
 		usernamelabel = (TextView) findViewById(R.id.userlabel);
 		passwordlabel = (TextView) findViewById(R.id.passwordlabel);
 		relativlayout = (RelativeLayout) findViewById(R.id.login_layout);
+		playgound = (Button) findViewById(R.id.playground);
+		vibrate = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		wifi= new WifiSupport();
 	}
 
 	private void setupbackgroundimage() {
 		Drawable buttonimage = getResources().getDrawable(
 				R.drawable.buttonmedium);
+
 		Drawable textfieldbackground = getResources().getDrawable(
 				R.drawable.textentry);
 		relativlayout.setBackgroundDrawable(getResources().getDrawable(
@@ -90,6 +96,7 @@ public class MainLogInActivity extends Activity {
 		loginbutton.setBackgroundDrawable(buttonimage);
 		clearbutton.setBackgroundDrawable(buttonimage);
 		registerbutton.setBackgroundDrawable(buttonimage);
+		playgound.setBackgroundDrawable(buttonimage);
 
 	}
 
@@ -120,49 +127,65 @@ public class MainLogInActivity extends Activity {
 		passwordlabel.setTextColor(textcolor);
 		passwordlabel.setTextSize(textsize);
 		passwordlabel.setTypeface(font);
+		
+		playgound.setTextColor(buttoncolor);
+		playgound.setTypeface(font);
+		playgound.setTextSize(textsize);
 	}
 
 	private void clickhandle(View v) {
 		Intent intent;
-
+		vibrate.vibrate(50);
 		if (v == loginbutton) {
-
-			String username = usernameText.getText().toString();
-			String password = ((EditText) findViewById(R.id.PasswordTextField))
+			final String username = usernameText.getText().toString();
+			final String password = ((EditText) findViewById(R.id.PasswordTextField))
 					.getText().toString();
+			Log.i("MAIN", "username:" + username + "---password:" + password);
 
-			if (/* httpClient.isUser(username, password) */true) {
+			try {
+				if (!username.equals("") && !password.equals("")
+						&& httpClient.isUser(username, password)) {
 
-				Toast.makeText(this, "Connected to the database!",
-						Toast.LENGTH_LONG).show();
-				DatabaseHandler dbhandler = new DatabaseHandler(
-						getApplicationContext());
-				try {
-					DataClass.addCachesFromDataBase(httpClient
-							.getCachesfromDatabase("test"));
-					dbhandler.remove();
-					dbhandler= new DatabaseHandler(getApplicationContext()	);
-					for (int i = 0; i < DataClass.caches.size(); i++) {
-						dbhandler.addCache(DataClass.caches.get(i).getCach());
+					Toast.makeText(getApplicationContext(),
+							"Connected to the database!", Toast.LENGTH_LONG)
+							.show();
+					DataClass.addtolog(username + " logged in");
+					DatabaseCacheHandler dbhandler = new DatabaseCacheHandler(
+							getApplicationContext());
+					try {
+						DataClass.addCachesFromDataBase(httpClient
+								.getCachesfromDatabase("test"));
+						dbhandler.remove();
+						dbhandler = new DatabaseCacheHandler(
+								getApplicationContext());
+						for (int i = 0; i < DataClass.caches.size(); i++) {
+							dbhandler.addCache(DataClass.caches.get(i)
+									.getCach());
+						}
+
+					} catch (Exception e) {
+
+						dbhandler.getAllCache();
+
 					}
-					
-					
-				} catch (Exception e) {
-					
-					dbhandler.getAllCache();
+					DataClass.caches.add(new Model(new Cache(
+							"DurhamUniversitaet", new GeoPoint(54767542,
+									-1571993), // new GeoPoint(
+							// 54767442, -1570993),
+							"thats CLC Main Entry", false, 666)));
+					finish();
+					intent = new Intent(getApplicationContext(),
+							MenuActivity.class);
+					intent.putExtra("username", username);
+					startActivity(intent);
 
+				} else {
+					Toast.makeText(getApplicationContext(),
+							"Unkown User/Password combination",
+							Toast.LENGTH_LONG).show();
 				}
-				DataClass.caches.add(new Model(new Cache("DurhamUniversitaet",
-						new GeoPoint(54767542, -1571993), // new GeoPoint(
-						// 54767442, -1570993),
-						"thats CLC Main Entry", false, 666)));
-				finish();
-				intent = new Intent(getApplicationContext(), MenuActivity.class);
-				intent.putExtra("username", username);
-				startActivity(intent);
-
-			} else {
-				Toast.makeText(this, "Unkown User/Password combination",
+			} catch (Exception e) {
+				Toast.makeText(getApplicationContext(), "No internet ",
 						Toast.LENGTH_LONG).show();
 			}
 
@@ -173,12 +196,14 @@ public class MainLogInActivity extends Activity {
 			startActivity(intent);
 		}
 		if (v == clearbutton) {
-
-			intent = new Intent(getApplicationContext(),
-					Game_memory_Activity.class);
+			wifi.getMacAddress(getApplicationContext());
+			//usernameText.setText("");
+			//passwordText.setText("");
+			
+		}
+		if(v==playgound){
+			intent = new Intent(getApplicationContext(),PlaygroundActivity.class);
 			startActivity(intent);
-			Toast.makeText(this, "ToDo:;)", Toast.LENGTH_LONG).show();
-
 		}
 
 	}

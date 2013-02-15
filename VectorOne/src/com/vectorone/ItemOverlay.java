@@ -54,7 +54,7 @@ public class ItemOverlay extends ItemizedOverlay<OverlayItem> {
 		Intent intent = new Intent(mContext,
 				CacheShowActivity.class);
 		intent.putExtra("CacheIndex", index);
-		intent.putExtra("maps", true);
+		intent.putExtra("frommaps", true);
 		mContext.startActivity(intent);
 		return true;
 	}

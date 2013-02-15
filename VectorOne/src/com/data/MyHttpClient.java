@@ -24,6 +24,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -33,16 +34,10 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 public class MyHttpClient {
 	private String server;
 	private Cache[] tmp;
+	private String TAG = "HTTPCLIENTUSER";
 
 	public MyHttpClient(String server) {
 		this.server = server;
-
-		/*
-		 * } catch (ClientProtocolException e) { // TODO Auto-generated catch
-		 * block e.printStackTrace(); } catch (IOException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } } };
-		 * getCachesThread.run();
-		 */
 
 	}
 
@@ -50,7 +45,8 @@ public class MyHttpClient {
 			throws ClientProtocolException, IOException {
 
 		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet(this.server + "user");
+		HttpGet request = new HttpGet(this.server + "login.php?username="
+				+ username + "&password=" + password);
 		HttpResponse response = client.execute(request);
 
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response
@@ -58,10 +54,14 @@ public class MyHttpClient {
 
 		String line = "";
 		while ((line = rd.readLine()) != null) {
-			parseUser(username, line);
+			// Log.i(TAG, line);
+			if (!line.equalsIgnoreCase("denied")) {
+				parseUser(username, line);
+				return true;
+			}
 		}
 
-		return true;
+		return false;
 
 	}
 
@@ -79,8 +79,10 @@ public class MyHttpClient {
 						"totalcaches", line)));
 				user.setTotalpoints(Integer.valueOf(getValueofTag(
 						"totalpoints", line)));
-				user.setImage(123);
-				System.out.println(user.toString());
+				user.setImage(Integer.valueOf(getValueofTag("avatar", line)));
+				user.setId(Integer.valueOf(getValueofTag("id", line)));
+				// Log.i(TAG,user.toString());
+				DataClass.user = user;
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -114,7 +116,7 @@ public class MyHttpClient {
 			throws ClientProtocolException, IOException {
 
 		HttpClient client = new DefaultHttpClient();
-		//HttpGet request = new HttpGet(this.server + "caches.php");
+		// HttpGet request = new HttpGet(this.server + "caches.php");
 		HttpGet request = new HttpGet(this.server + "getAllCaches.php");
 		HttpResponse response = client.execute(request);
 
@@ -123,6 +125,7 @@ public class MyHttpClient {
 
 		String line = "";
 		while ((line = rd.readLine()) != null) {
+			// Log.i(TAG, line);
 			return parseCache(line);
 		}
 		return null;
@@ -151,7 +154,7 @@ public class MyHttpClient {
 				tmp.setfounded(Boolean.valueOf(getValueofTag("found", element)));
 				tmp.setID(Integer.valueOf(getValueofTag("id", element)));
 				cachelist.add(tmp);
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -175,10 +178,13 @@ public class MyHttpClient {
 
 	}
 
-	public void addCacheToDatabase(Context context, int lon, int lat, String Cachename, String MyDescription) throws ClientProtocolException,
-			IOException {
+	public void addCacheToDatabase(Context context, int lon, int lat,
+			String Cachename, String MyDescription)
+			throws ClientProtocolException, IOException {
 		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet( this.server+"createCache.php?username=Robby"+"&userlat="+lat+"&userlon="+lon+"&description="+MyDescription);
+		HttpGet request = new HttpGet(this.server
+				+ "createCache.php?username=Robby" + "&userlat=" + lat
+				+ "&userlon=" + lon + "&description=" + MyDescription);
 		HttpResponse response = client.execute(request);
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response
 				.getEntity().getContent()));
@@ -188,26 +194,24 @@ public class MyHttpClient {
 			Toast.makeText(context, line, Toast.LENGTH_SHORT).show();
 		}
 	}
-	public void getportiondata() throws IllegalStateException, IOException{
+
+	public void getportiondata() throws IllegalStateException, IOException {
 		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet( this.server+"getTeamSizes.php");
+		HttpGet request = new HttpGet(this.server + "getTeamSizes.php");
 		HttpResponse response = client.execute(request);
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response
 				.getEntity().getContent()));
 
 		String line = "";
 		while ((line = rd.readLine()) != null) {
-			String numbers[]=line.split(",");
-			DataClass.blueportion=Integer.parseInt(numbers[1]);
-			DataClass.redportion=Integer.parseInt(numbers[0]);
-			DataClass.greenportion=Integer.parseInt(numbers[2]);
-			DataClass.purpleportion=Integer.parseInt(numbers[3]);
+			// Log.i(TAG, line);
+			String numbers[] = line.split(",");
+			DataClass.blueportion = Integer.parseInt(numbers[1]);
+			DataClass.redportion = Integer.parseInt(numbers[0]);
+			DataClass.greenportion = Integer.parseInt(numbers[2]);
+			DataClass.purpleportion = Integer.parseInt(numbers[3]);
 		}
-		
+
 	}
 
-	/*
-	 * public static void main(String[] args) { new
-	 * MyHttpClient("http://www.netroware.co.uk/test/"); }
-	 */
 }

@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menue_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:columnCount="4" >
+
+    <RelativeLayout
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="left" >
+
+        <ImageView
+            android:id="@+id/statusbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="202dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:text="LogOut" />
+
+    <Button
+        android:id="@+id/settingsbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/logout_button"
+        android:layout_alignRight="@+id/logout_button"
+        android:layout_marginBottom="52dp"
+        android:onClick="settings"
+        android:text="@string/button_settings" />
+
+    <Button
+        android:id="@+id/button_maps"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/settingsbutton"
+        android:layout_alignLeft="@+id/settingsbutton"
+        android:layout_marginBottom="24dp"
+        android:text="@string/button_maps" />
+
+    <Button
+        android:id="@+id/mebutton"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/settingsbutton"
+        android:layout_alignBottom="@+id/settingsbutton"
+        android:layout_alignLeft="@+id/logout_button"
+        android:onClick="user"
+        android:text="@string/button_user" />
+
+    <Button
+        android:id="@+id/cachselectbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_maps"
+        android:layout_alignBottom="@+id/button_maps"
+        android:layout_alignRight="@+id/mebutton"
+        android:onClick="cachselect"
+        android:text="@string/button_cachselect" />
+
+    <TextView
+        android:id="@+id/MenueUsername"
+        android:layout_width="183dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/test"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/username" />
+
+</RelativeLayout>

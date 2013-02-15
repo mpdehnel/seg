@@ -1,0 +1,27 @@
+package com.vectorone;
+
+import android.os.CountDownTimer;
+import android.widget.TextView;
+
+public class loadingtimer extends CountDownTimer {
+
+	public loadingtimer(long millisInFuture, long countDownInterval, String username, String password, TextView prozent) {
+		super(millisInFuture, countDownInterval);
+
+	
+	
+	}
+
+	@Override
+	public void onFinish() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTick(long millisUntilFinished) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

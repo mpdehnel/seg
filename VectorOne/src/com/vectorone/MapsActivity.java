@@ -15,6 +15,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -25,6 +26,7 @@ import android.widget.ZoomButtonsController.OnZoomListener;
 
 import com.data.Cache;
 import com.data.DataClass;
+import com.data.SegMathClass;
 import com.game.memory.Game_memory_Activity;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -33,6 +35,10 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 import com.google.*;
+import com.maps.route.GoogleParser;
+import com.maps.route.Parser;
+import com.maps.route.Route;
+import com.maps.route.RouteOverlay;
 
 @SuppressLint("ShowToast")
 public class MapsActivity extends MapActivity implements LocationListener {
@@ -41,6 +47,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	// private GeoLocation locclac;
 	private LocationManager locationManager;
 	private String provider;
+	private RouteOverlay routeOverlay;
 	private Location location;
 	private double lat;
 	private double lng;
@@ -135,21 +142,33 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 			}
 		});
-		
-		refresh_button= (Button) findViewById(R.id.refreshbutton);
+
+		refresh_button = (Button) findViewById(R.id.refreshbutton);
 		refresh_button.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.buttonmedium));
 		refresh_button.setTypeface(font);
 		refresh_button.setTextColor(Color.parseColor("#45250F"));
 		refresh_button.setTextSize(22);
 		refresh_button.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(), "TODO:", Toast.LENGTH_SHORT).show();
+				removeallOverlaysandaddnew();
+				GeoPoint routing = DataClass.routingpoint;
+				if (routing != null) {
+					Route route = directions(DataClass.getMyGeoPoint(), routing);
+					if (route != null) {
+						routeOverlay = new RouteOverlay(route, Color.BLUE);
+						removeallOverlaysandaddnew();
+					}
+
+				} else {
+					Toast.makeText(getApplicationContext(),
+							"You haven't select a cach for Routing",
+							Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
-		
 
 	}
 
@@ -173,6 +192,12 @@ public class MapsActivity extends MapActivity implements LocationListener {
 					.getDescripton();
 
 			addOverlay(image, gp, name, description);
+		}
+		addOverlay(R.drawable.flagred, new GeoPoint((int) getLat(),
+				(int) getLng()), "Hi", "Here i am!");
+		if (routeOverlay != null) {
+			mapView.getOverlays().add(routeOverlay);
+			mapView.invalidate();
 		}
 	}
 
@@ -223,8 +248,6 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		DataClass.setMyGeoPoint();
 		mc.animateTo(DataClass.getMyGeoPoint());
 		removeallOverlaysandaddnew();
-		addOverlay(R.drawable.flagred, new GeoPoint((int) getLat(),
-				(int) getLng()), "Hi", "Here i am!");
 		if (DataClass.routing > 0)
 			drawroute(DataClass.routing);
 		check_If_I_Found_a_Cache();
@@ -346,7 +369,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 	}
 
-	double getLat() {
+	public double getLat() {
 		return lat;
 	}
 
@@ -370,6 +393,44 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	public void onBackPressed() {
 		finish();
 		super.onBackPressed();
+	}
+
+	// //////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////
+
+	private Route directions(final GeoPoint start, final GeoPoint dest) {
+		if (SegMathClass.calculateDistance1(start, dest) < 10000) {
+			Parser parser;
+			// https://developers.google.com/maps/documentation/directions/#JSON
+			// <-
+			// get api
+			String jsonURL = "http://maps.googleapis.com/maps/api/directions/json?";
+			final StringBuffer sBuf = new StringBuffer(jsonURL);
+			sBuf.append("origin=");
+			sBuf.append(((double) start.getLatitudeE6()) / 1E6);
+			sBuf.append(",");
+			sBuf.append(((double) start.getLongitudeE6()) / 1E6);
+			sBuf.append("&destination=");
+			sBuf.append(((double) dest.getLatitudeE6()) / 1E6);
+			sBuf.append(",");
+			sBuf.append(((double) dest.getLongitudeE6()) / 1E6);
+			sBuf.append("&sensor=false&avoid=highways&mode=bicycling");
+			Log.i("MAP", sBuf.toString());
+			parser = new GoogleParser(sBuf.toString());
+			Route r = parser.parse();
+			if (r == null) {
+				Toast.makeText(getApplicationContext(),
+						"Sry no path between you and the Cache",
+						Toast.LENGTH_LONG).show();
+			}
+			return r;
+		} else {
+			Toast.makeText(getApplicationContext(),
+					"Get colser to the Cache to use this funktion",
+					Toast.LENGTH_LONG).show();
+			return null;
+		}
+
 	}
 
 }

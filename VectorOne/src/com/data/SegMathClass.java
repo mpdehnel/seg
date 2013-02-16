@@ -14,10 +14,21 @@ public class SegMathClass {
 		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
 		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
 		if (Math.round(A.distanceTo(B)) > 5000) {
-			return Math.round(A.distanceTo(B))/1000 + "km";
+			return Math.round(A.distanceTo(B)) / 1000 + "km";
 		} else {
 			return Math.round(A.distanceTo(B)) + "m";
 		}
+
+	}
+
+	public static int calculateDistance1(GeoPoint start, GeoPoint target) {
+		Location A = new Location("A");
+		A.setLatitude(((double) start.getLatitudeE6()) / 1E6);
+		A.setLongitude(((double) start.getLongitudeE6()) / 1E6);
+		Location B = new Location("B");
+		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
+		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
+		return (int) Math.round(A.distanceTo(B));
 
 	}
 

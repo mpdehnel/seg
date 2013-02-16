@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
+import com.data.DataClass;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 
@@ -46,17 +47,31 @@ public class ItemOverlay extends ItemizedOverlay<OverlayItem> {
 
 	@Override
 	protected boolean onTap(int index) {
-		/*OverlayItem item = mOverlays.get(index);
-		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+		OverlayItem item = mOverlays.get(index);
+		/*AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
 		dialog.setTitle(item.getTitle());
 		dialog.setMessage(item.getSnippet());
 		dialog.show();*/
+		if(item.getTitle().equals("Hi")){
+			Intent intent = new Intent(mContext,
+					MeActivity.class);
+			intent.putExtra("frommaps", true);
+			mContext.startActivity(intent);
+
+			return true;
+		}else{
+			for(int i=0;i<DataClass.caches.size();i++){
+				if(item.getTitle().equals(DataClass.caches.get(i).getCach().getName())){
+					index=i;
+				}
+			}
 		Intent intent = new Intent(mContext,
 				CacheShowActivity.class);
 		intent.putExtra("CacheIndex", index);
 		intent.putExtra("frommaps", true);
 		mContext.startActivity(intent);
 		return true;
+		}
 	}
 
 }

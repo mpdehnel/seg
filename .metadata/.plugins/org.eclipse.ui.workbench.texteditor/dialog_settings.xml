@@ -13,8 +13,9 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="chec" key="selection"/>
+		<item value="remove" key="selection"/>
 		<list key="findhistory">
+			<item value="remove"/>
 			<item value="My"/>
 			<item value="chec"/>
 			<item value="my"/>
@@ -22,7 +23,6 @@
 			<item value=" android:button=&quot;@drawable/checkbox_image&quot; "/>
 			<item value="image"/>
 			<item value="blac"/>
-			<item value="open"/>
 		</list>
 		<list key="replacehistory">
 			<item value="android:button=&quot;@drawable/checkbox_game&quot;"/>

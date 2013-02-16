@@ -21,15 +21,6 @@
             android:layout_below="@+id/doyouwant"
             android:text="No" />
 
-        <Button
-            android:id="@+id/yes_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="44dp"
-            android:layout_toRightOf="@+id/routing_button"
-            android:text="Yes" />
-
         <TextView
             android:id="@+id/CachName"
             android:layout_width="wrap_content"
@@ -56,5 +47,33 @@
             android:layout_below="@+id/CachName"
             android:layout_marginTop="51dp"
             android:text="TextView" />
+
+        <Button
+            android:id="@+id/ratethisCache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/doyouwant"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="14dp"
+            android:text="RATE!" />
+
+        <Button
+            android:id="@+id/yes_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ratethisCache"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="42dp"
+            android:text="Yes" />
+
+        <RatingBar
+            android:id="@+id/Cachratingbar"
+            style="@style/CustomRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ratethisCache"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="19dp"
+            android:numStars="6" />
 
     </RelativeLayout>

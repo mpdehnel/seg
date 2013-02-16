@@ -18,6 +18,7 @@ public class DataClass {
 	public static List<Model> caches = new ArrayList<Model>();
 	public static int mylat;
 	public static GeoPoint myGeoPoint;
+	public static GeoPoint routingpoint;
 	public static int mylng;
 	public static int routing;
 	public static String server = "http://www.netroware.co.uk/test/";
@@ -71,6 +72,7 @@ public class DataClass {
 		Date now= new Date();
 		log=df.format(now)+":"+msg+"\n";
 	}
+
 	
 
 }

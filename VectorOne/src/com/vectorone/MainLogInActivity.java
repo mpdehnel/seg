@@ -5,8 +5,8 @@ import com.data.DataClass;
 import com.data.DatabaseCacheHandler;
 import com.data.Model;
 import com.data.MyHttpClient;
-import com.game.keepopen.Game_keepopen_Activity;
 import com.google.android.maps.GeoPoint;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -37,7 +37,6 @@ public class MainLogInActivity extends Activity {
 	private TextView usernamelabel;
 	private TextView passwordlabel;
 	private Vibrator vibrate;
-	private WifiSupport wifi;
 
 	private RelativeLayout relativlayout;
 
@@ -79,7 +78,6 @@ public class MainLogInActivity extends Activity {
 		relativlayout = (RelativeLayout) findViewById(R.id.login_layout);
 		playgound = (Button) findViewById(R.id.playground);
 		vibrate = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-		wifi= new WifiSupport();
 	}
 
 	private void setupbackgroundimage() {
@@ -137,11 +135,13 @@ public class MainLogInActivity extends Activity {
 		Intent intent;
 		vibrate.vibrate(50);
 		if (v == loginbutton) {
-			final String username = usernameText.getText().toString();
-			final String password = ((EditText) findViewById(R.id.PasswordTextField))
+			String username = usernameText.getText().toString();
+			String password = ((EditText) findViewById(R.id.PasswordTextField))
 					.getText().toString();
 			Log.i("MAIN", "username:" + username + "---password:" + password);
 
+			username="martin";
+			password="test";
 			try {
 				if (!username.equals("") && !password.equals("")
 						&& httpClient.isUser(username, password)) {
@@ -196,7 +196,11 @@ public class MainLogInActivity extends Activity {
 			startActivity(intent);
 		}
 		if (v == clearbutton) {
-			wifi.getMacAddress(getApplicationContext());
+			finish();
+			intent = new Intent(getApplicationContext(),
+					MapsActivity.class);
+			startActivity(intent);
+			
 			//usernameText.setText("");
 			//passwordText.setText("");
 			

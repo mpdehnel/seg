@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +30,7 @@ public class CacheShowActivity extends Activity {
 	private Button no_Button;
 	private int cacheindex;
 	private boolean frommap;
+	private Button rate_button;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,10 +38,10 @@ public class CacheShowActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_cachshow);
 		Intent intent = getIntent();
-		
-		//TODO: mapsboolen handel
+
+		// TODO: mapsboolen handel
 		cacheindex = intent.getIntExtra("CacheIndex", -1);
-		frommap=intent.getBooleanExtra("frommaps", false);
+		frommap = intent.getBooleanExtra("frommaps", false);
 
 		initfields();
 		handelfrommap();
@@ -54,14 +56,17 @@ public class CacheShowActivity extends Activity {
 	}
 
 	private void handelfrommap() {
-		if(frommap){
-		no_Button.setVisibility(Button.INVISIBLE);
-		yes_Button.setText("Back to Map");
-		question.setVisibility(TextView.INVISIBLE);
-		}else{
+		if (frommap) {
+			no_Button.setVisibility(Button.INVISIBLE);
+			yes_Button.setText("Back to Map");
+			question.setVisibility(TextView.INVISIBLE);
+			yes_with_routing.setVisibility(Button.INVISIBLE);
+		} else {
 			no_Button.setVisibility(Button.VISIBLE);
 			question.setVisibility(TextView.VISIBLE);
+			yes_with_routing.setVisibility(Button.VISIBLE);
 			yes_Button.setText("yes");
+			yes_with_routing.setText("Route");
 		}
 	}
 
@@ -72,6 +77,7 @@ public class CacheShowActivity extends Activity {
 		yes_Button = (Button) findViewById(R.id.yes_button);
 		yes_with_routing = (Button) findViewById(R.id.routing_button);
 		no_Button = (Button) findViewById(R.id.no_button);
+		rate_button = (Button) findViewById(R.id.ratethisCache);
 		question = (TextView) findViewById(R.id.doyouwant);
 
 	}
@@ -80,11 +86,25 @@ public class CacheShowActivity extends Activity {
 		yes_with_routing.setOnClickListener(clickhandler);
 		yes_Button.setOnClickListener(clickhandler);
 		no_Button.setOnClickListener(clickhandler);
+		rate_button.setOnClickListener(clickhandler);
 	}
 
 	private void setupbackgroundimage() {
 		relativlayout.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.background));
+		Drawable buttonimage = getResources().getDrawable(
+				R.drawable.buttonsmall);
+		Drawable buttonimageinaktiv = getResources().getDrawable(
+				R.drawable.buttonmediumgrey);
+
+		yes_Button.setBackgroundDrawable(buttonimage);
+		yes_with_routing.setBackgroundDrawable(buttonimage);
+		no_Button.setBackgroundDrawable(buttonimage);
+		if (DataClass.caches.get(cacheindex).getCach().isFound()) {
+			rate_button.setBackgroundDrawable(buttonimage);
+		} else {
+			rate_button.setBackgroundDrawable(buttonimageinaktiv);
+		}
 	}
 
 	private void setupfont() {
@@ -110,30 +130,45 @@ public class CacheShowActivity extends Activity {
 		no_Button.setTextSize(textsize);
 		no_Button.setTextColor(buttoncolor);
 
-		yes_with_routing.setVisibility(Button.INVISIBLE);
+		rate_button.setTypeface(font);
+		rate_button.setTextSize(textsize);
+		rate_button.setTextColor(buttoncolor);
+
+		yes_with_routing.setTypeface(font);
+		yes_with_routing.setTextSize(textsize);
+		yes_with_routing.setTextColor(buttoncolor);
+
+		// yes_with_routing.setVisibility(Button.INVISIBLE);
 
 	}
 
 	private void clickhandle(View v) {
 		if (v == no_Button) {
-			if(frommap){
-				startActivity(new Intent(getApplicationContext(),
-						MapsActivity.class));
-				
-			}else{
+
+			finish();
 			DataClass.caches.get(cacheindex).setSelected(false);
 			startActivity(new Intent(getApplicationContext(),
 					CacheSelectActivity.class));
-			}
+
 		}
 		if (v == yes_Button) {
-			DataClass.caches.get(cacheindex).setSelected(true);
-			startActivity(new Intent(getApplicationContext(),
-					CacheSelectActivity.class));
+			if (frommap) {
+				finish();
+				startActivity(new Intent(getApplicationContext(),
+						MapsActivity.class));
+
+			} else {
+				finish();
+				DataClass.caches.get(cacheindex).setSelected(true);
+				startActivity(new Intent(getApplicationContext(),
+						CacheSelectActivity.class));
+			}
 		}
 		if (v == yes_with_routing) {
-			DataClass.routing = cacheindex;
+			finish();
 			DataClass.caches.get(cacheindex).setSelected(true);
+			DataClass.routingpoint = DataClass.caches.get(cacheindex).getCach()
+					.getGeopoint();
 			startActivity(new Intent(getApplicationContext(),
 					CacheSelectActivity.class));
 		}
@@ -141,8 +176,15 @@ public class CacheShowActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		startActivity(new Intent(getApplicationContext(),
-				CacheSelectActivity.class));
+		if (!frommap) {
+			finish();
+			startActivity(new Intent(getApplicationContext(),
+					CacheSelectActivity.class));
+		} else {
+			finish();
+			startActivity(new Intent(getApplicationContext(),
+					MapsActivity.class));
+		}
 		super.onBackPressed();
 	}
 

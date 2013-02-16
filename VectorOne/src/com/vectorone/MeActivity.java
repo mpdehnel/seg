@@ -31,6 +31,7 @@ public class MeActivity extends Activity {
 	private ImageView image;
 	private Button logbutton;
 	private GridLayout gridlayout;
+	private boolean formmaps;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class MeActivity extends Activity {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_user);
+		Intent intent = getIntent();
+		 formmaps=intent.getBooleanExtra("frommaps",false);
 
 		initdatafields();
 		setupListener();
@@ -119,5 +122,9 @@ public class MeActivity extends Activity {
 		image = (ImageView) findViewById(R.id.avatar);
 		logbutton = (Button) findViewById(R.id.log_button);
 		gridlayout = (GridLayout) findViewById(R.id.me_layout);
+	}
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
 	}
 }

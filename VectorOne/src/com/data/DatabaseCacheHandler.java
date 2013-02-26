@@ -70,7 +70,7 @@ public class DatabaseCacheHandler extends SQLiteOpenHelper {
  public void getAllCache() {
 	 List<Cache> cachlist = new ArrayList<Cache>();
     // Select All Query
-    String selectQuery = "SELECT  * FROM " + TABLE_CACHES;
+	 String selectQuery = "SELECT  * FROM " + TABLE_CACHES;
  
     SQLiteDatabase db = this.getWritableDatabase();
     Cursor cursor = db.rawQuery(selectQuery, null);

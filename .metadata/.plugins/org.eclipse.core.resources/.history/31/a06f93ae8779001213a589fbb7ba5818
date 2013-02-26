@@ -1,0 +1,68 @@
+package com.vectorone;
+
+import javax.security.auth.callback.PasswordCallback;
+
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class AddNewUserActivity extends Activity {
+
+	private LinearLayout layout;
+	private TextView usernameLabel;
+	private TextView nickname;
+	private TextView password;
+	private TextView passwordConfirm;
+	private TextView email;
+	private TextView postCode;
+	private TextView dateOfBirth;
+	private Button createButton;
+	private Button cancelButton;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		setContentView(R.layout.activity_addnewuser);
+		
+
+		initdatafields();
+		setupListener();
+		setupfont();
+		setupbackgroundimage();
+	}
+
+	private void setupbackgroundimage() {
+		
+	}
+
+	private void setupfont() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void setupListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void initdatafields() {
+		layout=(LinearLayout) findViewById(R.id.AddNewUser);
+		usernameLabel=(TextView) findViewById(R.id.UsernameLabel);
+		nickname=(TextView) findViewById(R.id.NicknameAddNewUser);
+		password=(TextView) findViewById(R.id.passwordAddNewUser);
+		passwordConfirm=(TextView) findViewById(R.id.PasswordConfirm);
+		email=(TextView) findViewById(R.id.Email);
+		postCode=(TextView) findViewById(R.id.PostCode);
+		dateOfBirth=(TextView) findViewById(R.id.DateOfBirth);
+		createButton=(Button) findViewById(R.id.CreateUser);
+		cancelButton=(Button)findViewById(R.id.Cancel);
+		
+		
+		
+	}
+}

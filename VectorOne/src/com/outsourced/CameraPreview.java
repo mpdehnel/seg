@@ -3,10 +3,7 @@ package com.outsourced;
 import java.io.IOException;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.hardware.Camera;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 

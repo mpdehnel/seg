@@ -3,8 +3,10 @@ package com.vectorone;
 import com.data.Cache;
 import com.data.DataClass;
 import com.data.DatabaseCacheHandler;
+import com.data.DatabaseUserHandler;
 import com.data.Model;
 import com.data.MyHttpClient;
+import com.data.User;
 import com.google.android.maps.GeoPoint;
 
 import android.app.Activity;
@@ -50,7 +52,7 @@ public class MainLogInActivity extends Activity {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
 				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
-		new DataClass();
+		// new DataClass();
 		setContentView(R.layout.activity_login);
 
 		initdatafields();
@@ -125,7 +127,7 @@ public class MainLogInActivity extends Activity {
 		passwordlabel.setTextColor(textcolor);
 		passwordlabel.setTextSize(textsize);
 		passwordlabel.setTypeface(font);
-		
+
 		playgound.setTextColor(buttoncolor);
 		playgound.setTypeface(font);
 		playgound.setTextSize(textsize);
@@ -140,53 +142,68 @@ public class MainLogInActivity extends Activity {
 					.getText().toString();
 			Log.i("MAIN", "username:" + username + "---password:" + password);
 
-			username="martin";
-			password="test";
-			try {
-				if (!username.equals("") && !password.equals("")
-						&& httpClient.isUser(username, password)) {
+			username = "martin";
+			password = "test";
+			Log.i("MAIN", "network"+DataClass.haveNetworkConnection(getApplicationContext()));
+			if (DataClass.haveNetworkConnection(getApplicationContext())) {
+				try {
+					if (!username.equals("") && !password.equals("")
+							&& httpClient.isUser(username, password)) {
+						Log.i("MAIN", "online");
+						DataClass.addtolog(username + " logged in");
 
-					Toast.makeText(getApplicationContext(),
-							"Connected to the database!", Toast.LENGTH_LONG)
-							.show();
-					DataClass.addtolog(username + " logged in");
-					DatabaseCacheHandler dbhandler = new DatabaseCacheHandler(
-							getApplicationContext());
-					try {
-						DataClass.addCachesFromDataBase(httpClient
-								.getCachesfromDatabase("test"));
-						dbhandler.remove();
-						dbhandler = new DatabaseCacheHandler(
+						// ////////////////////////////////////////////////////////////
+						// ////////////////////////////////////////////////////////////
+						DataClass.caches.add(new Model(new Cache(
+								"DurhamUniversitaet", new GeoPoint(54767542,
+										-1571993), // new GeoPoint(
+								// 54767442, -1570993),
+								"thats CLC Main Entry", true, 666)));
+
+						// ////////////////////////////////////////////////////////////
+						// ////////////////////////////////////////////////////////////
+
+						DatabaseUserHandler dbuser = new DatabaseUserHandler(
 								getApplicationContext());
-						for (int i = 0; i < DataClass.caches.size(); i++) {
-							dbhandler.addCache(DataClass.caches.get(i)
-									.getCach());
-						}
+						dbuser.remove();
+						dbuser.addUserInfo(DataClass.user);
 
-					} catch (Exception e) {
+						finish();
+						intent = new Intent(getApplicationContext(),
+								MenuActivity.class);
+						intent.putExtra("username", username);
+						startActivity(intent);
 
-						dbhandler.getAllCache();
-
+					} else {
+						Toast.makeText(getApplicationContext(),
+								"Unkown User/Password combination",
+								Toast.LENGTH_LONG).show();
 					}
-					DataClass.caches.add(new Model(new Cache(
-							"DurhamUniversitaet", new GeoPoint(54767542,
-									-1571993), // new GeoPoint(
-							// 54767442, -1570993),
-							"thats CLC Main Entry", false, 666)));
+				} catch (Exception e) {
+					Toast.makeText(getApplicationContext(),
+							"Connection Problems", Toast.LENGTH_LONG).show();
+
+				}
+			} else {
+				DatabaseUserHandler dbuser = new DatabaseUserHandler(
+						getApplicationContext());
+				dbuser.getUser();
+				if (username.equals(DataClass.user.getUsername())
+						&& password.equals(DataClass.user.getPassword())) {
+					Toast.makeText(getApplicationContext(),
+							"No internet =>Offlinemode", Toast.LENGTH_LONG)
+							.show();
 					finish();
 					intent = new Intent(getApplicationContext(),
 							MenuActivity.class);
 					intent.putExtra("username", username);
 					startActivity(intent);
-
 				} else {
-					Toast.makeText(getApplicationContext(),
-							"Unkown User/Password combination",
+					Toast.makeText(
+							getApplicationContext(),
+							"No internet and Unkown User/Password combination  ",
 							Toast.LENGTH_LONG).show();
 				}
-			} catch (Exception e) {
-				Toast.makeText(getApplicationContext(), "No internet ",
-						Toast.LENGTH_LONG).show();
 			}
 
 		}
@@ -196,17 +213,14 @@ public class MainLogInActivity extends Activity {
 			startActivity(intent);
 		}
 		if (v == clearbutton) {
-			finish();
-			intent = new Intent(getApplicationContext(),
-					MapsActivity.class);
-			startActivity(intent);
-			
-			//usernameText.setText("");
-			//passwordText.setText("");
-			
+
+			usernameText.setText("");
+			passwordText.setText("");
+
 		}
-		if(v==playgound){
-			intent = new Intent(getApplicationContext(),PlaygroundActivity.class);
+		if (v == playgound) {
+			intent = new Intent(getApplicationContext(),
+					PlaygroundActivity.class);
 			startActivity(intent);
 		}
 
@@ -223,7 +237,6 @@ public class MainLogInActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		finish();
-		super.onBackPressed();
 	}
 
 }

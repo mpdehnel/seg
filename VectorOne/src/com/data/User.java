@@ -9,17 +9,17 @@ public class User {
 	private String team;
 	private int totalcaches;
 	private int totalpoints;
-	private int image;
+	private String password;
 
 	public User(String username, String nickname, String team,
-			int totalchaches, int totalpoints, int drawable, int id) {
+			int totalchaches, int totalpoints, int drawable, int id, String password) {
 		this.id = id;
-		this.image = drawable;
 		this.nickname = nickname;
 		this.username = username;
 		this.team = team;
 		this.totalcaches = totalchaches;
 		this.totalpoints = totalpoints;
+		this.password=password;
 
 	}
 
@@ -67,18 +67,11 @@ public class User {
 		this.totalpoints = totalpoints;
 	}
 
-	public int getImage() {
-		return R.drawable.avatar;
-	}
-
-	public void setImage(int image) {
-		this.image = image;
-	}
 
 	public String toString() {
 		String tmp = "ID:" + id + " Name:" + username + " nickname:" + nickname
 				+ " totalcaches:" + totalcaches + " totalpoints:" + totalpoints
-				+ " teamcolor:" + team + "imageid:" + image;
+				+ " teamcolor:" + team;
 		return tmp;
 
 	}
@@ -90,5 +83,20 @@ public class User {
 	public int getId() {
 		return id;
 	}
+
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+
 
 }

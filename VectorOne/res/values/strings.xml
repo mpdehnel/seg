@@ -12,15 +12,42 @@
     <string name="lable_username">username:</string>
     <string name="lable_password">password:</string>
 
-    <string-array name="FindingViews">
-        <item>MapView</item>
-        <item>Map</item>
-        <!--  
-        <item>Cam</item>
-        <item>Radar</item>
-        -->
-
+    <string-array name="Cachs">
+        <item>Founded</item>
+        <item>Yes</item>
+        <item>No</item>
+        <item>All</item>
     </string-array>
-        <string name="leer"></string>
+    <string-array name="Team">
+        <item>Team</item>
+        <item>My</item>
+        <item>NotMy</item>
+        <item>All</item>
+    </string-array>
+    <string-array name="DistanceinM">
+        <item>Distance</item>
+        <item>less than 500m</item>
+        <item>less than 1000m</item>
+        <item>less than 2000m</item>
+        <item>less than 5000m</item>
+        <item>less than 10000m</item>
+        <item>all</item>
+    </string-array>
+    <string-array name="Distanceinft">
+        <item>Distance</item>
+        <item>less than 500ft</item>
+        <item>less than 1000ft</item>
+        <item>less than 2000ft</item>
+        <item>less than 5000ft</item>
+        <item>less than 10000ft</item>
+        <item>all</item>
+    </string-array>
+    <string-array name="Unit">
+        <item>Unit</item>
+        <item>m/km</item>
+        <item>yard/mile</item>
+    </string-array>
+
+    <string name="leer"></string>
 
 </resources>

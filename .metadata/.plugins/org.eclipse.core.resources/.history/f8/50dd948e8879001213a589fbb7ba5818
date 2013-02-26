@@ -1,0 +1,69 @@
+package com.vectorone;
+
+import javax.security.auth.callback.PasswordCallback;
+
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+public class AddNewUserActivity extends Activity {
+
+	private LinearLayout layout;
+	private TextView[] labels=new TextView[7];
+	private Button createButton;
+	private Button cancelButton;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		setContentView(R.layout.activity_addnewuser);
+		
+
+		initdatafields();
+		setupListener();
+		setupfont();
+		setupbackgroundimage();
+	}
+
+	private void setupbackgroundimage() {
+		layout.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
+		Drawable buttonimage= getResources().getDrawable(R.drawable.buttonmedium);
+		Drawable textfieldimage=getResources().getDrawable(R.drawable.textentry);
+		createButton.setBackgroundDrawable(buttonimage);
+		cancelButton.setBackgroundDrawable(buttonimage);
+		u
+		
+	}
+
+	private void setupfont() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void setupListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void initdatafields() {
+		layout=(LinearLayout) findViewById(R.id.AddNewUser);
+		labels[0]=(TextView) findViewById(R.id.UsernameLabel);
+		labels[1]=(TextView) findViewById(R.id.NicknameAddNewUser);
+		labels[2]=(TextView) findViewById(R.id.passwordAddNewUser);
+		labels[3]=(TextView) findViewById(R.id.PasswordConfirm);
+		labels[4]=(TextView) findViewById(R.id.Email);
+		labels[5]=(TextView) findViewById(R.id.PostCode);
+		labels[6]=(TextView) findViewById(R.id.DateOfBirth);
+		createButton=(Button) findViewById(R.id.CreateUser);
+		cancelButton=(Button)findViewById(R.id.Cancel);
+		
+		
+		
+	}
+}

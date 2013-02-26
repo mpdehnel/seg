@@ -1,0 +1,89 @@
+package com.vectorone;
+
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
+import com.data.DataClass;
+import com.data.DatabaseCacheHandler;
+import com.data.MyHttpClient;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.StrictMode;
+
+public class IntroActivity extends Activity {
+
+	private MyHttpClient httpClient = new MyHttpClient(DataClass.server);
+	private static final int SPLASH_DISPLAY_TIME = 4000; // splash screen delay
+															// time
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.intro);
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+				.permitAll().build();
+		StrictMode.setThreadPolicy(policy);
+		new DataClass();
+		MediaPlayer mp = new MediaPlayer();
+		
+		
+		
+		
+		DatabaseCacheHandler dbhandler = new DatabaseCacheHandler(
+				getApplicationContext());
+
+		// //////////////////////////////////////////////////////////
+		// //////////////////////////////////////////////////////////
+		try {
+			DataClass.addCachesFromDataBase(httpClient
+					.getCachesfromDatabase("test"));
+			handdeldatabase(dbhandler);
+		} catch (Exception e) {
+
+			dbhandler.getAllCache();
+			e.printStackTrace();
+		}
+
+		// //////////////////////////////////////////////////////////
+		// //////////////////////////////////////////////////////////
+
+		new Handler().postDelayed(new Runnable() {
+			public void run() {
+
+				Intent intent = new Intent();
+				intent.setClass(IntroActivity.this, MainLogInActivity.class);
+
+				IntroActivity.this.startActivity(intent);
+				IntroActivity.this.finish();
+
+				// transition from splash to main menu
+				overridePendingTransition(R.anim.activityfadein,
+						R.anim.splashfadeout);
+
+			}
+		}, SPLASH_DISPLAY_TIME);
+	}
+
+	private void handdeldatabase(DatabaseCacheHandler dbhandler) {
+		dbhandler.remove();
+		dbhandler = new DatabaseCacheHandler(getApplicationContext());
+		for (int i = 0; i < DataClass.caches.size(); i++) {
+			dbhandler.addCache(DataClass.caches.get(i).getCach());
+		}
+	}
+	
+	private void PlayMovie() {
+		new Thread() {
+			public void run() {
+				mp = MediaPlayer.create(getApplicationContext(),
+						R.raw.gamesound);
+				mp.start();
+			}
+		}.start();
+	}
+}

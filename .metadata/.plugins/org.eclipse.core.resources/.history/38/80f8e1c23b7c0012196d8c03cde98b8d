@@ -1,0 +1,7 @@
+package com.data;
+
+public enum YesNoMaybe {
+	public int YES=1;
+	public int NO=-1;
+	public int MAYBE=0;
+}

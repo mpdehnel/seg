@@ -9,16 +9,16 @@ public class Cache {
 	private String descripton;
 	private String name;
 	private int teamcolor;
-	private boolean islessthan50m;
 	private boolean founded;
+	public boolean israted=false;
 
 	public Cache(String name, GeoPoint geopoint, String description,
-			boolean founded,int id) {
+			boolean founded, int id) {
 		this.name = name;
 		this.geopoint = geopoint;
 		this.descripton = description;
 		this.founded = founded;
-		this._id=id;
+		this._id = id;
 	}
 
 	public Cache() {
@@ -87,19 +87,13 @@ public class Cache {
 	}
 
 	public boolean isIslessthanXXXm(int xxx) {
-		String distance = SegMathClass.calculateDistance(DataClass.myGeoPoint,
+		int distance = SegMathClass.calculateDistance1(DataClass.myGeoPoint,
 				this.geopoint);
-		if (distance.charAt(distance.length() - 2) != 'k') {
-			int distanceInMeter = Integer.valueOf(distance.substring(0,
-					distance.length() - 1));
-			if (distanceInMeter <= xxx) {
-				// setfounded(true);
-				return true;
-			} else
-				return false;
+		if (distance <= xxx) {
+			return true;
+		} else {
+			return false;
 		}
-
-		return false;
 
 	}
 

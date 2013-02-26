@@ -1,0 +1,43 @@
+package com.vectorone;
+
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.widget.CalendarView;
+
+public class AddNewUserActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		setContentView(R.layout.activity_addnewuser);
+
+		CalendarView dt = (CalendarView) findViewById(R.id.calendarView1);
+
+		initdatafields();
+		setupListener();
+		setupfont();
+		setupbackgroundimage();
+	}
+
+	private void setupbackgroundimage() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void setupfont() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void setupListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void initdatafields() {
+		// TODO Auto-generated method stub
+
+	}
+}

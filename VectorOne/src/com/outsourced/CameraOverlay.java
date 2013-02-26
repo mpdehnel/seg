@@ -10,8 +10,6 @@ import android.graphics.Paint;
 import android.view.View;
 
 public class CameraOverlay extends View {
-	private int x;
-	private int y;
 
 	public CameraOverlay(Context context) {
 		super(context);

@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ public class CacheShowActivity extends Activity {
 	private int cacheindex;
 	private boolean frommap;
 	private Button rate_button;
+	private RatingBar ratebar;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,6 +81,7 @@ public class CacheShowActivity extends Activity {
 		no_Button = (Button) findViewById(R.id.no_button);
 		rate_button = (Button) findViewById(R.id.ratethisCache);
 		question = (TextView) findViewById(R.id.doyouwant);
+		ratebar=(RatingBar) findViewById(R.id.Cacheratingbar);
 
 	}
 
@@ -102,8 +105,12 @@ public class CacheShowActivity extends Activity {
 		no_Button.setBackgroundDrawable(buttonimage);
 		if (DataClass.caches.get(cacheindex).getCach().isFound()) {
 			rate_button.setBackgroundDrawable(buttonimage);
+			
+			ratebar.setEnabled(DataClass.caches.get(cacheindex).getCach().israted);
+			
 		} else {
 			rate_button.setBackgroundDrawable(buttonimageinaktiv);
+			ratebar.setEnabled(false);
 		}
 	}
 

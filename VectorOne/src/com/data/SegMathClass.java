@@ -3,6 +3,7 @@ package com.data;
 import android.location.Location;
 
 import com.google.android.maps.GeoPoint;
+import com.vectorone.R.drawable;
 
 public class SegMathClass {
 
@@ -13,11 +14,19 @@ public class SegMathClass {
 		Location B = new Location("B");
 		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
 		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
-		if (Math.round(A.distanceTo(B)) > 5000) {
-			return Math.round(A.distanceTo(B)) / 1000 + "km";
-		} else {
-			return Math.round(A.distanceTo(B)) + "m";
+		float distance=Math.round(A.distanceTo(B));
+		if (DataClass.unit.equals("km")) {
+			if (distance > 5000) {
+				return Math.round(distance/ 1000) + "km";
+			} else {
+				return Math.round(distance)+ "m";
+			}
+		} else if (DataClass.unit.equals("ft")) {
+			return Math.round(distance*3.2808399)+"ft";
+		}else if(DataClass.unit.equals("yard")){
+			return Math.round(distance*1.0936133)+"yard";
 		}
+		return Math.round(distance)+"m";
 
 	}
 

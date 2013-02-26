@@ -41,4 +41,29 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <Button
+        android:id="@+id/ZoomIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/setMyPositionasNewCacheButto"
+        android:layout_alignBottom="@+id/setMyPositionasNewCacheButto"
+        android:layout_alignParentLeft="true"
+        android:text="+" />
+
+    <Button
+        android:id="@+id/ZoomOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/ZoomIn"
+        android:text="-" />
+
+    <CheckBox
+        android:id="@+id/Satelitenmode"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/refreshbutton"
+        android:text="@string/leer" />
+
 </RelativeLayout>

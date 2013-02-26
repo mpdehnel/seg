@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <EditText
+            android:id="@+id/EmailInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/EmailInput"
+            android:layout_alignBottom="@+id/EmailInput"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="26dp"
+            android:text="Email" />
+
+        <EditText
+            android:id="@+id/PostCodeInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/PasswordInput"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/DateOfBirthInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/PostCodeInput"
+            android:ems="10"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/PasswordInputConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/PassswordConfirm"
+            android:layout_alignBottom="@+id/PassswordConfirm"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/PassswordConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/DateOfBirth"
+            android:layout_below="@+id/Nickname"
+            android:layout_marginTop="54dp"
+            android:text="Confirm" />
+
+        <TextView
+            android:id="@+id/PostCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/PostCodeInput"
+            android:layout_alignRight="@+id/Nickname"
+            android:text="PostCode" />
+
+        <TextView
+            android:id="@+id/DateOfBirth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/DateOfBirthInput"
+            android:layout_alignLeft="@+id/PostCode"
+            android:text="DateOfBirth" />
+
+        <TextView
+            android:id="@+id/Nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/UsernameLabel"
+            android:layout_below="@+id/UsernameLabel"
+            android:layout_marginTop="14dp"
+            android:text="Nickname" />
+
+        <TextView
+            android:id="@+id/UsernameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="14dp"
+            android:layout_toLeftOf="@+id/PasswordInput"
+            android:text="Username" />
+
+        <EditText
+            android:id="@+id/PasswordInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/PasswordInputConfirm"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/UsernameInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/PassswordConfirm"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
+
+        <TextView
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/PasswordInput"
+            android:layout_alignLeft="@+id/Nickname"
+            android:text="Password" />
+
+        <EditText
+            android:id="@+id/NicknameInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/Nickname"
+            android:layout_toRightOf="@+id/UsernameLabel"
+            android:ems="10" />
+
+    </RelativeLayout>

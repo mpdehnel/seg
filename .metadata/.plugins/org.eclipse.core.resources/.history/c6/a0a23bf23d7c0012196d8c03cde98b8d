@@ -1,0 +1,41 @@
+<resources>
+
+    <string name="app_name">VectorOne</string>
+    <string name="username">Username</string>
+    <string name="button_maps">Maps</string>
+    <string name="button_settings">Settings</string>
+    <string name="button_user">Me</string>
+    <string name="button_cachselect">Caches</string>
+    <string name="button_login">LogIn</string>
+    <string name="button_clear">Clear</string>
+    <string name="button_registration">registration</string>
+    <string name="lable_username">username:</string>
+    <string name="lable_password">password:</string>
+
+    <string-array name="Cachs">
+        <item>Founded</item>
+        <item>Yes</item>
+        <item>No</item>
+        <item>All</item>
+
+        <string-array name="Team">
+            <item>Team</item>
+            <item>My</item>
+            <item>NotMy</item>
+            <item>All</item>
+
+            <string-array name="Distance">
+                <item>Distance</item>
+                <item>less than 500m</item>
+                <item>less than 1000m</item>
+                <item>less than 2000m</item>
+                <item>less than 5000m</item>
+                <item>less than 10000m</item>
+                <item>all</item>
+            </string-array>
+
+            <string name="leer"></string>
+        </string-array>
+    </string-array>
+
+</resources>

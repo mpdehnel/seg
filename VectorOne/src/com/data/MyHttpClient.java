@@ -24,6 +24,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import android.content.Context;
+import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -56,7 +57,7 @@ public class MyHttpClient {
 		while ((line = rd.readLine()) != null) {
 			// Log.i(TAG, line);
 			if (!line.equalsIgnoreCase("denied")) {
-				parseUser(username, line);
+				parseUser(username,password, line);
 				return true;
 			}
 		}
@@ -65,7 +66,7 @@ public class MyHttpClient {
 
 	}
 
-	private void parseUser(String username, String line) {
+	private void parseUser(String username,String password, String line) {
 		if (line == "no_user") {
 			// create Dialog erro
 		} else {
@@ -79,9 +80,9 @@ public class MyHttpClient {
 						"totalcaches", line)));
 				user.setTotalpoints(Integer.valueOf(getValueofTag(
 						"totalpoints", line)));
-				user.setImage(Integer.valueOf(getValueofTag("avatar", line)));
 				user.setId(Integer.valueOf(getValueofTag("id", line)));
 				// Log.i(TAG,user.toString());
+				user.setPassword(password);
 				DataClass.user = user;
 
 			} catch (Exception e) {
@@ -212,6 +213,29 @@ public class MyHttpClient {
 			DataClass.purpleportion = Integer.parseInt(numbers[3]);
 		}
 
+	}
+
+	public String addNewUser(String executerequest) {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(this.server + executerequest);
+		HttpResponse response;
+		try {
+			response = client.execute(request);
+			BufferedReader rd = new BufferedReader(new InputStreamReader(response
+					.getEntity().getContent()));
+			String line = rd.readLine();	
+			return line;
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return "Connection Error";
+		
 	}
 
 }

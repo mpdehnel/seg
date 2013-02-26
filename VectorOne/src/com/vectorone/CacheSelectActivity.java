@@ -22,7 +22,8 @@ public class CacheSelectActivity extends ListActivity {
 		super.onCreate(icicle);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		adapter = new ListAdapter(this, DataClass.caches);
+	
+		adapter = new ListAdapter(this,/* DataClass.getcacheswithfilter());*/DataClass.caches);
 		getListView().setBackgroundDrawable(
 				getResources().getDrawable(R.drawable.background));
 		setListAdapter(adapter);

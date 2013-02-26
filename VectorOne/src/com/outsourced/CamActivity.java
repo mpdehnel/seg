@@ -1,25 +1,13 @@
 package com.outsourced;
 
 import com.vectorone.R;
-import com.vectorone.R.layout;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Canvas;
-import android.graphics.Color;
 import android.hardware.Camera;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.Camera.CameraInfo;
-import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 public class CamActivity extends Activity {
 	private Camera mCamera;

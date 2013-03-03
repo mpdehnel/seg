@@ -1,6 +1,5 @@
 package com.outsourced;
 
-import com.data.Cache;
 import com.data.DataClass;
 import com.google.android.maps.GeoPoint;
 

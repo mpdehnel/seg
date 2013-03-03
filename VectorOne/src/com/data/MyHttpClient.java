@@ -57,7 +57,7 @@ public class MyHttpClient {
 		while ((line = rd.readLine()) != null) {
 			// Log.i(TAG, line);
 			if (!line.equalsIgnoreCase("denied")) {
-				parseUser(username,password, line);
+				parseUser(username, password, line);
 				return true;
 			}
 		}
@@ -66,7 +66,7 @@ public class MyHttpClient {
 
 	}
 
-	private void parseUser(String username,String password, String line) {
+	private void parseUser(String username, String password, String line) {
 		if (line == "no_user") {
 			// create Dialog erro
 		} else {
@@ -75,7 +75,7 @@ public class MyHttpClient {
 			try {
 				user.setUsername(username);
 				user.setNickname(getValueofTag("nickname", line));
-				user.setTeam(getValueofTag("team", line));
+				user.setTeam(Integer.parseInt(getValueofTag("team", line)));
 				user.setTotalcaches(Integer.valueOf(getValueofTag(
 						"totalcaches", line)));
 				user.setTotalpoints(Integer.valueOf(getValueofTag(
@@ -179,23 +179,6 @@ public class MyHttpClient {
 
 	}
 
-	public void addCacheToDatabase(Context context, int lon, int lat,
-			String Cachename, String MyDescription)
-			throws ClientProtocolException, IOException {
-		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet(this.server
-				+ "createCache.php?username=Robby" + "&userlat=" + lat
-				+ "&userlon=" + lon + "&description=" + MyDescription);
-		HttpResponse response = client.execute(request);
-		BufferedReader rd = new BufferedReader(new InputStreamReader(response
-				.getEntity().getContent()));
-
-		String line = "";
-		while ((line = rd.readLine()) != null) {
-			Toast.makeText(context, line, Toast.LENGTH_SHORT).show();
-		}
-	}
-
 	public void getportiondata() throws IllegalStateException, IOException {
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(this.server + "getTeamSizes.php");
@@ -215,15 +198,35 @@ public class MyHttpClient {
 
 	}
 
+	// /////////////////////////////////////////////////////////////////
+	// //////////////////////////Pushing////////////////////////////////
+	// /////////////////////////////////////////////////////////////////
+	public void addCacheToDatabase(Context context, int lon, int lat,
+			String Cachename, String MyDescription)
+			throws ClientProtocolException, IOException {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(this.server
+				+ "createCache.php?username=Robby" + "&userlat=" + lat
+				+ "&userlon=" + lon + "&description=" + MyDescription);
+		HttpResponse response = client.execute(request);
+		BufferedReader rd = new BufferedReader(new InputStreamReader(response
+				.getEntity().getContent()));
+
+		String line = "";
+		while ((line = rd.readLine()) != null) {
+			Toast.makeText(context, line, Toast.LENGTH_SHORT).show();
+		}
+	}
+
 	public String addNewUser(String executerequest) {
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(this.server + executerequest);
 		HttpResponse response;
 		try {
 			response = client.execute(request);
-			BufferedReader rd = new BufferedReader(new InputStreamReader(response
-					.getEntity().getContent()));
-			String line = rd.readLine();	
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String line = rd.readLine();
 			return line;
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
@@ -232,10 +235,81 @@ public class MyHttpClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		return "Connection Error";
-		
+
+	}
+
+	public String pushrating(int cachid, int userid, int rating) {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(this.server + "ratecache.php?cacheid="
+				+ cachid + "&userid=" + userid + "&rating=" + rating);
+		HttpResponse response;
+		try {
+			response = client.execute(request);
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String line = rd.readLine();
+			return line;
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "Connection Error";
+
+	}
+
+	public String userupdate(int userid, int points, int totalpoints, int cachid) {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(this.server + "userupdate.php?cacheid="
+				+ cachid + "&userid=" + userid + "&points=" + points
+				+ "&totalpoints=" + totalpoints);
+		HttpResponse response;
+		try {
+			response = client.execute(request);
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String line = rd.readLine();
+			return line;
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "Connection Error";
+
+	}
+
+	public String usersettings(int userid, String unit, int maxdistance,
+			int founded) {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(this.server + "usersettings.php?userid="
+				+ userid + "&maxdistance=" + maxdistance + "&unit=" + unit
+				+ "&founded=" + founded);
+		HttpResponse response;
+		try {
+			response = client.execute(request);
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String line = rd.readLine();
+			return line;
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "Connection Error";
+
 	}
 
 }

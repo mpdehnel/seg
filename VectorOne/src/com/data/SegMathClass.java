@@ -22,15 +22,19 @@ public class SegMathClass {
 				return Math.round(distance)+ "m";
 			}
 		} else if (DataClass.unit.equals("ft")) {
+			
+			if(Math.round(distance*3.2808399)>5280){
+				return Math.round(distance*3.2808399)/5280+"mi";
+			}
+			
+			
 			return Math.round(distance*3.2808399)+"ft";
-		}else if(DataClass.unit.equals("yard")){
-			return Math.round(distance*1.0936133)+"yard";
 		}
 		return Math.round(distance)+"m";
 
 	}
 
-	public static int calculateDistance1(GeoPoint start, GeoPoint target) {
+	public static int calculateDistanceinMeter(GeoPoint start, GeoPoint target) {
 		Location A = new Location("A");
 		A.setLatitude(((double) start.getLatitudeE6()) / 1E6);
 		A.setLongitude(((double) start.getLongitudeE6()) / 1E6);
@@ -38,6 +42,17 @@ public class SegMathClass {
 		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
 		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
 		return (int) Math.round(A.distanceTo(B));
+
+	}
+	
+	public static int calculateDistanceinFeet(GeoPoint start, GeoPoint target) {
+		Location A = new Location("A");
+		A.setLatitude(((double) start.getLatitudeE6()) / 1E6);
+		A.setLongitude(((double) start.getLongitudeE6()) / 1E6);
+		Location B = new Location("B");
+		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
+		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
+		return (int) Math.round(A.distanceTo(B)*3.2808399);
 
 	}
 

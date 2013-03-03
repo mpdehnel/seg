@@ -49,6 +49,7 @@ public class Cache {
 		}
 		return descripton;
 	}
+	
 
 	public void setDescripton(String descripton) {
 		this.descripton = descripton;
@@ -87,7 +88,7 @@ public class Cache {
 	}
 
 	public boolean isIslessthanXXXm(int xxx) {
-		int distance = SegMathClass.calculateDistance1(DataClass.myGeoPoint,
+		int distance = SegMathClass.calculateDistanceinMeter(DataClass.myGeoPoint,
 				this.geopoint);
 		if (distance <= xxx) {
 			return true;

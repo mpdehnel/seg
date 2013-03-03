@@ -83,7 +83,7 @@ public class DatabaseUserHandler extends SQLiteOpenHelper {
 			user.setNickname(cursor.getString(2));
 			user.setTotalcaches(Integer.parseInt(cursor.getString(3)));
 			user.setTotalpoints(Integer.parseInt(cursor.getString(4)));
-			user.setTeam(cursor.getString(5));
+			user.setTeam(Integer.parseInt(cursor.getString(5)));
 			user.setPassword(cursor.getString(6));
 			Log.i("MAIN", user.toString());
 			DataClass.user = user;

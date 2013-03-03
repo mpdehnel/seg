@@ -1,8 +1,11 @@
 package com.vectorone;
 
 import java.io.IOException;
+import java.util.List;
 
+import com.data.Cache;
 import com.data.DataClass;
+import com.data.Model;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +22,7 @@ import android.widget.GridLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CacheShowActivity extends Activity {
 
@@ -33,6 +37,7 @@ public class CacheShowActivity extends Activity {
 	private boolean frommap;
 	private Button rate_button;
 	private RatingBar ratebar;
+	private List<Model> listofsortetcaches;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,16 +49,15 @@ public class CacheShowActivity extends Activity {
 		// TODO: mapsboolen handel
 		cacheindex = intent.getIntExtra("CacheIndex", -1);
 		frommap = intent.getBooleanExtra("frommaps", false);
-
+		listofsortetcaches=DataClass.getcacheswithfilter();
 		initfields();
 		handelfrommap();
 		setupListener();
 		setupfont();
 		setupbackgroundimage();
-
-		CacheName.setText(DataClass.caches.get(cacheindex).getCach().getName());
-		CacheDiscription.setText(DataClass.caches.get(cacheindex).getCach()
-				.getDescripton());
+		Cache cache=listofsortetcaches.get(cacheindex).getCach();
+		CacheName.setText(cache.getName());
+		CacheDiscription.setText(cache.getDescripton());
 
 	}
 
@@ -103,10 +107,10 @@ public class CacheShowActivity extends Activity {
 		yes_Button.setBackgroundDrawable(buttonimage);
 		yes_with_routing.setBackgroundDrawable(buttonimage);
 		no_Button.setBackgroundDrawable(buttonimage);
-		if (DataClass.caches.get(cacheindex).getCach().isFound()) {
+		if (listofsortetcaches.get(cacheindex).getCach().isFound()) {
 			rate_button.setBackgroundDrawable(buttonimage);
 			
-			ratebar.setEnabled(DataClass.caches.get(cacheindex).getCach().israted);
+			ratebar.setEnabled(!listofsortetcaches.get(cacheindex).getCach().israted);
 			
 		} else {
 			rate_button.setBackgroundDrawable(buttonimageinaktiv);
@@ -153,7 +157,7 @@ public class CacheShowActivity extends Activity {
 		if (v == no_Button) {
 
 			finish();
-			DataClass.caches.get(cacheindex).setSelected(false);
+			listofsortetcaches.get(cacheindex).setSelected(false);
 			startActivity(new Intent(getApplicationContext(),
 					CacheSelectActivity.class));
 
@@ -166,18 +170,22 @@ public class CacheShowActivity extends Activity {
 
 			} else {
 				finish();
-				DataClass.caches.get(cacheindex).setSelected(true);
+				listofsortetcaches.get(cacheindex).setSelected(true);
 				startActivity(new Intent(getApplicationContext(),
 						CacheSelectActivity.class));
 			}
 		}
 		if (v == yes_with_routing) {
 			finish();
-			DataClass.caches.get(cacheindex).setSelected(true);
-			DataClass.routingpoint = DataClass.caches.get(cacheindex).getCach()
+			listofsortetcaches.get(cacheindex).setSelected(true);
+			DataClass.routingpoint = listofsortetcaches.get(cacheindex).getCach()
 					.getGeopoint();
 			startActivity(new Intent(getApplicationContext(),
 					CacheSelectActivity.class));
+		}
+		if(v==rate_button){
+			float rating=ratebar.getRating();
+			Toast.makeText(getApplicationContext(), "Rating with"+rating, Toast.LENGTH_SHORT).show();
 		}
 	}
 

@@ -3,6 +3,7 @@ package com.data;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -25,20 +26,17 @@ public class DataClass {
 	public static User user;
 	public static String log = "Log-Diary";
 	public static List<Model> caches = new ArrayList<Model>();
-	public static int mylat;
-	public static GeoPoint myGeoPoint;
-	public static GeoPoint routingpoint;
-	public static int mylng;
+	public static int mylat=0;
+	public static GeoPoint myGeoPoint=new GeoPoint(0, 0);
+	public static GeoPoint routingpoint=new GeoPoint(0, 0);
+	public static int mylng=0;
 	public static int routing;
 	public static String server = "http://www.netroware.co.uk/test/";
 	public static int greenportion = 25;
 	public static int redportion = 25;
 	public static int purpleportion = 25;
 	public static int blueportion = 25;
-
-	public static YesNoIDontCare visited = YesNoIDontCare.IDONTCARE;
-	public static YesNoIDontCare myteam = YesNoIDontCare.IDONTCARE;
-	public static int distance;
+	public static String SortType="name";
 
 	public static void clear() {
 		selectedCaches = new LinkedList<Cache>();
@@ -78,11 +76,6 @@ public class DataClass {
 		log = df.format(now) + ":" + msg + "\n";
 	}
 
-	public static List<Model> getcacheswithfilter() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public static boolean haveNetworkConnection(Context cx) {
 		boolean haveConnectedWifi = false;
 		boolean haveConnectedMobile = false;
@@ -94,15 +87,80 @@ public class DataClass {
 			if (ni.getTypeName().equalsIgnoreCase("WIFI"))
 				if (ni.isConnected()) {
 					haveConnectedWifi = true;
-					Log.i("MAIN", "WIFI");
+					Log.i("WIFI", "WIFI");
 				}
 			if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
 				if (ni.isConnected()) {
 					haveConnectedMobile = true;
-					Log.i("MAIN", "Mobile");
+					Log.i("WIFI", "Mobile");
 				}
 		}
 		return haveConnectedWifi || haveConnectedMobile;
 	}
+
+	public static List<Model> getcacheswithfilter() {
+		List<Model> filterCachs= new LinkedList<Model>();
+		
+		String filterunit = user.getSettings_unit();
+		String filtermaxDistance = user.getSettings_maxdistance();
+		String filterTeam = user.getSettings_team();
+		String filterVisited = user.getSettings_visited(); // Yes No All
+
+		for (int i = 0; i < caches.size(); i++) {
+			Cache todecide = caches.get(i).getCach();
+			Model addtolist = caches.get(i);
+			int maxdistance;
+			int distance;
+
+			if (filtermaxDistance.equals("All")) {
+				maxdistance = Integer.MAX_VALUE;
+			} else {
+				maxdistance = Integer.parseInt(filtermaxDistance.substring(1));
+			}
+			if (filterunit.equals("m/km")) {
+				distance = SegMathClass.calculateDistanceinMeter(myGeoPoint,
+						todecide.getGeopoint());
+			} else {
+				distance = SegMathClass.calculateDistanceinFeet(myGeoPoint,
+						todecide.getGeopoint());
+			}
+			boolean checkdistance = false;
+			if (distance < maxdistance) {
+				checkdistance = true;
+			}
+
+			boolean Checkteam = false;
+			if (filterTeam.equals("My")
+					&& todecide.getTeamcolour() == user.getTeam()) {
+				Checkteam = true;
+			} else if (filterTeam.equals("NotMy")
+					&& todecide.getTeamcolour() != user.getTeam()) {
+				Checkteam = true;
+			} else if (filterTeam.equals("All")) {
+				Checkteam = true;
+			}
+
+			boolean checkVisited = false;
+			if (filterVisited.equals("Yes") && todecide.isFound()) {
+				checkVisited = true;
+			} else if (filterVisited.equals("No") && !todecide.isFound()) {
+				checkVisited = true;
+			} else if (filterVisited.equals("All")) {
+				checkVisited = true;
+			}
+			if(Checkteam&&checkdistance&&checkVisited){
+				filterCachs.add(addtolist);
+			}
+		}
+		
+		
+		
+		
+		Collections.sort(filterCachs);
+	
+		return filterCachs;
+	}
+
+	
 
 }

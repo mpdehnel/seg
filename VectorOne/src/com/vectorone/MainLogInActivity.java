@@ -208,8 +208,11 @@ public class MainLogInActivity extends Activity {
 
 		}
 		if (v == registerbutton) {
-			Uri uri = Uri.parse("http://www.google.com");
+			/*Uri uri = Uri.parse("http://www.google.com");
 			intent = new Intent(Intent.ACTION_VIEW, uri);
+			startActivity(intent);*/
+			intent = new Intent(getApplicationContext(),
+					AddNewUserActivity.class);
 			startActivity(intent);
 		}
 		if (v == clearbutton) {

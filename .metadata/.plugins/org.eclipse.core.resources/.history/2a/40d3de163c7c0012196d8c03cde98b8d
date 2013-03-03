@@ -1,5 +1,0 @@
-package com.data;
-
-public enum YesNoMaybe {
-	NO, YES, IDONTCARE;
-}

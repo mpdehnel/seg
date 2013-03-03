@@ -6,12 +6,17 @@ public class User {
 	private String username;
 	private String nickname;
 	private int id;
-	private String team;
+	private int team;
 	private int totalcaches;
 	private int totalpoints;
 	private String password;
+	private String settings_maxdistance="All";
+	private String settings_unit="m/km";
+	private String settings_team="All";
+	private String Settings_visited="All";
 
-	public User(String username, String nickname, String team,
+
+	public User(String username, String nickname, int team,
 			int totalchaches, int totalpoints, int drawable, int id, String password) {
 		this.id = id;
 		this.nickname = nickname;
@@ -43,11 +48,11 @@ public class User {
 		this.nickname = nickname;
 	}
 
-	public String getTeam() {
+	public int getTeam() {
 		return team;
 	}
 
-	public void setTeam(String team) {
+	public void setTeam(int team) {
 		this.team = team;
 	}
 
@@ -97,6 +102,37 @@ public class User {
 		this.id = id;
 	}
 	
+	public String getSettings_maxdistance() {
+		return settings_maxdistance;
+	}
+
+	public void setSettings_maxdistance(String settings_maxdistance) {
+		this.settings_maxdistance = settings_maxdistance;
+	}
+
+	public String getSettings_unit() {
+		return settings_unit;
+	}
+
+	public void setSettings_unit(String settings_unit) {
+		this.settings_unit = settings_unit;
+	}
+
+	public String getSettings_team() {
+		return settings_team;
+	}
+
+	public void setSettings_team(String settings_team) {
+		this.settings_team = settings_team;
+	}
+
+	public void setSettings_visited(String item) {
+		this.Settings_visited=item;
+	}
+
+	public String getSettings_visited() {
+		return Settings_visited;
+	}
 
 
 }

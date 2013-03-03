@@ -17,10 +17,10 @@ public final class R {
     }
     public static final class array {
         public static final int Cachs=0x7f080000;
-        public static final int DistanceinM=0x7f080002;
-        public static final int Distanceinft=0x7f080003;
+        public static final int Distance=0x7f080002;
         public static final int Team=0x7f080001;
-        public static final int Unit=0x7f080004;
+        public static final int Unit=0x7f080003;
+        public static final int sort=0x7f080004;
     }
     public static final class attr {
     }
@@ -125,7 +125,6 @@ public final class R {
         public static final int PostCode=0x7f0b0013;
         public static final int PostCodeInput=0x7f0b0012;
         public static final int Satelitenmode=0x7f0b004e;
-        public static final int Team=0x7f0b0065;
         public static final int Unit=0x7f0b0063;
         public static final int UsernameInput=0x7f0b0008;
         public static final int UsernameLabel=0x7f0b0009;
@@ -140,19 +139,18 @@ public final class R {
         public static final int cachselectbutton=0x7f0b0057;
         public static final int camera_preview=0x7f0b0023;
         public static final int cancel_button=0x7f0b0006;
-        public static final int check=0x7f0b006f;
+        public static final int check=0x7f0b0077;
         public static final int clearbutton=0x7f0b0046;
-        public static final int dialogButtonCancel=0x7f0b0075;
-        public static final int dialogButtonClose=0x7f0b0073;
-        public static final int dialogButtonLogOut=0x7f0b0074;
-        public static final int dialogButtonOk=0x7f0b0071;
-        public static final int dialog_Text=0x7f0b0072;
-        public static final int dialog_cachefound_Text=0x7f0b0070;
-        public static final int distance=0x7f0b0066;
+        public static final int dialogButtonCancel=0x7f0b007d;
+        public static final int dialogButtonClose=0x7f0b007b;
+        public static final int dialogButtonLogOut=0x7f0b007c;
+        public static final int dialogButtonOk=0x7f0b0079;
+        public static final int dialog_Text=0x7f0b007a;
+        public static final int dialog_cachefound_Text=0x7f0b0078;
         public static final int doyouwant=0x7f0b001f;
         public static final int format=0x7f0b0015;
-        public static final int intro=0x7f0b0076;
-        public static final int label=0x7f0b006e;
+        public static final int intro=0x7f0b007e;
+        public static final int label=0x7f0b0076;
         public static final int light1=0x7f0b0024;
         public static final int light10=0x7f0b0032;
         public static final int light11=0x7f0b0033;
@@ -178,19 +176,21 @@ public final class R {
         public static final int light8=0x7f0b002d;
         public static final int light9=0x7f0b0031;
         public static final int listView1=0x7f0b001a;
+        public static final int location=0x7f0b0072;
         public static final int logText=0x7f0b003e;
-        public static final int log_button=0x7f0b006d;
+        public static final int log_button=0x7f0b0075;
         public static final int log_layout=0x7f0b003d;
         public static final int login_layout=0x7f0b003f;
         public static final int loginbutton=0x7f0b0047;
         public static final int logout_button=0x7f0b0052;
         public static final int map_view=0x7f0b0048;
-        public static final int me_layout=0x7f0b0067;
+        public static final int max_distance=0x7f0b0067;
+        public static final int me_layout=0x7f0b006e;
         public static final int mebutton=0x7f0b0054;
         public static final int memory_button=0x7f0b005a;
         public static final int menue_layout=0x7f0b004f;
-        public static final int name=0x7f0b0068;
-        public static final int nickname=0x7f0b0069;
+        public static final int name=0x7f0b006f;
+        public static final int nickname=0x7f0b0070;
         public static final int no_button=0x7f0b001e;
         public static final int passwordAddNewUser=0x7f0b000d;
         public static final int passwordlabel=0x7f0b0042;
@@ -202,17 +202,25 @@ public final class R {
         public static final int registrationbutton=0x7f0b0045;
         public static final int routing_button=0x7f0b001c;
         public static final int scale=0x7f0b004b;
+        public static final int set=0x7f0b006d;
         public static final int setMyPositionasNewCacheButto=0x7f0b0049;
+        public static final int settings_Sortby=0x7f0b006b;
+        public static final int settings_cache=0x7f0b0069;
         public static final int settings_layout=0x7f0b0062;
         public static final int settingsbutton=0x7f0b0053;
+        public static final int spinner_SortBy=0x7f0b006c;
+        public static final int spinner_cache=0x7f0b006a;
+        public static final int spinner_distance=0x7f0b0068;
+        public static final int spinner_team=0x7f0b0066;
+        public static final int spinner_unit=0x7f0b0064;
         public static final int statusbar=0x7f0b0051;
-        public static final int team=0x7f0b006a;
+        public static final int team=0x7f0b0071;
+        public static final int team_lable=0x7f0b0065;
         public static final int test=0x7f0b0050;
         public static final int time=0x7f0b0030;
-        public static final int totalNumberOfChaches=0x7f0b006b;
-        public static final int totalPoints=0x7f0b006c;
+        public static final int totalNumberOfChaches=0x7f0b0073;
+        public static final int totalPoints=0x7f0b0074;
         public static final int userlabel=0x7f0b0040;
-        public static final int visited=0x7f0b0064;
         public static final int yes_button=0x7f0b001d;
     }
     public static final class layout {

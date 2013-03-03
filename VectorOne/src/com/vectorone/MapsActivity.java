@@ -318,7 +318,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	// //////////////////////////////////////////////////////////////////
 
 	private Route directions(final GeoPoint start, final GeoPoint dest) {
-		if (SegMathClass.calculateDistance1(start, dest) < 10000) {
+		if (SegMathClass.calculateDistanceinMeter(start, dest) < 10000) {
 			Parser parser;
 			// https://developers.google.com/maps/documentation/directions/#JSON
 			// <-

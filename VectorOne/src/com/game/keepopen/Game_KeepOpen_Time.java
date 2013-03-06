@@ -11,6 +11,7 @@ public class Game_KeepOpen_Time extends CountDownTimer {
 	private TextView t1;
 	private long millisInFuture;
 	private long time;
+	private int counter=0;
 	private int speedfaktor = 15;
 	private Game_keepopen_Activity game;
 
@@ -73,8 +74,14 @@ public class Game_KeepOpen_Time extends CountDownTimer {
 			if(lights[i].isChecked())
 				return false;
 		}
+		
+		if(counter<1){
+			counter++;
 		game.stop(time);
+		}
 		return true;
 	}
+	
+	
 
 }

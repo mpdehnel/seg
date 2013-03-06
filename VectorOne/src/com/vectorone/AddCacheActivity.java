@@ -8,6 +8,7 @@ import com.data.Cache;
 import com.data.DataClass;
 import com.data.Model;
 import com.data.MyHttpClient;
+import com.data.WifiSupport;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 
@@ -18,6 +19,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.ContactsContract.Contacts.Data;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -36,7 +38,7 @@ public class AddCacheActivity extends Activity {
 	private RelativeLayout relativlayout;
 	private TextView cacheNameView;
 	private TextView CacheDiscriptionView;
-	
+	private Button addMac_button;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,30 +59,34 @@ public class AddCacheActivity extends Activity {
 		int textcolor = Color.parseColor("#DECD87");
 		int buttoncolor = Color.parseColor("#45250F");
 		float textsize = 22;
-		
+
 		cacheNameText.setTypeface(font);
 		cacheNameText.setTextColor(textcolor);
 		cacheNameText.setTextSize(textsize);
-		
+
 		cacheDiscriptionText.setTypeface(font);
 		cacheDiscriptionText.setTextColor(textcolor);
 		cacheDiscriptionText.setTextSize(textsize);
-		
+
 		cacheNameView.setTypeface(font);
 		cacheNameView.setTextColor(textcolor);
 		cacheNameView.setTextSize(textsize);
-		
+
 		CacheDiscriptionView.setTypeface(font);
 		CacheDiscriptionView.setTextColor(textcolor);
 		CacheDiscriptionView.setTextSize(textsize);
-		
+
 		cancel_button.setTextColor(buttoncolor);
-		cancel_button.setTypeface(font);		
+		cancel_button.setTypeface(font);
 		cancel_button.setTextSize(textsize);
 
 		add_button.setTextColor(buttoncolor);
-		add_button.setTypeface(font);	
+		add_button.setTypeface(font);
 		add_button.setTextSize(textsize);
+
+		addMac_button.setTextColor(buttoncolor);
+		addMac_button.setTypeface(font);
+		addMac_button.setTextSize(textsize);
 	}
 
 	private void setupbackgoundimages() {
@@ -92,16 +98,16 @@ public class AddCacheActivity extends Activity {
 				R.drawable.textentry);
 		add_button.setBackgroundDrawable(buttonimage);
 		cancel_button.setBackgroundDrawable(buttonimage);
-		
+		addMac_button.setBackgroundDrawable(buttonimage);
 		cacheNameText.setBackgroundDrawable(textfieldbackground);
-		cacheDiscriptionText.setBackgroundDrawable(textfieldbackground);
-		
-		
+		cacheDiscriptionText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textentrybig));
+
 	}
 
 	private void setupListener() {
 		add_button.setOnClickListener(clickhandler);
 		cancel_button.setOnClickListener(clickhandler);
+		addMac_button.setOnClickListener(clickhandler);
 	}
 
 	private void initfields() {
@@ -111,32 +117,83 @@ public class AddCacheActivity extends Activity {
 		relativlayout = (RelativeLayout) findViewById(R.id.addCache);
 		add_button = (Button) findViewById(R.id.add_button);
 		cancel_button = (Button) findViewById(R.id.cancel_button);
-		CacheDiscriptionView =(TextView) findViewById(R.id.CacheDiscription);
-		cacheNameView=(TextView) findViewById(R.id.CacheName);
-	
+		CacheDiscriptionView = (TextView) findViewById(R.id.CacheDiscription);
+		cacheNameView = (TextView) findViewById(R.id.CacheName);
+		addMac_button = (Button) findViewById(R.id.addNetworkCache);
 
 	}
 
 	private void clickhandle(View v) {
 		if (v == add_button) {
-			DataClass.caches
-					.add(new Model(new Cache(cacheNameText.getText().toString(),
-							new GeoPoint(DataClass.getMylat(), DataClass
-									.getMylng()), cacheDiscriptionText.getText()
-									.toString(), true,-1)));
-			MyHttpClient http = new MyHttpClient(DataClass.server);
-			try {
-				http.addCacheToDatabase(getApplicationContext(), DataClass
-						.getMylng(), DataClass.getMylat(), cacheNameText.getText()
-						.toString(), cacheDiscriptionText.getText().toString());
-			} catch (ClientProtocolException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+			if (DataClass.user.getCurrentPoints() > 200) {
+				DataClass.caches.add(new Model(new Cache(cacheNameText
+						.getText().toString(), new GeoPoint(DataClass
+						.getMylat(), DataClass.getMylng()),
+						cacheDiscriptionText.getText().toString(), true, -1,
+						DataClass.user.getTeam(), "")));
+				MyHttpClient http = new MyHttpClient(DataClass.server);
+				try {
+					http.addCacheToDatabase(getApplicationContext(),
+							DataClass.user.getUsername(), DataClass.getMylng(),
+							DataClass.getMylat(), cacheNameText.getText()
+									.toString(), cacheDiscriptionText.getText()
+									.toString(), "");
+				} catch (ClientProtocolException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					Toast.makeText(getBaseContext(), "OMG", Toast.LENGTH_SHORT)
+							.show();
+				}
+			} else {
+				Toast.makeText(getBaseContext(),
+						"You have not enough points to add a Cache",
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 		if (v == cancel_button) {
 			onBackPressed();
+		}
+
+		if (v == addMac_button) {
+			WifiSupport wifi=new WifiSupport();
+			if (DataClass.user.getCurrentPoints() > 200) {
+				if (!wifi.getMacAddress(getBaseContext()).equals("")) {
+					DataClass.caches.add(new Model(new Cache(cacheNameText
+							.getText().toString(), new GeoPoint(DataClass
+							.getMylat(), DataClass.getMylng()),
+							cacheDiscriptionText.getText().toString(), true,
+							-1, DataClass.user.getTeam(),
+							wifi.getMacAddress(getBaseContext()))));
+					MyHttpClient http = new MyHttpClient(DataClass.server);
+					try {
+						http.addCacheToDatabase(getApplicationContext(),
+								DataClass.user.getUsername(),
+								DataClass.getMylng(), DataClass.getMylat(),
+								cacheNameText.getText().toString(),
+								cacheDiscriptionText.getText().toString(),
+								wifi.getMacAddress(getBaseContext()));
+						
+					} catch (ClientProtocolException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (Exception e) {
+						Toast.makeText(getBaseContext(), "OMG",
+								Toast.LENGTH_SHORT).show();
+					}
+				} else {
+					Toast.makeText(getBaseContext(),
+							"Sorry you aren't in a Wifi!", Toast.LENGTH_SHORT)
+							.show();
+				}
+
+			} else {
+				Toast.makeText(getBaseContext(),
+						"You have not enough points to add a Cache",
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 

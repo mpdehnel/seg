@@ -1,11 +1,12 @@
 package com.vectorone;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.data.Cache;
 import com.data.DataClass;
 import com.data.Model;
+import com.findCache.MapsActivity;
+
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,7 +45,6 @@ public class CacheShowActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_cachshow);
 		Intent intent = getIntent();
-
 		// TODO: mapsboolen handel
 		cacheindex = intent.getIntExtra("CacheIndex", -1);
 		frommap = intent.getBooleanExtra("frommaps", false);
@@ -110,7 +109,7 @@ public class CacheShowActivity extends Activity {
 		if (listofsortetcaches.get(cacheindex).getCach().isFound()) {
 			rate_button.setBackgroundDrawable(buttonimage);
 			
-			ratebar.setEnabled(!listofsortetcaches.get(cacheindex).getCach().israted);
+			ratebar.setEnabled(!listofsortetcaches.get(cacheindex).getCach().israted());
 			
 		} else {
 			rate_button.setBackgroundDrawable(buttonimageinaktiv);
@@ -185,7 +184,11 @@ public class CacheShowActivity extends Activity {
 		}
 		if(v==rate_button){
 			float rating=ratebar.getRating();
+			if(listofsortetcaches.get(cacheindex).getCach().isFound()){
 			Toast.makeText(getApplicationContext(), "Rating with"+rating, Toast.LENGTH_SHORT).show();
+			}else{
+				Toast.makeText(getApplicationContext(), "You have to find the cache befor you could rate it!", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 

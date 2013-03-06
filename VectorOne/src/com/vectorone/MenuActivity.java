@@ -1,6 +1,8 @@
 package com.vectorone;
 
 import com.data.DataClass;
+import com.findCache.MapsActivity;
+
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -24,7 +26,7 @@ public class MenuActivity extends Activity {
 	private Button cachesSelectButton;
 	private Button settingsButton;
 	private Button meButton;
-	private Button mapsButton;
+	private Button search;
 	private Button logout;
 	private Button dialoglogoutButton;
 	private Button dialogcloseAppButton;
@@ -41,12 +43,11 @@ public class MenuActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_menue);
 		layout = (RelativeLayout) findViewById(R.id.menue_layout);
-
 		initfields();
 		setupListener();
 		setupbackgoundimages();
 		setupfonts();
-		usernameTextView.setText("Hello  "+DataClass.user.getNickname());
+		usernameTextView.setText("Hello  "+DataClass.user.getUsername());
 
 	}
 
@@ -56,7 +57,7 @@ public class MenuActivity extends Activity {
 		meButton = (Button) findViewById(R.id.mebutton);
 		settingsButton = (Button) findViewById(R.id.settingsbutton);
 		logout = (Button) findViewById(R.id.logout_button);
-		mapsButton = (Button) findViewById(R.id.button_maps);
+		search = (Button) findViewById(R.id.button_maps);
 		RelativeLayout relativ= (RelativeLayout) findViewById(R.id.test);
 		//relativ.setBackgroundDrawable(getResources().getDrawable(R.drawable.databar));
 		relativ.addView(new DrawableStatusbar(this));
@@ -88,7 +89,7 @@ public class MenuActivity extends Activity {
 		meButton.setOnClickListener(clickhandler);
 		settingsButton.setOnClickListener(clickhandler);
 		logout.setOnClickListener(clickhandler);
-		mapsButton.setOnClickListener(clickhandler);
+		search.setOnClickListener(clickhandler);
 		dialogcancelButton.setOnClickListener(clickhandler);
 		dialogcloseAppButton.setOnClickListener(clickhandler);
 		dialoglogoutButton.setOnClickListener(clickhandler);
@@ -109,9 +110,9 @@ public class MenuActivity extends Activity {
 		usernameTextView.setTextSize(textsize);
 		usernameTextView.setTextColor(textcolor);
 		
-		mapsButton.setTypeface(font);
-		mapsButton.setTextSize(textsize);
-		mapsButton.setTextColor(buttoncolor);
+		search.setTypeface(font);
+		search.setTextSize(textsize);
+		search.setTextColor(buttoncolor);
 
 		meButton.setTypeface(font);
 		meButton.setTextSize(textsize);
@@ -147,7 +148,7 @@ public class MenuActivity extends Activity {
 				R.drawable.background));
 
 		cachesSelectButton.setBackgroundDrawable(buttonimage);
-		mapsButton.setBackgroundDrawable(buttonimage);
+		search.setBackgroundDrawable(buttonimage);
 		settingsButton.setBackgroundDrawable(buttonimage);
 		meButton.setBackgroundDrawable(buttonimage);
 		logout.setBackgroundDrawable(buttonimage);
@@ -162,14 +163,17 @@ public class MenuActivity extends Activity {
 		Intent intent;
 		vibrate.vibrate(50);
 		if (v == cachesSelectButton) {
+			finish();
 			startActivity(new Intent(getApplicationContext(),
 					CacheSelectActivity.class));
 		}
 		if (v == meButton) {
+			finish();
 			intent = new Intent(getApplicationContext(), MeActivity.class);
 			startActivity(intent);
 		}
 		if (v == settingsButton) {
+			finish();
 			intent = new Intent(getApplicationContext(), SettingsActivity.class);
 			startActivity(intent);
 		}
@@ -178,13 +182,14 @@ public class MenuActivity extends Activity {
 		if (v == logout) {
 			dialog.dismiss();
 			finish();
-			DataClass.clear();
+			//DataClass.clear();
 			intent = new Intent(getApplicationContext(),
 					MainLogInActivity.class);
 			startActivity(intent);
 		}
-		if (v == mapsButton) {
-			intent = new Intent(getApplicationContext(), MapsActivity.class);
+		if (v == search) {
+			finish();
+			intent = new Intent(getApplicationContext(), ViewActivity.class);
 			startActivity(intent);
 		}
 		if (v == dialogcancelButton) {

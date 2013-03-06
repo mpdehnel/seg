@@ -2,6 +2,7 @@ package com.game.memory;
 
 import java.util.LinkedList;
 
+import com.data.DataClass;
 import com.vectorone.R;
 
 import android.app.Activity;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Game_memory_Activity extends Activity {
 
@@ -23,6 +25,7 @@ public class Game_memory_Activity extends Activity {
 	private int tmpBoxindex = -1;
 	private Game_memory_Time gametime;
 	private boolean withpoints;
+	private Game_memory_Activity game;
 	private static final String TAG = "GameMemory";
 
 	@Override
@@ -34,6 +37,7 @@ public class Game_memory_Activity extends Activity {
 		Intent intent = getIntent();
 		withpoints = intent.getBooleanExtra("withpoints", true);
 		generatefiled(field);
+		this.game=this;
 		Log.i(TAG, field.toString());
 		intitfields();
 
@@ -248,10 +252,16 @@ public class Game_memory_Activity extends Activity {
 		return issame;
 	}
 
-	private void calculatepoints() {
-		if (withpoints) {
+	public void stop(long time) {
+		calculatepoints(time);
+	}
 
-			// TODO Auto-generated method stub
+	private void calculatepoints(long time) {
+		if(withpoints){
+			Toast.makeText(getBaseContext(), "Points:"+(120-time)*8, Toast.LENGTH_SHORT).show();
+			DataClass.user.setCurrentPoints((int) (DataClass.user.getCurrentPoints()+(120-time)*8));
+		}else{
+			Toast.makeText(getBaseContext(), "Time:"+time+"good try but just training", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -275,7 +285,7 @@ public class Game_memory_Activity extends Activity {
 						CheckBox click1 = lights[tmpBoxindex];
 						CheckBox click2 = ((CheckBox) findViewById(v.getId()));
 						click2.setChecked(true);
-						new Game_memory_Time(1000, 100, click1, click2, lights)
+						new Game_memory_Time(1000, 100, click1, click2, lights,game)
 								.start();
 						tmpBoxindex = -1;
 					}

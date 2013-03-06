@@ -25,16 +25,7 @@ public class DrawableStatusbar extends View {
 	}
 	@Override
 	public void onDraw(Canvas canvas) {
-		MyHttpClient client= new MyHttpClient(DataClass.server);
-		try {
-			client.getportiondata();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		int greenportion = DataClass.greenportion;
 		int redportion = DataClass.redportion+20;
 		int purpleportion = DataClass.purpleportion;

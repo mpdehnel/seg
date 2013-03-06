@@ -33,29 +33,6 @@
         android:layout_height="50dp" >
 
         <EditText
-            android:id="@+id/NicknameInput"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:ems="10"
-            android:gravity="left|right" />
-
-        <TextView
-            android:id="@+id/NicknameAddNewUser"
-            android:layout_width="100dp"
-            android:layout_height="25dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:text="Nickname" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp" >
-
-        <EditText
             android:id="@+id/PasswordInput"
             android:layout_width="200dp"
             android:layout_height="wrap_content"

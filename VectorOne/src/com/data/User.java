@@ -1,30 +1,28 @@
 package com.data;
 
-import com.vectorone.R;
-
 public class User {
 	private String username;
-	private String nickname;
 	private int id;
 	private int team;
 	private int totalcaches;
 	private int totalpoints;
 	private String password;
-	private String settings_maxdistance="All";
-	private String settings_unit="m/km";
-	private String settings_team="All";
-	private String Settings_visited="All";
+	private String settings_maxdistance = "All";
+	private String settings_unit = "m/km";
+	private String settings_team = "All";
+	private String Settings_visited = "All";
+	private int currentPoints;
 
 
-	public User(String username, String nickname, int team,
-			int totalchaches, int totalpoints, int drawable, int id, String password) {
+	public User(String username, String nickname, int team, int totalchaches,
+			int totalpoints, int drawable, int id, String password,int currentpoints) {
 		this.id = id;
-		this.nickname = nickname;
 		this.username = username;
 		this.team = team;
 		this.totalcaches = totalchaches;
 		this.totalpoints = totalpoints;
-		this.password=password;
+		this.currentPoints=currentPoints;
+		this.password = password;
 
 	}
 
@@ -38,14 +36,6 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
 	}
 
 	public int getTeam() {
@@ -72,11 +62,10 @@ public class User {
 		this.totalpoints = totalpoints;
 	}
 
-
 	public String toString() {
-		String tmp = "ID:" + id + " Name:" + username + " nickname:" + nickname
-				+ " totalcaches:" + totalcaches + " totalpoints:" + totalpoints
-				+ " teamcolor:" + team;
+		String tmp = "ID:" + id + " Name:" + username + " totalcaches:"
+				+ totalcaches + " totalpoints:" + totalpoints + " team:"
+				+ team;
 		return tmp;
 
 	}
@@ -89,7 +78,6 @@ public class User {
 		return id;
 	}
 
-	
 	public String getPassword() {
 		return password;
 	}
@@ -101,7 +89,7 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getSettings_maxdistance() {
 		return settings_maxdistance;
 	}
@@ -127,12 +115,19 @@ public class User {
 	}
 
 	public void setSettings_visited(String item) {
-		this.Settings_visited=item;
+		this.Settings_visited = item;
 	}
 
 	public String getSettings_visited() {
 		return Settings_visited;
 	}
 
+	public int getCurrentPoints() {
+		return currentPoints;
+	}
+	
+	public void setCurrentPoints(int points) {
+		this.currentPoints=points;
+	}
 
 }

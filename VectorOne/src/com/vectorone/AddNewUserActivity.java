@@ -1,6 +1,5 @@
 package com.vectorone;
 
-import org.apache.http.client.methods.HttpGet;
 
 import com.data.DataClass;
 import com.data.MyHttpClient;
@@ -13,7 +12,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.Nickname;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -25,24 +23,22 @@ import android.widget.Toast;
 public class AddNewUserActivity extends Activity {
 
 	private LinearLayout layout;
-	private TextView[] labels = new TextView[8];
-	private EditText[] entrys = new EditText[7];
+	private TextView[] labels = new TextView[7];
+	private EditText[] entrys = new EditText[6];
 	private Button createButton;
 	private Button cancelButton;
 	private final int username = 0;
-	private final int nickname = 1;
-	private final int email = 2;
-	private final int postcode = 3;
-	private final int date = 4;
-	private final int password = 5;
-	private final int passwordconfirm = 6;
+	private final int email = 1;
+	private final int postcode = 2;
+	private final int date = 3;
+	private final int password = 4;
+	private final int passwordconfirm = 5;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_addnewuser);
-
 		initdatafields();
 		setupListener();
 		setupfont();
@@ -75,8 +71,8 @@ public class AddNewUserActivity extends Activity {
 			entrys[i].setTextSize(textsize);
 			entrys[i].setTextColor(textcolor);
 		}
+		entrys[4].setTextSize(textsize);
 		entrys[5].setTextSize(textsize);
-		entrys[6].setTextSize(textsize);
 		for (int i = 0; i < labels.length; i++) {
 			labels[i].setTypeface(font);
 			labels[i].setTextSize(textsize);
@@ -100,23 +96,21 @@ public class AddNewUserActivity extends Activity {
 	private void initdatafields() {
 		layout = (LinearLayout) findViewById(R.id.AddNewUser);
 		labels[0] = (TextView) findViewById(R.id.UsernameLabel);
-		labels[1] = (TextView) findViewById(R.id.NicknameAddNewUser);
-		labels[2] = (TextView) findViewById(R.id.passwordAddNewUser);
-		labels[3] = (TextView) findViewById(R.id.PasswordConfirm);
-		labels[4] = (TextView) findViewById(R.id.Email);
-		labels[5] = (TextView) findViewById(R.id.PostCode);
-		labels[6] = (TextView) findViewById(R.id.DateOfBirth);
-		labels[7] = (TextView) findViewById(R.id.format);
+		labels[1] = (TextView) findViewById(R.id.passwordAddNewUser);
+		labels[2] = (TextView) findViewById(R.id.PasswordConfirm);
+		labels[3] = (TextView) findViewById(R.id.Email);
+		labels[4] = (TextView) findViewById(R.id.PostCode);
+		labels[5] = (TextView) findViewById(R.id.DateOfBirth);
+		labels[6] = (TextView) findViewById(R.id.format);
 		createButton = (Button) findViewById(R.id.CreateUser);
 		cancelButton = (Button) findViewById(R.id.Cancel);
 
 		entrys[0] = (EditText) findViewById(R.id.UsernameInput);
-		entrys[1] = (EditText) findViewById(R.id.NicknameInput);
-		entrys[2] = (EditText) findViewById(R.id.EmailInput);
-		entrys[3] = (EditText) findViewById(R.id.PostCodeInput);
-		entrys[4] = (EditText) findViewById(R.id.Date);
-		entrys[5] = (EditText) findViewById(R.id.PasswordInput);
-		entrys[6] = (EditText) findViewById(R.id.PasswordInputConfirm);
+		entrys[1] = (EditText) findViewById(R.id.EmailInput);
+		entrys[2] = (EditText) findViewById(R.id.PostCodeInput);
+		entrys[3] = (EditText) findViewById(R.id.Date);
+		entrys[4] = (EditText) findViewById(R.id.PasswordInput);
+		entrys[5] = (EditText) findViewById(R.id.PasswordInputConfirm);
 
 	}
 
@@ -157,11 +151,7 @@ public class AddNewUserActivity extends Activity {
 					Toast.makeText(getApplicationContext(), "wrong postcode",
 							Toast.LENGTH_SHORT).show();
 					properuser = false;
-				}
-				if (entrys[nickname].getText().toString() == null) {
-					Toast.makeText(getApplicationContext(), "empty nickname",
-							Toast.LENGTH_SHORT).show();
-					properuser = false;
+
 				}
 				if (properuser) {
 					Toast.makeText(getApplicationContext(),
@@ -169,8 +159,14 @@ public class AddNewUserActivity extends Activity {
 							Toast.LENGTH_LONG).show();
 					intent = new Intent(getApplicationContext(),
 							MainLogInActivity.class);
+					try{
 					MyHttpClient client = new MyHttpClient(DataClass.server);
-					Toast.makeText(getApplicationContext(), client.addNewUser(calculateHTTPrequest()),Toast.LENGTH_LONG).show();
+					Toast.makeText(getApplicationContext(),
+							client.addNewUser(calculateHTTPrequest()),
+							Toast.LENGTH_LONG).show();
+					}catch (Exception e) {
+						Toast.makeText(getBaseContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+					}
 				}
 			}
 		}
@@ -181,8 +177,6 @@ public class AddNewUserActivity extends Activity {
 			request.append(entrys[username]);
 			request.append("&password=");
 			request.append(entrys[password]);
-			request.append("&nickname=");
-			request.append(entrys[nickname]);
 			request.append("&email=");
 			request.append(entrys[email]);
 			request.append("&dateofbrith=");

@@ -1,5 +1,7 @@
 package com.vectorone;
 
+import java.io.IOException;
+
 import com.data.Cache;
 import com.data.DataClass;
 import com.data.DatabaseCacheHandler;
@@ -7,6 +9,7 @@ import com.data.DatabaseUserHandler;
 import com.data.Model;
 import com.data.MyHttpClient;
 import com.data.User;
+import com.findCache.RadarActivity;
 import com.google.android.maps.GeoPoint;
 
 import android.app.Activity;
@@ -150,6 +153,9 @@ public class MainLogInActivity extends Activity {
 					if (!username.equals("") && !password.equals("")
 							&& httpClient.isUser(username, password)) {
 						Log.i("MAIN", "online");
+					
+							httpClient.getportiondata();
+						
 						DataClass.addtolog(username + " logged in");
 
 						// ////////////////////////////////////////////////////////////
@@ -158,7 +164,9 @@ public class MainLogInActivity extends Activity {
 								"DurhamUniversitaet", new GeoPoint(54767542,
 										-1571993), // new GeoPoint(
 								// 54767442, -1570993),
-								"thats CLC Main Entry", true, 666)));
+								"thats CLC Main Entry", false, 666,2,"")));
+						
+					
 
 						// ////////////////////////////////////////////////////////////
 						// ////////////////////////////////////////////////////////////
@@ -208,15 +216,12 @@ public class MainLogInActivity extends Activity {
 
 		}
 		if (v == registerbutton) {
-			/*Uri uri = Uri.parse("http://www.google.com");
-			intent = new Intent(Intent.ACTION_VIEW, uri);
-			startActivity(intent);*/
+		
 			intent = new Intent(getApplicationContext(),
 					AddNewUserActivity.class);
 			startActivity(intent);
 		}
-		if (v == clearbutton) {
-
+		if (v == clearbutton) {		
 			usernameText.setText("");
 			passwordText.setText("");
 

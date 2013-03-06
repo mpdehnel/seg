@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 
 public class DatabaseUserHandler extends SQLiteOpenHelper {
@@ -19,11 +20,15 @@ public class DatabaseUserHandler extends SQLiteOpenHelper {
 	private static final String TABLE_USER = "users";
 	private static final String KEY_ID = "id";
 	private static final String KEY_NAME = "name";
-	private static final String KEY_NICKNAME = "nickname";
 	private static final String KEY_TOTALCACHES = "totalcaches";
 	private static final String KEY_TOTALPOINTS = "totalpoints";
+	private static final String KEY_CURRENTPOINTS = "currentpoints";
 	private static final String KEY_TEAMCOLOR = "TEAMCOLOR";
 	private static final String KEY_PASSWORD = "password";
+	private static final String KEY_RED = "red";
+	private static final String KEY_GREEN = "green";
+	private static final String KEY_BLUE = "blue";
+	private static final String KEY_PURPLE = "purple";
 	private Context cx;
 
 	public DatabaseUserHandler(Context context) {
@@ -34,11 +39,12 @@ public class DatabaseUserHandler extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "("
-				+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-				+ KEY_NICKNAME + " TEXT," + KEY_TOTALCACHES + " TEXT,"
-				+ KEY_TOTALPOINTS + " TEXT," + KEY_TEAMCOLOR + " TEXT,"
-				+ KEY_PASSWORD + " TEXT" + ")";
+		String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "(" + KEY_ID
+				+ " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
+				+ KEY_TOTALCACHES + " TEXT," + KEY_TOTALPOINTS + " TEXT,"+ KEY_CURRENTPOINTS + " TEXT,"
+				+ KEY_TEAMCOLOR + " TEXT," + KEY_PASSWORD + " TEXT," + KEY_RED
+				+ " TEXT," + KEY_GREEN + " TEXT," + KEY_BLUE + " TEXT,"
+				+ KEY_PURPLE + " TEXT" + ")";
 		db.execSQL(CREATE_USER_TABLE);
 	}
 
@@ -56,11 +62,15 @@ public class DatabaseUserHandler extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_NAME, user.getUsername()); // Contact Name
-		values.put(KEY_NICKNAME, user.getNickname());
 		values.put(KEY_TOTALPOINTS, user.getTotalpoints());
 		values.put(KEY_TOTALCACHES, user.getTotalcaches());
 		values.put(KEY_TEAMCOLOR, user.getTeam());
 		values.put(KEY_PASSWORD, user.getPassword());
+		values.put(KEY_CURRENTPOINTS, user.getCurrentPoints());
+		values.put(KEY_BLUE, DataClass.blueportion);
+		values.put(KEY_RED, DataClass.redportion);
+		values.put(KEY_GREEN, DataClass.greenportion);
+		values.put(KEY_PURPLE, DataClass.purpleportion);
 
 		// Inserting Row
 		db.insert(TABLE_USER, null, values);
@@ -80,11 +90,15 @@ public class DatabaseUserHandler extends SQLiteOpenHelper {
 			User user = new User();
 			user.setId(Integer.parseInt(cursor.getString(0)));
 			user.setUsername(cursor.getString(1));
-			user.setNickname(cursor.getString(2));
-			user.setTotalcaches(Integer.parseInt(cursor.getString(3)));
-			user.setTotalpoints(Integer.parseInt(cursor.getString(4)));
+			user.setTotalcaches(Integer.parseInt(cursor.getString(2)));
+			user.setTotalpoints(Integer.parseInt(cursor.getString(3)));
+			user.setCurrentPoints(Integer.parseInt(cursor.getString(3)));
 			user.setTeam(Integer.parseInt(cursor.getString(5)));
 			user.setPassword(cursor.getString(6));
+			DataClass.redportion = Integer.parseInt(cursor.getString(7));
+			DataClass.greenportion = Integer.parseInt(cursor.getString(8));
+			DataClass.blueportion = Integer.parseInt(cursor.getString(9));
+			DataClass.purpleportion = Integer.parseInt(cursor.getString(10));
 			Log.i("MAIN", user.toString());
 			DataClass.user = user;
 		} else {

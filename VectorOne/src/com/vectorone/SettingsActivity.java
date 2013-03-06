@@ -42,7 +42,6 @@ public class SettingsActivity extends Activity {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_settings);
-
 		initdatafields();
 		setupListener();
 		setupfont();

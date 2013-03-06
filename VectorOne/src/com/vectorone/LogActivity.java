@@ -22,9 +22,9 @@ public class LogActivity extends Activity{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_log);
+		
 		GridLayout background= (GridLayout)findViewById(R.id.log_layout);
 		background.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
-		
 		
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");

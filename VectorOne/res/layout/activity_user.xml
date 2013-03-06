@@ -14,19 +14,11 @@
         android:text="Name" />
 
     <TextView
-        android:id="@+id/nickname"
+        android:id="@+id/team"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignLeft="@+id/name"
         android:layout_below="@+id/name"
-        android:text="Nickname" />
-
-    <TextView
-        android:id="@+id/team"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_alignLeft="@+id/nickname"
-        android:layout_below="@+id/nickname"
         android:text="Team" />
 
     <TextView
@@ -63,5 +55,13 @@
         android:layout_marginBottom="42dp"
         android:layout_marginRight="61dp"
         android:text="Log" />
+
+    <TextView
+        android:id="@+id/currentpoints"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/totalPoints"
+        android:layout_below="@+id/totalPoints"
+        android:text="Currentpoints" />
 
 </RelativeLayout>

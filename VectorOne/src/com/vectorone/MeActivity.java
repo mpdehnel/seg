@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 public class MeActivity extends Activity {
 	private TextView name;
-	private TextView nickname;
 	private TextView team;
 	private TextView totalpoints;
 	private TextView totalcaches;
@@ -28,6 +27,7 @@ public class MeActivity extends Activity {
 	private RelativeLayout layout;
 	private boolean formmaps;
 	private TextView location;
+	private TextView curretentPoints;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,6 @@ public class MeActivity extends Activity {
 		setContentView(R.layout.activity_user);
 		Intent intent = getIntent();
 		formmaps = intent.getBooleanExtra("frommaps", false);
-
 		initdatafields();
 		setupListener();
 		setupfont();
@@ -48,11 +47,10 @@ public class MeActivity extends Activity {
 
 	private void setupdatafields() {
 		name.setText("Name: " + DataClass.user.getUsername());
-
-		nickname.setText("Nickname: " + DataClass.user.getNickname());
 		team.setText("Team: " + DataClass.user.getTeam());
 		totalpoints.setText("TotalPoints: " + DataClass.user.getTotalpoints());
 		totalcaches.setText("TotalCaches: " + DataClass.user.getTotalcaches());
+		curretentPoints.setText("CurrentPoints: "+DataClass.user.getCurrentPoints());
 		double lat = Math.round(DataClass.mylat / Math.pow(10, 4)) / 100;
 		double lng = Math.round(DataClass.mylng / Math.pow(10, 4)) / 100;
 
@@ -80,9 +78,6 @@ public class MeActivity extends Activity {
 		name.setTextColor(textcolor);
 		name.setTextSize(textsize);
 
-		nickname.setTypeface(font);
-		nickname.setTextColor(textcolor);
-		nickname.setTextSize(textsize);
 
 		team.setTypeface(font);
 		team.setTextColor(textcolor);
@@ -99,6 +94,10 @@ public class MeActivity extends Activity {
 		totalcaches.setTypeface(font);
 		totalcaches.setTextColor(textcolor);
 		totalcaches.setTextSize(textsize);
+		
+		curretentPoints.setTypeface(font);
+		curretentPoints.setTextColor(textcolor);
+		curretentPoints.setTextSize(textsize);
 
 		logbutton.setTypeface(font);
 		logbutton.setTextSize(textsize);
@@ -119,17 +118,19 @@ public class MeActivity extends Activity {
 
 	private void initdatafields() {
 		name = (TextView) findViewById(R.id.name);
-		nickname = (TextView) findViewById(R.id.nickname);
 		team = (TextView) findViewById(R.id.team);
 		totalpoints = (TextView) findViewById(R.id.totalPoints);
 		totalcaches = (TextView) findViewById(R.id.totalNumberOfChaches);
 		logbutton = (Button) findViewById(R.id.log_button);
 		layout = (RelativeLayout) findViewById(R.id.me_layout);
 		location = (TextView) findViewById(R.id.location);
+		curretentPoints=(TextView)findViewById(R.id.currentpoints);
 	}
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
+		finish();
+		startActivity(new Intent(getApplicationContext(),
+				MenuActivity.class));
 	}
 }

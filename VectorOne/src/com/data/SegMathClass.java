@@ -14,23 +14,22 @@ public class SegMathClass {
 		Location B = new Location("B");
 		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
 		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
-		float distance=Math.round(A.distanceTo(B));
+		float distance = Math.round(A.distanceTo(B));
 		if (DataClass.unit.equals("km")) {
 			if (distance > 5000) {
-				return Math.round(distance/ 1000) + "km";
+				return Math.round(distance / 1000) + "km";
 			} else {
-				return Math.round(distance)+ "m";
+				return Math.round(distance) + "m";
 			}
 		} else if (DataClass.unit.equals("ft")) {
-			
-			if(Math.round(distance*3.2808399)>5280){
-				return Math.round(distance*3.2808399)/5280+"mi";
+
+			if (Math.round(distance * 3.2808399) > 5280) {
+				return Math.round(distance * 3.2808399) / 5280 + "mi";
 			}
-			
-			
-			return Math.round(distance*3.2808399)+"ft";
+
+			return Math.round(distance * 3.2808399) + "ft";
 		}
-		return Math.round(distance)+"m";
+		return Math.round(distance) + "m";
 
 	}
 
@@ -44,7 +43,7 @@ public class SegMathClass {
 		return (int) Math.round(A.distanceTo(B));
 
 	}
-	
+
 	public static int calculateDistanceinFeet(GeoPoint start, GeoPoint target) {
 		Location A = new Location("A");
 		A.setLatitude(((double) start.getLatitudeE6()) / 1E6);
@@ -52,7 +51,7 @@ public class SegMathClass {
 		Location B = new Location("B");
 		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
 		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
-		return (int) Math.round(A.distanceTo(B)*3.2808399);
+		return (int) Math.round(A.distanceTo(B) * 3.2808399);
 
 	}
 
@@ -88,5 +87,20 @@ public class SegMathClass {
 
 		degree = Math.round(degree);
 		return degree + "°" + direction;
+	}
+
+	public static float calculateDirectionDegree(GeoPoint start,
+			GeoPoint target) {
+		Location A = new Location("A");
+		A.setLatitude(((double) start.getLatitudeE6()) / 1E6);
+		A.setLongitude(((double) start.getLongitudeE6()) / 1E6);
+		Location B = new Location("B");
+		B.setLatitude(((double) target.getLatitudeE6()) / 1E6);
+		B.setLongitude(((double) target.getLongitudeE6()) / 1E6);
+
+		float degree = A.bearingTo(B);
+		if (degree < 0)
+			degree = 360 + degree;
+		return degree;
 	}
 }

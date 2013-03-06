@@ -74,12 +74,13 @@ public class MyHttpClient {
 
 			try {
 				user.setUsername(username);
-				user.setNickname(getValueofTag("nickname", line));
 				user.setTeam(Integer.parseInt(getValueofTag("team", line)));
 				user.setTotalcaches(Integer.valueOf(getValueofTag(
 						"totalcaches", line)));
 				user.setTotalpoints(Integer.valueOf(getValueofTag(
 						"totalpoints", line)));
+				user.setCurrentPoints(Integer.valueOf(getValueofTag(
+						"currentpoints", line)));
 				user.setId(Integer.valueOf(getValueofTag("id", line)));
 				// Log.i(TAG,user.toString());
 				user.setPassword(password);
@@ -123,10 +124,10 @@ public class MyHttpClient {
 
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response
 				.getEntity().getContent()));
-
+		Log.i("HTTPCLIENTUSER", "Caches ------");
 		String line = "";
 		while ((line = rd.readLine()) != null) {
-			// Log.i(TAG, line);
+			Log.i(TAG, "Caches ------"+line);
 			return parseCache(line);
 		}
 		return null;
@@ -154,10 +155,13 @@ public class MyHttpClient {
 				tmp.setDescripton(getValueofTag("description", element));
 				tmp.setfounded(Boolean.valueOf(getValueofTag("found", element)));
 				tmp.setID(Integer.valueOf(getValueofTag("id", element)));
+				tmp.setMacAdd(getValueofTag("macaddress", element));
+				
 				cachelist.add(tmp);
 
 			}
 		} catch (Exception e) {
+			Log.i(TAG, "Caches ------"+e.getMessage());
 			e.printStackTrace();
 		}
 		return toCacheArry(cachelist);
@@ -201,13 +205,13 @@ public class MyHttpClient {
 	// /////////////////////////////////////////////////////////////////
 	// //////////////////////////Pushing////////////////////////////////
 	// /////////////////////////////////////////////////////////////////
-	public void addCacheToDatabase(Context context, int lon, int lat,
-			String Cachename, String MyDescription)
+	public void addCacheToDatabase(Context context, String username,int lon, int lat,
+			String Cachename, String MyDescription,String Macaddress)
 			throws ClientProtocolException, IOException {
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(this.server
-				+ "createCache.php?username=Robby" + "&userlat=" + lat
-				+ "&userlon=" + lon + "&description=" + MyDescription);
+				+ "createCache.php?username="+username + "&userlat=" + lat
+				+ "&userlon=" + lon + "&description=" + MyDescription+"&macAdress="+Macaddress);
 		HttpResponse response = client.execute(request);
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response
 				.getEntity().getContent()));

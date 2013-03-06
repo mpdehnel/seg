@@ -1,5 +1,12 @@
 package com.data;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import com.game.keepopen.Game_keepopen_Activity;
+import com.game.memory.Game_memory_Activity;
+import com.vectorone.CacheShowActivity;
+
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,21 +37,63 @@ public class WifiSupport extends BroadcastReceiver {
 			Log.i(TAG, "SSID:" + info.getSSID());
 			Log.i(TAG, "info" + info.toString());
 			return info.getBSSID();
+
 		}
 		return "no WIFI";
 	}
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		
 		ConnectivityManager conMan = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = conMan.getActiveNetworkInfo();
 		if (netInfo != null && conMan != null) {
 			if (netInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-				Log.i(TAG, "Have Wifi Connection");
-				getMacAddress(context);
+				Log.i(TAG, "Have Wifi Connection BSSID="
+						+ getMacAddress(context));
+				checkWIFICaches(context, getMacAddress(context));
 			} else {
 				Log.i(TAG, "Don't have Wifi Connection");
+			}
+		}
+	}
+
+	public static void checkWIFICaches(Context context, String Macaddress) {
+
+		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
+			Cache selectedCach = DataClass.selectedCaches.get(i);
+
+			Log.i("DATACLASS", selectedCach.getMacAdd() + "-Macaddess-"
+					+ Macaddress);
+			if (context != null) {
+				if (Macaddress.length() == 17
+						&& selectedCach.getMacAdd().length() == 17) {
+					Log.i("DATACLASS", selectedCach.getMacAdd() + "-Macaddess-"
+							+ Macaddress);
+					if (!selectedCach.isFound()) {
+						Log.i("DATACLASS", selectedCach.getMacAdd() + "-Macaddess-"
+								+ Macaddress);
+						if (selectedCach.getMacAdd().equalsIgnoreCase(Macaddress)) {
+							Log.i("DATACLASS", selectedCach.getMacAdd() + "-Macaddess-"
+									+ Macaddress);
+							int choice = (int) (Math.random() * 2);
+
+							if (choice == 0) {
+								Intent intent = new Intent(context,
+										Game_keepopen_Activity.class);
+								intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+								context.startActivity(intent);
+							} else {
+
+								Intent intent = new Intent(context,
+										Game_memory_Activity.class);
+								intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+								context.startActivity(intent);
+							}
+						}
+					}
+				}
 			}
 		}
 	}

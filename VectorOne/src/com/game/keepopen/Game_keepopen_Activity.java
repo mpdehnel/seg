@@ -1,16 +1,19 @@
 package com.game.keepopen;
 
+import com.data.DataClass;
 import com.vectorone.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Game_keepopen_Activity extends Activity {
 
@@ -19,6 +22,7 @@ public class Game_keepopen_Activity extends Activity {
 	private boolean hardcore = false;
 	private Game_KeepOpen_Time gametime;
 	private MediaPlayer mp;
+	private TextView t1;
 	private boolean withpoints;
 
 	@Override
@@ -27,20 +31,18 @@ public class Game_keepopen_Activity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_keepopen_game);
-		Intent intent= getIntent();
-		withpoints= intent.getBooleanExtra("withpoints", true);
+		Intent intent = getIntent();
+		t1 = (TextView) findViewById(R.id.time);
+		withpoints = intent.getBooleanExtra("withpoints", true);
 		for (int i = 0; i < numberoflights; i++) {
 			lights[i] = (CheckBox) findViewById(getid("light" + (i + 1)));
 			lights[i].setButtonDrawable(R.drawable.checkbox_keepopen_game);
 			lights[i].setChecked(true);
 		}
 		setHardcodeListener(hardcore);
-		gametime = new Game_KeepOpen_Time(120000, 100, lights,
-				(TextView) findViewById(R.id.time), this);
+		gametime = new Game_KeepOpen_Time(120000, 100, lights, t1, this);
 
-		gametime.start();
-
-		PlaySound();
+		starttimer.start();
 
 	}
 
@@ -133,21 +135,27 @@ public class Game_keepopen_Activity extends Activity {
 
 	public void stop(long time) {
 		mp.stop();
-		//calculatepoints();
+		calculatepoints(time);
 	}
 
-	private void calculatepoints() {
-		if(withpoints){
-			//TODO:
+	private void calculatepoints(long time) {
+		if (withpoints) {
+			Toast.makeText(getBaseContext(), "Points:" + time,
+					Toast.LENGTH_SHORT).show();
+			DataClass.user.setCurrentPoints((int) (DataClass.user
+					.getCurrentPoints() + time));
+		} else {
+			Toast.makeText(getBaseContext(),
+					"Time:" + time + "good try but just training",
+					Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		mp.stop();
 		super.onBackPressed();
 	}
-	
 
 	public void setHardcodeListener(boolean hardcore) {
 		if (hardcore) {
@@ -166,4 +174,17 @@ public class Game_keepopen_Activity extends Activity {
 		}
 	}
 
+	public CountDownTimer starttimer = new CountDownTimer(4000, 10) {
+
+		@Override
+		public void onTick(long millisUntilFinished) {
+			t1.setText("" + (millisUntilFinished / 1000));
+		}
+
+		@Override
+		public void onFinish() {
+			gametime.start();
+			PlaySound();
+		}
+	};
 }

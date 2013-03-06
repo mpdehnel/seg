@@ -10,15 +10,47 @@ public class Cache {
 	private String name;
 	private int teamcolor;
 	private boolean founded;
-	public boolean israted=false;
+	private boolean israted = false;
+	private String macAdd="";
 
 	public Cache(String name, GeoPoint geopoint, String description,
-			boolean founded, int id) {
+			boolean founded, int id,int teamcolor,String macAdd) {
 		this.name = name;
 		this.geopoint = geopoint;
 		this.descripton = description;
 		this.founded = founded;
+		this.teamcolor=teamcolor;
+		this.macAdd=macAdd;
 		this._id = id;
+	}
+
+	public int get_id() {
+		return _id;
+	}
+
+	public void set_id(int _id) {
+		this._id = _id;
+	}
+
+
+	public boolean israted() {
+		return israted;
+	}
+
+	public void setIsrated(boolean israted) {
+		this.israted = israted;
+	}
+
+	public int getTeamcolor() {
+		return teamcolor;
+	}
+
+	public String getMacAdd() {
+		return macAdd;
+	}
+
+	public void setMacAdd(String macAdd) {
+		this.macAdd = macAdd;
 	}
 
 	public Cache() {
@@ -45,11 +77,13 @@ public class Cache {
 					+ "\n"
 					+ "Direction:   "
 					+ SegMathClass.calculateDirection(DataClass.myGeoPoint,
-							this.geopoint);
+							this.geopoint) + "\n" + "Location long/lat:   "
+					+ this.geopoint.getLongitudeE6() / Math.pow(10, 6) + "/"
+					+ this.geopoint.getLatitudeE6() / Math.pow(10, 6)+"\n"+"Team:"+this.getTeamcolour()+"\n"+"MacAddress: "+this.macAdd;
+
 		}
 		return descripton;
 	}
-	
 
 	public void setDescripton(String descripton) {
 		this.descripton = descripton;
@@ -88,14 +122,20 @@ public class Cache {
 	}
 
 	public boolean isIslessthanXXXm(int xxx) {
-		int distance = SegMathClass.calculateDistanceinMeter(DataClass.myGeoPoint,
-				this.geopoint);
+		int distance = SegMathClass.calculateDistanceinMeter(
+				DataClass.myGeoPoint, this.geopoint);
 		if (distance <= xxx) {
 			return true;
 		} else {
 			return false;
 		}
 
+	}
+	public boolean equals(Cache cache){
+		if(this._id==cache._id){
+			return true;
+		}
+		return false;
 	}
 
 }

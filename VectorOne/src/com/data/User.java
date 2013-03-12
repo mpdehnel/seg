@@ -1,5 +1,7 @@
 package com.data;
 
+import java.util.LinkedList;
+
 public class User {
 	private String username;
 	private int id;
@@ -8,9 +10,10 @@ public class User {
 	private int totalpoints;
 	private String password;
 	private String settings_maxdistance = "All";
-	private String settings_unit = "m/km";
+	private String settings_unit = "m-km";
 	private String settings_team = "All";
-	private String Settings_visited = "All";
+	private String settings_visited = "All";
+	private String settings_sorted = "name";
 	private int currentPoints;
 
 
@@ -115,11 +118,19 @@ public class User {
 	}
 
 	public void setSettings_visited(String item) {
-		this.Settings_visited = item;
+		this.settings_visited = item;
 	}
 
 	public String getSettings_visited() {
-		return Settings_visited;
+		return settings_visited;
+	}
+
+	public String getSettings_sorted() {
+		return settings_sorted;
+	}
+
+	public void setSettings_sorted(String settings_sorted) {
+		this.settings_sorted = settings_sorted;
 	}
 
 	public int getCurrentPoints() {

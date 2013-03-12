@@ -29,6 +29,10 @@ public class DatabaseUserHandler extends SQLiteOpenHelper {
 	private static final String KEY_GREEN = "green";
 	private static final String KEY_BLUE = "blue";
 	private static final String KEY_PURPLE = "purple";
+	
+
+	
+	
 	private Context cx;
 
 	public DatabaseUserHandler(Context context) {

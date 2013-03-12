@@ -30,12 +30,17 @@ public class Registrationsverify {
 
 	public boolean isProperDate(String date) {
 		boolean result = true;
-		try {
-			SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-			df.setLenient(false);
-			df.parse(date);
+		if (date.length() == 10) {
+			try {
 
-		} catch (ParseException e) {
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				df.setLenient(false);
+				df.parse(date);
+
+			} catch (ParseException e) {
+				result = false;
+			}
+		} else {
 			result = false;
 		}
 		return result;

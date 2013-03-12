@@ -1,8 +1,12 @@
 package com.vectorone;
 
-import com.data.DataClass;
-import com.findCache.MapsActivity;
+import java.io.IOException;
 
+import org.apache.http.client.ClientProtocolException;
+
+import com.data.DataClass;
+import com.data.MyHttpClient;
+import com.findCache.MapsActivity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -20,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MenuActivity extends Activity {
 
@@ -34,7 +39,7 @@ public class MenuActivity extends Activity {
 	private Dialog dialog;
 	private TextView usernameTextView;
 	private RelativeLayout layout;
-	private Vibrator vibrate ;
+	private Vibrator vibrate;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,7 @@ public class MenuActivity extends Activity {
 		setupListener();
 		setupbackgoundimages();
 		setupfonts();
-		usernameTextView.setText("Hello  "+DataClass.user.getUsername());
+		usernameTextView.setText("Hello  " + DataClass.user.getUsername());
 
 	}
 
@@ -58,11 +63,12 @@ public class MenuActivity extends Activity {
 		settingsButton = (Button) findViewById(R.id.settingsbutton);
 		logout = (Button) findViewById(R.id.logout_button);
 		search = (Button) findViewById(R.id.button_maps);
-		RelativeLayout relativ= (RelativeLayout) findViewById(R.id.test);
-		//relativ.setBackgroundDrawable(getResources().getDrawable(R.drawable.databar));
+		RelativeLayout relativ = (RelativeLayout) findViewById(R.id.test);
+		// relativ.setBackgroundDrawable(getResources().getDrawable(R.drawable.databar));
 		relativ.addView(new DrawableStatusbar(this));
-		vibrate= (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-		relativ.addView(new Backgroundview(this,getResources().getDrawable(R.drawable.databar)));
+		vibrate = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		relativ.addView(new Backgroundview(this, getResources().getDrawable(
+				R.drawable.databar)));
 		intidialog();
 		dialoglogoutButton = (Button) dialog
 				.findViewById(R.id.dialogButtonLogOut);
@@ -99,17 +105,17 @@ public class MenuActivity extends Activity {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
 		int buttoncolor = Color.parseColor("#45250F");
-		int textcolor=Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#DECD87");
 		float textsize = 22;
 
 		cachesSelectButton.setTypeface(font);
 		cachesSelectButton.setTextSize(textsize);
 		cachesSelectButton.setTextColor(buttoncolor);
-		
+
 		usernameTextView.setTypeface(font);
 		usernameTextView.setTextSize(textsize);
 		usernameTextView.setTextColor(textcolor);
-		
+
 		search.setTypeface(font);
 		search.setTextSize(textsize);
 		search.setTextColor(buttoncolor);
@@ -140,10 +146,11 @@ public class MenuActivity extends Activity {
 	}
 
 	private void setupbackgoundimages() {
-		//Drawable buttonimage = getResources().getDrawable(
-			//	R.drawable.buttonmedium);
-		Drawable buttonimage= getResources().getDrawable(R.drawable.buttonmedium);
-		
+		// Drawable buttonimage = getResources().getDrawable(
+		// R.drawable.buttonmedium);
+		Drawable buttonimage = getResources().getDrawable(
+				R.drawable.buttonmedium);
+
 		layout.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.background));
 
@@ -155,7 +162,6 @@ public class MenuActivity extends Activity {
 		dialogcancelButton.setBackgroundDrawable(buttonimage);
 		dialogcloseAppButton.setBackgroundDrawable(buttonimage);
 		dialoglogoutButton.setBackgroundDrawable(buttonimage);
-		
 
 	}
 
@@ -177,12 +183,12 @@ public class MenuActivity extends Activity {
 			intent = new Intent(getApplicationContext(), SettingsActivity.class);
 			startActivity(intent);
 		}
-		
-		//TODO: STORE DATA in USERDATABASE 
+
 		if (v == logout) {
 			dialog.dismiss();
 			finish();
-			//DataClass.clear();
+			pushlog();
+			DataClass.log=new StringBuilder();
 			intent = new Intent(getApplicationContext(),
 					MainLogInActivity.class);
 			startActivity(intent);
@@ -198,7 +204,8 @@ public class MenuActivity extends Activity {
 		if (v == dialoglogoutButton) {
 			finish();
 			dialog.dismiss();
-			DataClass.clear();
+			pushlog();
+			DataClass.log=new StringBuilder();
 			intent = new Intent(getApplicationContext(),
 					MainLogInActivity.class);
 			startActivity(intent);
@@ -206,6 +213,20 @@ public class MenuActivity extends Activity {
 		if (v == dialogcloseAppButton) {
 			dialog.dismiss();
 			finish();
+		}
+
+	}
+
+	private void pushlog() {
+		MyHttpClient http = new MyHttpClient(DataClass.server);
+		try {
+			http.setuserlog(DataClass.user.getUsername(), DataClass.log.toString());
+		} catch (ClientProtocolException e) {
+			Toast.makeText(getBaseContext(),e.getMessage(), Toast.LENGTH_LONG).show();
+			e.printStackTrace();
+		} catch (IOException e) {
+			Toast.makeText(getBaseContext(),e.getMessage(), Toast.LENGTH_LONG).show();
+			e.printStackTrace();
 		}
 
 	}

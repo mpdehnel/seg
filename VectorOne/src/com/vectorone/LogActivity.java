@@ -34,7 +34,7 @@ public class LogActivity extends Activity{
 		log.setMovementMethod(ScrollingMovementMethod.getInstance());
 		log.setTypeface(font);
 		log.setTextColor(textcolor);
-		log.setText(DataClass.log);
+		log.setText(DataClass.log.toString());
 	}
 
 }

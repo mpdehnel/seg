@@ -1,20 +1,26 @@
 package com.vectorone;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
 
 import com.data.Cache;
 import com.data.DataClass;
 import com.data.Model;
+import com.data.MyHttpClient;
 import com.findCache.MapsActivity;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -38,7 +44,7 @@ public class CacheShowActivity extends Activity {
 	private Button rate_button;
 	private RatingBar ratebar;
 	private List<Model> listofsortetcaches;
-
+	private Vibrator vibrator;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -85,6 +91,7 @@ public class CacheShowActivity extends Activity {
 		rate_button = (Button) findViewById(R.id.ratethisCache);
 		question = (TextView) findViewById(R.id.doyouwant);
 		ratebar=(RatingBar) findViewById(R.id.Cacheratingbar);
+		vibrator=(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 	}
 
@@ -153,6 +160,7 @@ public class CacheShowActivity extends Activity {
 	}
 
 	private void clickhandle(View v) {
+		vibrator.vibrate(50);
 		if (v == no_Button) {
 
 			finish();
@@ -184,8 +192,19 @@ public class CacheShowActivity extends Activity {
 		}
 		if(v==rate_button){
 			float rating=ratebar.getRating();
-			if(listofsortetcaches.get(cacheindex).getCach().isFound()){
+			MyHttpClient http=new MyHttpClient(DataClass.server);
+			Cache cache=listofsortetcaches.get(cacheindex).getCach();
+			if(cache.isFound()&&!cache.israted()){
 			Toast.makeText(getApplicationContext(), "Rating with"+rating, Toast.LENGTH_SHORT).show();
+			try {
+				Toast.makeText(getApplicationContext(),http.pushrating(cache.get_id(), rating) , Toast.LENGTH_SHORT).show();
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			}else{
 				Toast.makeText(getApplicationContext(), "You have to find the cache befor you could rate it!", Toast.LENGTH_SHORT).show();
 			}

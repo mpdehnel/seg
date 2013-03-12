@@ -1,15 +1,23 @@
 package com.vectorone;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
 import com.data.DataClass;
+import com.data.MyHttpClient;
+import com.data.SpinnerAdapter;
 import com.data.SpinnerListener;
 import com.data.User;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +27,7 @@ import android.widget.GridLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SettingsActivity extends Activity {
 
@@ -36,6 +45,7 @@ public class SettingsActivity extends Activity {
 	private Spinner spinner_cache;
 	private TextView lable_sort;
 	private Spinner spinner_sort;
+	private Vibrator vibrator;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,16 +84,16 @@ public class SettingsActivity extends Activity {
 		lable_team.setTextSize(textsize);
 		lable_team.setTextColor(textcolor);
 		lable_team.setTypeface(font);
-		
+
 		lable_cache.setTextSize(textsize);
 		lable_cache.setTextColor(textcolor);
 		lable_cache.setTypeface(font);
-		lable_cache.setText("Visited"+System.getProperty("line.separator")+"Caches");
-		
+		lable_cache.setText("Visited" + System.getProperty("line.separator")
+				+ "Caches");
+
 		lable_sort.setTextSize(textsize);
 		lable_sort.setTextColor(textcolor);
 		lable_sort.setTypeface(font);
-		
 
 	}
 
@@ -105,7 +115,7 @@ public class SettingsActivity extends Activity {
 	private void setupdatafields() {
 		Log.i("MAIN", "setupFields");
 		if (user.getSettings_unit() != null) {
-			if (user.getSettings_unit().equals("m/km")) {
+			if (user.getSettings_unit().equals("m-km")) {
 				Log.i("MAIN", "km");
 				spinner_unit.setSelection(0);
 			} else {
@@ -125,12 +135,26 @@ public class SettingsActivity extends Activity {
 					.getSettings_maxdistance()));
 		}
 
+		if (user.getSettings_visited() != null) {
+			Log.i("MAIN", "visited");
+			spinner_cache
+					.setSelection(getPosinArray(
+							getResources().getStringArray(R.array.Cachs),
+							user.getSettings_visited()));
+		}
+
+		if (user.getSettings_sorted() != null) {
+			Log.i("MAIN", "sorted");
+			spinner_sort.setSelection(getPosinArray(getResources()
+					.getStringArray(R.array.sort), DataClass.SortType));
+		}
+
 	}
 
 	private int getPosinArray(String[] data, String date) {
 		for (int i = 0; i < data.length; i++) {
 			if (data[i].equals(date)) {
-				Log.i("MAIN", "inarray-date-"+i+"--"+date+"---");
+				Log.i("MAIN", "inarray-date-" + i + "--" + date + "---");
 				return i;
 			}
 		}
@@ -143,26 +167,60 @@ public class SettingsActivity extends Activity {
 		lable_team = (TextView) findViewById(R.id.team_lable);
 		lable_maxdistance = (TextView) findViewById(R.id.max_distance);
 		spinner_unit = (Spinner) findViewById(R.id.spinner_unit);
+		spinner_unit.setAdapter(new SpinnerAdapter(getApplicationContext(), R.layout.spinner_row, getResources().getStringArray(R.array.Unit)));
 		spinner_team = (Spinner) findViewById(R.id.spinner_team);
+		spinner_team.setAdapter(new SpinnerAdapter(getApplicationContext(), R.layout.spinner_row, getResources().getStringArray(R.array.Team)));
 		spinner_distance = (Spinner) findViewById(R.id.spinner_distance);
+		spinner_distance.setAdapter(new SpinnerAdapter(getApplicationContext(), R.layout.spinner_row, getResources().getStringArray(R.array.Distance)));
 		spinner_listener = new SpinnerListener(DataClass.user, this);
 		button_apply = (Button) findViewById(R.id.set);
 		lable_cache = (TextView) findViewById(R.id.settings_cache);
 		spinner_cache = (Spinner) findViewById(R.id.spinner_cache);
-		lable_sort =(TextView) findViewById(R.id.settings_Sortby);
-		spinner_sort=(Spinner) findViewById(R.id.spinner_SortBy);
+		spinner_cache.setAdapter(new SpinnerAdapter(getApplicationContext(), R.layout.spinner_row, getResources().getStringArray(R.array.Cachs)));
+		lable_sort = (TextView) findViewById(R.id.settings_Sortby);
+		spinner_sort = (Spinner) findViewById(R.id.spinner_SortBy);
+		spinner_sort.setAdapter(new SpinnerAdapter(getApplicationContext(), R.layout.spinner_row, getResources().getStringArray(R.array.sort)));
+		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+	}
+
+	@Override
+	public void onBackPressed() {
+		Log.i("MAIN", "Update User online and database");
+		upload();
+		vibrator.vibrate(50);
+		Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+		startActivity(intent);
+		finish();
+
+	}
+
+	private void upload() {
+		MyHttpClient http=new MyHttpClient(DataClass.server);
+		User user=DataClass.user;
+		try {
+			http.usersettings(user.getUsername(), user.getSettings_unit(), user.getSettings_maxdistance(), user.getSettings_visited(), user.getSettings_team(),DataClass.SortType);
+		} catch (ClientProtocolException e) {
+			Toast.makeText(getBaseContext(), "Connection Error settings not online next login you have to re-set it", Toast.LENGTH_LONG).show();
+			e.printStackTrace();
+		} catch (IOException e) {
+			Toast.makeText(getBaseContext(), "Connection Error settings not online next login you have to re-set it", Toast.LENGTH_LONG).show();
+			e.printStackTrace();
+		}
 	}
 
 	private OnClickListener clickhandler = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
+			vibrator.vibrate(50);
 			if (v == button_apply) {
+				upload();
 				Log.i("MAIN", "Update User online and database");
 				Intent intent = new Intent(getBaseContext(), MenuActivity.class);
 				startActivity(intent);
 				finish();
 			}
 		}
+
 	};
 }

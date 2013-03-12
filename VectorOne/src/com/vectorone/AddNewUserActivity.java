@@ -1,7 +1,7 @@
 package com.vectorone;
 
-
 import com.data.DataClass;
+import com.data.DatabaseUserHandler;
 import com.data.MyHttpClient;
 import com.data.Registrationsverify;
 
@@ -12,6 +12,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.Settings.System;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,12 +35,15 @@ public class AddNewUserActivity extends Activity {
 	private final int date = 3;
 	private final int password = 4;
 	private final int passwordconfirm = 5;
+	private boolean change;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_addnewuser);
+		Intent intent=getIntent();
+		change=intent.getBooleanExtra("change", false);
 		initdatafields();
 		setupListener();
 		setupfont();
@@ -48,6 +53,7 @@ public class AddNewUserActivity extends Activity {
 	private void setupbackgroundimage() {
 		layout.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.background));
+		
 		Drawable buttonimage = getResources().getDrawable(
 				R.drawable.buttonmedium);
 		Drawable textfieldimage = getResources().getDrawable(
@@ -85,6 +91,34 @@ public class AddNewUserActivity extends Activity {
 		createButton.setTextColor(buttoncolor);
 		createButton.setTypeface(font);
 		createButton.setTextSize(textsize);
+		if(change){
+			createButton.setText("Change");
+			labels[5].setVisibility(Button.INVISIBLE);
+			labels[3].setVisibility(Button.INVISIBLE);
+			labels[4].setVisibility(Button.INVISIBLE);
+			labels[5].setVisibility(Button.INVISIBLE);
+			labels[6].setVisibility(Button.INVISIBLE);
+			entrys[3].setVisibility(EditText.INVISIBLE);
+			entrys[1].setVisibility(EditText.INVISIBLE);
+			entrys[2].setVisibility(EditText.INVISIBLE);
+			entrys[3].setVisibility(EditText.INVISIBLE);
+			entrys[0].setText(DataClass.user.getUsername());
+			entrys[4].setText(DataClass.user.getPassword());
+			entrys[5].setText(DataClass.user.getPassword());
+			
+		}else{
+			createButton.setText("Create");
+			labels[5].setVisibility(Button.VISIBLE);
+			labels[3].setVisibility(Button.VISIBLE);
+			labels[4].setVisibility(Button.VISIBLE);
+			labels[5].setVisibility(Button.VISIBLE);
+			labels[6].setVisibility(Button.VISIBLE);
+			entrys[3].setVisibility(EditText.VISIBLE);
+			entrys[1].setVisibility(EditText.VISIBLE);
+			entrys[2].setVisibility(EditText.VISIBLE);
+			entrys[3].setVisibility(EditText.VISIBLE);
+		}
+		
 
 	}
 
@@ -154,35 +188,51 @@ public class AddNewUserActivity extends Activity {
 
 				}
 				if (properuser) {
-					Toast.makeText(getApplicationContext(),
-							"User Created-Check Emails for Verifiy",
-							Toast.LENGTH_LONG).show();
-					intent = new Intent(getApplicationContext(),
-							MainLogInActivity.class);
-					try{
-					MyHttpClient client = new MyHttpClient(DataClass.server);
-					Toast.makeText(getApplicationContext(),
-							client.addNewUser(calculateHTTPrequest()),
-							Toast.LENGTH_LONG).show();
-					}catch (Exception e) {
-						Toast.makeText(getBaseContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+
+					try {
+						MyHttpClient client = new MyHttpClient(DataClass.server);
+						String result = client.addNewUser(entrys[username]
+								.getText().toString(), entrys[password]
+								.getText().toString(), calculateHTTPrequest());
+						Toast.makeText(getApplicationContext(),
+								"result:" + result, Toast.LENGTH_LONG).show();
+						if (result.equals("Sucsessfully Created")) {
+							client.getportiondata();
+							DataClass.log.append("Welcome: "+ entrys[username].getText().toString());
+							DataClass.addtolog(username + " logged in");
+							DatabaseUserHandler dbuser = new DatabaseUserHandler(
+									getApplicationContext());
+							dbuser.remove();
+							dbuser.addUserInfo(DataClass.user);
+							
+							finish();
+							intent = new Intent(getApplicationContext(),
+									MenuActivity.class);
+							startActivity(intent);
+						}
+					} catch (Exception e) {
+						Toast.makeText(getBaseContext(), e.getMessage(),
+								Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
 		}
 
 		private String calculateHTTPrequest() {
+			String postcode1 = entrys[postcode].getText().toString();
+			postcode1 = postcode1.replace(" ", "%20");
+
 			StringBuilder request = new StringBuilder();
-			request.append("createuser.php?username=");
-			request.append(entrys[username]);
+			request.append("register.php?username=");
+			request.append(entrys[username].getText().toString());
 			request.append("&password=");
-			request.append(entrys[password]);
+			request.append(entrys[password].getText().toString());
 			request.append("&email=");
-			request.append(entrys[email]);
+			request.append(entrys[email].getText().toString());
 			request.append("&dateofbrith=");
-			request.append(entrys[date]);
+			request.append(entrys[date].getText().toString());
 			request.append("&postcode=");
-			request.append(entrys[postcode]);
+			request.append(postcode1);
 
 			return request.toString();
 		}

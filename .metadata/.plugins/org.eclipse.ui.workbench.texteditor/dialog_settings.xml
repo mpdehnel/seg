@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="addUserInfo" key="selection"/>
+		<item value="addnew" key="selection"/>
 		<list key="findhistory">
+			<item value="addnew"/>
+			<item value="getin"/>
+			<item value="get"/>
+			<item value="des"/>
 			<item value="^^"/>
 			<item value="addUserInfo"/>
 			<item value="draw"/>
 			<item value="draq"/>
-			<item value="less than"/>
-			<item value="getMacAddress"/>
-			<item value="remove"/>
-			<item value="My"/>
 		</list>
 		<list key="replacehistory">
 			<item value="&amp;lt;"/>

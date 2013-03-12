@@ -1,6 +1,11 @@
 package com.game.keepopen;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
 import com.data.DataClass;
+import com.data.MyHttpClient;
 import com.vectorone.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,6 +28,7 @@ public class Game_keepopen_Activity extends Activity {
 	private Game_KeepOpen_Time gametime;
 	private MediaPlayer mp;
 	private TextView t1;
+	private int cacheid;
 	private boolean withpoints;
 
 	@Override
@@ -34,6 +40,7 @@ public class Game_keepopen_Activity extends Activity {
 		Intent intent = getIntent();
 		t1 = (TextView) findViewById(R.id.time);
 		withpoints = intent.getBooleanExtra("withpoints", true);
+		cacheid = intent.getIntExtra("cacheid", -1);
 		for (int i = 0; i < numberoflights; i++) {
 			lights[i] = (CheckBox) findViewById(getid("light" + (i + 1)));
 			lights[i].setButtonDrawable(R.drawable.checkbox_keepopen_game);
@@ -142,8 +149,18 @@ public class Game_keepopen_Activity extends Activity {
 		if (withpoints) {
 			Toast.makeText(getBaseContext(), "Points:" + time,
 					Toast.LENGTH_SHORT).show();
+			MyHttpClient http = new MyHttpClient(DataClass.server);
+			try {
+				http.pointsupdate(DataClass.user.getUsername(), (int) time);
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			DataClass.user.setCurrentPoints((int) (DataClass.user
 					.getCurrentPoints() + time));
+			DataClass.user.setTotalpoints((int) (DataClass.user
+					.getTotalpoints() + time));
 		} else {
 			Toast.makeText(getBaseContext(),
 					"Time:" + time + "good try but just training",

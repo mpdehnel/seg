@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/DateOfBirth"
-            android:text="dd.mm.yyyy" />
+            android:text="yyyy-mm-dd" />
 
         <EditText
             android:id="@+id/Date"

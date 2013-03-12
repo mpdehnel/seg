@@ -28,6 +28,7 @@ public class MeActivity extends Activity {
 	private boolean formmaps;
 	private TextView location;
 	private TextView curretentPoints;
+	private Button change;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -102,6 +103,11 @@ public class MeActivity extends Activity {
 		logbutton.setTypeface(font);
 		logbutton.setTextSize(textsize);
 		logbutton.setTextColor(buttoncolor);
+		
+		change.setTypeface(font);
+		change.setTextSize(textsize);
+		change.setTextColor(buttoncolor);
+
 
 	}
 
@@ -112,6 +118,16 @@ public class MeActivity extends Activity {
 			public void onClick(View v) {
 				startActivity(new Intent(getApplicationContext(),
 						LogActivity.class));
+			}
+		});
+		
+		change.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent=new Intent(getApplicationContext(), AddNewUserActivity.class);
+				intent.putExtra("change", true);
+				startActivity(intent);				
 			}
 		});
 	}
@@ -125,6 +141,7 @@ public class MeActivity extends Activity {
 		layout = (RelativeLayout) findViewById(R.id.me_layout);
 		location = (TextView) findViewById(R.id.location);
 		curretentPoints=(TextView)findViewById(R.id.currentpoints);
+		change =(Button)findViewById(R.id.Change);
 	}
 
 	@Override

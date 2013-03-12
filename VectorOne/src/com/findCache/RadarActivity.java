@@ -13,6 +13,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View.OnClickListener;
 import android.view.MotionEvent;
@@ -21,6 +22,7 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.data.Cache;
@@ -31,6 +33,7 @@ import com.game.keepopen.Game_keepopen_Activity;
 import com.game.memory.Game_memory_Activity;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
+import com.vectorone.AddCacheActivity;
 import com.vectorone.CacheShowActivity;
 import com.vectorone.MenuActivity;
 import com.vectorone.PlaygroundActivity;
@@ -40,11 +43,13 @@ import com.vectorone.R.layout;
 
 public class RadarActivity extends Activity implements LocationListener {
 
-	private FrameLayout preview;
+	private RelativeLayout preview;
 	private Button ZoomIn;
 	private Button ZoomOut;
+	private Button addnewCache;
 	private int zoomlvl = 1;
 	private RadarActivity radar;
+	private Vibrator vibrator;
 	private String[][] distancelabels = { { "10", "20", "30", "40" },
 			{ "50", "100", "150", "200" }, { "200", "400", "600", "800" },
 			{ "500", "1000", "1500", "2000" },
@@ -62,7 +67,7 @@ public class RadarActivity extends Activity implements LocationListener {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_radar);
 		this.radar = this;
-		preview = (FrameLayout) findViewById(R.id.radar_preview);
+		preview = (RelativeLayout) findViewById(R.id.radar_preview);
 		preview.setBackgroundColor(Color.BLACK);
 		preview.addView(new RadarBackgroudOverlay(getBaseContext(), 1,
 				distancelabels));
@@ -86,6 +91,8 @@ public class RadarActivity extends Activity implements LocationListener {
 	private void initButtons() {
 		ZoomIn = (Button) findViewById(R.id.radar_zoomin);
 		ZoomOut = (Button) findViewById(R.id.radar_zoomout);
+		addnewCache = (Button) findViewById(R.id.addnewCachRadar);
+		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
 		int buttoncolor = Color.parseColor("#45250F");
@@ -103,9 +110,14 @@ public class RadarActivity extends Activity implements LocationListener {
 		ZoomOut.setTextSize(textsize);
 		ZoomOut.setBackgroundDrawable(buttonimage);
 
+		addnewCache.setTypeface(font);
+		addnewCache.setTextColor(buttoncolor);
+		addnewCache.setTextSize(textsize);
+		addnewCache.setBackgroundDrawable(buttonimage);
+
 		ZoomIn.setOnClickListener(clickhandeler);
 		ZoomOut.setOnClickListener(clickhandeler);
-
+		addnewCache.setOnClickListener(clickhandeler);
 	}
 
 	public void addCachecords(CacheRadarCords cache) {
@@ -116,6 +128,7 @@ public class RadarActivity extends Activity implements LocationListener {
 
 		@Override
 		public void onClick(View v) {
+			vibrator.vibrate(50);
 			if (v == ZoomIn && zoomlvl < distancelabels.length) {
 				zoomlvl++;
 				cachecords = new LinkedList<CacheRadarCords>();
@@ -138,6 +151,14 @@ public class RadarActivity extends Activity implements LocationListener {
 				preview.addView(new RadarBackgroudOverlay(getBaseContext(),
 						zoomlvl, distancelabels));
 			}
+			if (v == addnewCache) {
+				finish();
+				Intent intent = new Intent(getApplicationContext(),
+						AddCacheActivity.class);
+				intent.putExtra("fromMaps", false);
+
+				startActivity(intent);
+			}
 
 		}
 	};
@@ -145,6 +166,7 @@ public class RadarActivity extends Activity implements LocationListener {
 
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
+
 			if (v == preview) {
 				int x = (int) event.getX();
 				int y = (int) event.getY();
@@ -162,6 +184,7 @@ public class RadarActivity extends Activity implements LocationListener {
 									+ filterlist.get(j).getCach().getID());
 							if (cachecords.get(i).cache.getID() == filterlist
 									.get(j).getCach().getID()) {
+								vibrator.vibrate(50);
 								Intent intent = new Intent(getBaseContext(),
 										CacheShowActivity.class);
 								intent.putExtra("CacheIndex", j);
@@ -216,16 +239,19 @@ public class RadarActivity extends Activity implements LocationListener {
 
 	private void check_If_I_Found_a_Cache() {
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
-			if (DataClass.selectedCaches.get(i).isIslessthanXXXm(20)
-					&& !DataClass.selectedCaches.get(i).isFound()) {
-				DataClass.selectedCaches.get(i).setfounded(true);
-				int choice = (int) (Math.random() * 2);
+			Cache cache = DataClass.selectedCaches.get(i);
 
+			if (cache.isIslessthanXXXm(20) && !cache.isFound()) {
+				cache.setfounded(true);
+				DataClass.log.append("Cache found:" + cache.getName());
+				int choice = (int) (Math.random() * 2);
 				if (choice == 0) {
+					DataClass.log.append("Game: KeepOpen");
 					Intent intent = new Intent(getApplicationContext(),
 							Game_keepopen_Activity.class);
 					startActivity(intent);
 				} else {
+					DataClass.log.append("Game: Memory");
 					Intent intent = new Intent(getApplicationContext(),
 							Game_memory_Activity.class);
 					startActivity(intent);
@@ -245,10 +271,12 @@ public class RadarActivity extends Activity implements LocationListener {
 	protected void onPause() {
 		super.onPause();
 		locationManager.removeUpdates(this);
+
 	}
 
 	@Override
 	public void onBackPressed() {
+		vibrator.vibrate(50);
 		finish();
 		Intent intent = new Intent(getBaseContext(), MenuActivity.class);
 		startActivity(intent);

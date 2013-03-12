@@ -25,27 +25,27 @@ public class SpinnerListener implements OnItemSelectedListener {
 			long id) {
 		String item = parent.getItemAtPosition(pos).toString();
 
-		if (item.equals("m/km")) {
+		if (item.equals("m-km")) {
 			user.setSettings_unit(item);
 			DataClass.unit = "km";
 		}
-		if (item.equals("ft/mile")) {
+		if (item.equals("ft-mile")) {
 			user.setSettings_unit(item);
 			DataClass.unit = "ft";
 		}
-		if (item.equals("<500")) {
+		if (item.equals("500")) {
 			user.setSettings_maxdistance(item);
 		}
-		if (item.equals("<1000")) {
+		if (item.equals("1000")) {
 			user.setSettings_maxdistance(item);
 		}
-		if (item.equals("<2000")) {
+		if (item.equals("2000")) {
 			user.setSettings_maxdistance(item);
 		}
-		if (item.equals("<5000")) {
+		if (item.equals("5000")) {
 			user.setSettings_maxdistance(item);
 		}
-		if (item.equals("<10000")) {
+		if (item.equals("10000")) {
 			user.setSettings_maxdistance(item);
 		}
 		if (item.equals("All")) {
@@ -75,10 +75,10 @@ public class SpinnerListener implements OnItemSelectedListener {
 			user.setSettings_visited(item);
 		}
 		if (item.equals("name")) {
-			DataClass.SortType="name";
+			DataClass.SortType = "name";
 		}
 		if (item.equals("distance")) {
-			DataClass.SortType="distance";
+			DataClass.SortType = "distance";
 		}
 
 	}

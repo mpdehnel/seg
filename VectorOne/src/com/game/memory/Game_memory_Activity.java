@@ -1,8 +1,12 @@
 package com.game.memory;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
+import org.apache.http.client.ClientProtocolException;
+
 import com.data.DataClass;
+import com.data.MyHttpClient;
 import com.vectorone.R;
 
 import android.app.Activity;
@@ -26,6 +30,7 @@ public class Game_memory_Activity extends Activity {
 	private Game_memory_Time gametime;
 	private boolean withpoints;
 	private Game_memory_Activity game;
+	private int cacheid;
 	private static final String TAG = "GameMemory";
 
 	@Override
@@ -36,8 +41,9 @@ public class Game_memory_Activity extends Activity {
 		setContentView(R.layout.activity_keepopen_game);
 		Intent intent = getIntent();
 		withpoints = intent.getBooleanExtra("withpoints", true);
+		cacheid = intent.getIntExtra("cacheid", -1);
 		generatefiled(field);
-		this.game=this;
+		this.game = this;
 		Log.i(TAG, field.toString());
 		intitfields();
 
@@ -257,11 +263,26 @@ public class Game_memory_Activity extends Activity {
 	}
 
 	private void calculatepoints(long time) {
-		if(withpoints){
-			Toast.makeText(getBaseContext(), "Points:"+(120-time)*8, Toast.LENGTH_SHORT).show();
-			DataClass.user.setCurrentPoints((int) (DataClass.user.getCurrentPoints()+(120-time)*8));
-		}else{
-			Toast.makeText(getBaseContext(), "Time:"+time+"good try but just training", Toast.LENGTH_SHORT).show();
+		if (withpoints) {
+			Toast.makeText(getBaseContext(), "Points:" + (120 - time) * 8,
+					Toast.LENGTH_SHORT).show();
+			MyHttpClient http = new MyHttpClient(DataClass.server);
+			try {
+				http.pointsupdate(DataClass.user.getUsername(),
+						(int) ((120 - time) * 8));
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			DataClass.user.setCurrentPoints((int) (DataClass.user
+					.getCurrentPoints() + (120 - time) * 8));
+			DataClass.user.setTotalpoints((int) (DataClass.user
+					.getTotalpoints() + (120 - time) * 8));
+		} else {
+			Toast.makeText(getBaseContext(),
+					"Time:" + time + "good try but just training",
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -285,8 +306,8 @@ public class Game_memory_Activity extends Activity {
 						CheckBox click1 = lights[tmpBoxindex];
 						CheckBox click2 = ((CheckBox) findViewById(v.getId()));
 						click2.setChecked(true);
-						new Game_memory_Time(1000, 100, click1, click2, lights,game)
-								.start();
+						new Game_memory_Time(1000, 100, click1, click2, lights,
+								game).start();
 						tmpBoxindex = -1;
 					}
 				} else {

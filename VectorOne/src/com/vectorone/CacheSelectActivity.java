@@ -7,6 +7,8 @@ import com.data.Cache;
 import com.data.DataClass;
 import com.data.ListAdapter;
 import com.data.Model;
+import com.data.WifiSupport;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -53,6 +55,9 @@ public class CacheSelectActivity extends ListActivity {
 			if (caches.get(i).isSelected())
 				DataClass.selectedCaches.add(caches.get(i).getCach());
 		}
+		WifiSupport wifi=new WifiSupport();
+		WifiSupport.checkWIFICaches(this, wifi.getMacAddress(this));
+		
 		startActivity(new Intent(getApplicationContext(), MenuActivity.class));
 		super.onBackPressed();
 	}

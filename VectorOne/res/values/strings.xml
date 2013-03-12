@@ -23,16 +23,16 @@
         <item>All</item>
     </string-array>
     <string-array name="Distance">
-        <item>&lt;500</item>
-        <item>&lt;1000</item>
-        <item>&lt;2000</item>
-        <item>&lt;5000</item>
-        <item>&lt;10000</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>5000</item>
+        <item>10000</item>
         <item>All</item>
     </string-array>
     <string-array name="Unit">
-        <item>m/km</item>
-        <item>ft/mile</item>
+        <item>m-km</item>
+        <item>ft-mile</item>
     </string-array>
        <string-array name="sort">
         <item>name</item>
@@ -40,5 +40,7 @@
     </string-array>
 
     <string name="leer"></string>
+
+    <string name="addnewCachebutton">AddNewCache</string>
 
 </resources>

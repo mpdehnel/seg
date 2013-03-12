@@ -14,6 +14,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -59,6 +60,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	private TextView scale;
 	private Button refresh_button;
 	private CheckBox satelitenmode;
+	private Vibrator vibrator;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		zoomin = (Button) findViewById(R.id.ZoomIn);
 		zoomout = (Button) findViewById(R.id.ZoomOut);
 		satelitenmode = (CheckBox) findViewById(R.id.Satelitenmode);
+		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 	}
 
 	private void handellistener() {
@@ -273,14 +276,16 @@ public class MapsActivity extends MapActivity implements LocationListener {
 					&& thiscache.getMacAdd().equals("")) {
 				thiscache.setfounded(true);
 				playSound();
-
+				DataClass.log.append("Cache found:" + thiscache.getName());
 				int choice = (int) (Math.random() * 2);
 
 				if (choice == 0) {
+					DataClass.log.append("Game: KeepOpen");
 					Intent intent = new Intent(getApplicationContext(),
 							Game_keepopen_Activity.class);
 					startActivity(intent);
 				} else {
+					DataClass.log.append("Game: Memory");
 					Intent intent = new Intent(getApplicationContext(),
 							Game_memory_Activity.class);
 					startActivity(intent);
@@ -382,12 +387,12 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 		@Override
 		public void onClick(View v) {
-
+			vibrator.vibrate(50);
 			if (v == setNewCache) {
 				finish();
 				Intent intent = new Intent(getApplicationContext(),
 						AddCacheActivity.class);
-
+				intent.putExtra("fromMaps", true);
 				startActivity(intent);
 
 			}

@@ -9,7 +9,10 @@ import com.data.DataClass;
 import com.data.Model;
 import com.data.MyHttpClient;
 import com.data.WifiSupport;
+import com.findCache.MapsActivity;
+import com.findCache.RadarActivity;
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
 import android.app.Activity;
@@ -39,13 +42,16 @@ public class AddCacheActivity extends Activity {
 	private TextView cacheNameView;
 	private TextView CacheDiscriptionView;
 	private Button addMac_button;
+	private int cacheCosts = 10;
+	private boolean frommaps;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_addcache);
-
+		Intent intent = getIntent();
+		frommaps = intent.getBooleanExtra("fromMaps", false);
 		initfields();
 		setupListener();
 		setupbackgoundimages();
@@ -100,7 +106,8 @@ public class AddCacheActivity extends Activity {
 		cancel_button.setBackgroundDrawable(buttonimage);
 		addMac_button.setBackgroundDrawable(buttonimage);
 		cacheNameText.setBackgroundDrawable(textfieldbackground);
-		cacheDiscriptionText.setBackgroundDrawable(getResources().getDrawable(R.drawable.textentrybig));
+		cacheDiscriptionText.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.textentrybig));
 
 	}
 
@@ -125,31 +132,50 @@ public class AddCacheActivity extends Activity {
 
 	private void clickhandle(View v) {
 		if (v == add_button) {
-			if (DataClass.user.getCurrentPoints() > 200) {
-				DataClass.caches.add(new Model(new Cache(cacheNameText
-						.getText().toString(), new GeoPoint(DataClass
-						.getMylat(), DataClass.getMylng()),
-						cacheDiscriptionText.getText().toString(), true, -1,
-						DataClass.user.getTeam(), "")));
-				MyHttpClient http = new MyHttpClient(DataClass.server);
-				try {
-					http.addCacheToDatabase(getApplicationContext(),
-							DataClass.user.getUsername(), DataClass.getMylng(),
-							DataClass.getMylat(), cacheNameText.getText()
-									.toString(), cacheDiscriptionText.getText()
-									.toString(), "");
-				} catch (ClientProtocolException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					Toast.makeText(getBaseContext(), "OMG", Toast.LENGTH_SHORT)
-							.show();
+			if (DataClass.user.getCurrentPoints() > cacheCosts) {
+				String name = cacheNameText.getText().toString();
+				String description = cacheDiscriptionText.getText().toString();
+				if (name.length() > 0 && description.length() > 0) {
+					MyHttpClient http = new MyHttpClient(DataClass.server);
+					try {
+						String name1 = name.replace(" ", "__");
+						String description1 = description.replace(" ", "__");
+
+						int id = http.addCacheToDatabase(name1, description1,
+								"");
+						if (id > 0) {
+							DataClass.caches.add(new Model(new Cache(name,
+									new GeoPoint(DataClass.getMylat(),
+											DataClass.getMylng()), description,
+									true, id, DataClass.user.getTeam(), "")));
+							http.pointsupdate(DataClass.user.getUsername(),
+									(-1) * cacheCosts);
+						}
+						DataClass.log.append("add WifiCache:" + name);
+						DataClass.log.append("Current Points:"
+								+ DataClass.user.getCurrentPoints());
+						onBackPressed();
+					} catch (ClientProtocolException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (Exception e) {
+						Toast.makeText(
+								getBaseContext(),
+								"No internet Connection Add cache Canceld"
+										+ e.getMessage(), Toast.LENGTH_SHORT)
+								.show();
+					}
+				} else {
+					Toast.makeText(getBaseContext(),
+							"Please enter Name and/or Description!",
+							Toast.LENGTH_SHORT).show();
 				}
 			} else {
 				Toast.makeText(getBaseContext(),
 						"You have not enough points to add a Cache",
 						Toast.LENGTH_SHORT).show();
+
 			}
 		}
 		if (v == cancel_button) {
@@ -157,44 +183,81 @@ public class AddCacheActivity extends Activity {
 		}
 
 		if (v == addMac_button) {
-			WifiSupport wifi=new WifiSupport();
-			if (DataClass.user.getCurrentPoints() > 200) {
-				if (!wifi.getMacAddress(getBaseContext()).equals("")) {
-					DataClass.caches.add(new Model(new Cache(cacheNameText
-							.getText().toString(), new GeoPoint(DataClass
-							.getMylat(), DataClass.getMylng()),
-							cacheDiscriptionText.getText().toString(), true,
-							-1, DataClass.user.getTeam(),
-							wifi.getMacAddress(getBaseContext()))));
-					MyHttpClient http = new MyHttpClient(DataClass.server);
-					try {
-						http.addCacheToDatabase(getApplicationContext(),
-								DataClass.user.getUsername(),
-								DataClass.getMylng(), DataClass.getMylat(),
-								cacheNameText.getText().toString(),
-								cacheDiscriptionText.getText().toString(),
-								wifi.getMacAddress(getBaseContext()));
-						
-					} catch (ClientProtocolException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					} catch (Exception e) {
-						Toast.makeText(getBaseContext(), "OMG",
+			WifiSupport wifi = new WifiSupport();
+			String name = cacheNameText.getText().toString();
+			String description = cacheDiscriptionText.getText().toString();
+			if (name.length() > 0 && description.length() > 0) {
+				if (DataClass.user.getCurrentPoints() > cacheCosts) {
+					if (!wifi.getMacAddress(getBaseContext()).equals("")) {
+						DataClass.caches.add(new Model(new Cache(name,
+								new GeoPoint(DataClass.getMylat(), DataClass
+										.getMylng()), description.toString(),
+								true, -1, DataClass.user.getTeam(), wifi
+										.getMacAddress(getBaseContext()))));
+						MyHttpClient http = new MyHttpClient(DataClass.server);
+						try {
+							String name1 = name.replace(" ", "%20");
+							String description1 = description.replace(" ",
+									"%20");
+							int id = http.addCacheToDatabase(name1,
+									description1,
+									wifi.getMacAddress(getBaseContext()));
+							if (id > 0) {
+								DataClass.caches.add(new Model(new Cache(name,
+										new GeoPoint(DataClass.getMylat(),
+												DataClass.getMylng()),
+										description, true, id, DataClass.user
+												.getTeam(),
+
+										wifi.getMacAddress(getBaseContext()))));
+								http.pointsupdate(DataClass.user.getUsername(),
+										(-1) * cacheCosts);
+							}
+							DataClass.log.append("add WifiCache:" + name);
+							DataClass.log.append("Current Points:"
+									+ DataClass.user.getCurrentPoints());
+							onBackPressed();
+
+						} catch (ClientProtocolException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						} catch (Exception e) {
+							Toast.makeText(getBaseContext(),
+									"No internet Connection Add cache Canceld",
+									Toast.LENGTH_SHORT).show();
+						}
+					} else {
+						Toast.makeText(getBaseContext(),
+								"Sorry you aren't in a Wifi!",
 								Toast.LENGTH_SHORT).show();
 					}
+
 				} else {
 					Toast.makeText(getBaseContext(),
-							"Sorry you aren't in a Wifi!", Toast.LENGTH_SHORT)
-							.show();
+							"You have not enough points to add a Cache",
+							Toast.LENGTH_SHORT).show();
 				}
 
 			} else {
 				Toast.makeText(getBaseContext(),
-						"You have not enough points to add a Cache",
+						"Please enter Name and/or Description!",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		finish();
+		if (frommaps) {
+			Intent intent = new Intent(getBaseContext(), MapsActivity.class);
+			startActivity(intent);
+		} else {
+			Intent intent = new Intent(getBaseContext(), RadarActivity.class);
+			startActivity(intent);
+		}
+
 	}
 
 	private OnClickListener clickhandler = new OnClickListener() {
@@ -204,4 +267,5 @@ public class AddCacheActivity extends Activity {
 		}
 
 	};
+
 }

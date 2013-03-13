@@ -157,6 +157,20 @@ public class Game_keepopen_Activity extends Activity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
+			String msg = DataClass.user.getUsername()
+					+ " has scored in KeepOpen: " + time;
+
+			MyHttpClient client = new MyHttpClient(DataClass.server);
+			try {
+				client.pushTWITTER(DataClass.user.getUsername(), msg);
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			DataClass.user.setCurrentPoints((int) (DataClass.user
 					.getCurrentPoints() + time));
 			DataClass.user.setTotalpoints((int) (DataClass.user

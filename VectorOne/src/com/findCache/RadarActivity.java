@@ -1,7 +1,10 @@
 package com.findCache;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,6 +32,7 @@ import com.data.Cache;
 import com.data.CacheRadarCords;
 import com.data.DataClass;
 import com.data.Model;
+import com.data.MyHttpClient;
 import com.game.keepopen.Game_keepopen_Activity;
 import com.game.memory.Game_memory_Activity;
 import com.google.android.maps.GeoPoint;
@@ -135,6 +139,7 @@ public class RadarActivity extends Activity implements LocationListener {
 				preview.removeAllViews();
 				preview.addView(ZoomIn);
 				preview.addView(ZoomOut);
+				preview.addView(addnewCache);
 				preview.addView(new RadarTargetOverlay(radar, getBaseContext(),
 						zoomlvl, distancelabels));
 				preview.addView(new RadarBackgroudOverlay(getBaseContext(),
@@ -146,6 +151,7 @@ public class RadarActivity extends Activity implements LocationListener {
 				preview.removeAllViews();
 				preview.addView(ZoomIn);
 				preview.addView(ZoomOut);
+				preview.addView(addnewCache);
 				preview.addView(new RadarTargetOverlay(radar, getBaseContext(),
 						zoomlvl, distancelabels));
 				preview.addView(new RadarBackgroudOverlay(getBaseContext(),
@@ -209,6 +215,7 @@ public class RadarActivity extends Activity implements LocationListener {
 		preview.removeAllViews();
 		preview.addView(ZoomIn);
 		preview.addView(ZoomOut);
+		preview.addView(addnewCache);
 		preview.addView(new RadarTargetOverlay(radar, getBaseContext(),
 				zoomlvl, distancelabels));
 		preview.addView(new RadarBackgroudOverlay(getBaseContext(), zoomlvl,
@@ -244,6 +251,21 @@ public class RadarActivity extends Activity implements LocationListener {
 			if (cache.isIslessthanXXXm(20) && !cache.isFound()) {
 				cache.setfounded(true);
 				DataClass.log.append("Cache found:" + cache.getName());
+				String msg = DataClass.user.getUsername()
+						+ " has just visited cache:" + cache.getName();
+
+				MyHttpClient client = new MyHttpClient(DataClass.server);
+				try {
+					client.pushTWITTER(DataClass.user.getUsername(), msg);
+					client.updateCache(DataClass.user.getUsername(), cache.get_id());
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 				int choice = (int) (Math.random() * 2);
 				if (choice == 0) {
 					DataClass.log.append("Game: KeepOpen");

@@ -157,6 +157,7 @@ public class MainLogInActivity extends Activity {
 							httpClient.getusersettings(username);
 							httpClient.getportiondata();
 							httpClient.getuserlog(username);
+							httpClient.getVisitedCache(username);
 						DataClass.addtolog(username + " logged in");
 
 						// ////////////////////////////////////////////////////////////
@@ -174,6 +175,8 @@ public class MainLogInActivity extends Activity {
 
 						DatabaseUserHandler dbuser = new DatabaseUserHandler(
 								getApplicationContext());
+						DatabaseCacheHandler dbhandler=new DatabaseCacheHandler(getApplicationContext());
+						handdeldatabase(dbhandler);
 						dbuser.remove();
 						dbuser.addUserInfo(DataClass.user);
 
@@ -248,6 +251,14 @@ public class MainLogInActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		finish();
+	}
+	
+	private void handdeldatabase(DatabaseCacheHandler dbhandler) {
+		dbhandler.remove();
+		dbhandler = new DatabaseCacheHandler(getApplicationContext());
+		for (int i = 0; i < DataClass.caches.size(); i++) {
+			dbhandler.addCache(DataClass.caches.get(i).getCach());
+		}
 	}
 
 }

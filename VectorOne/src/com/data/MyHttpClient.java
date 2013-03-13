@@ -74,6 +74,7 @@ public class MyHttpClient {
 			User user = new User();
 
 			try {
+				Log.i(TAG, line);
 				user.setUsername(username);
 				user.setTeam(Integer.parseInt(getValueofTag("team", line)));
 				user.setTotalcaches(Integer.valueOf(getValueofTag(
@@ -83,7 +84,9 @@ public class MyHttpClient {
 				user.setCurrentPoints(Integer.valueOf(getValueofTag(
 						"currentpoints", line)));
 				user.setId(Integer.valueOf(getValueofTag("id", line)));
-				// Log.i(TAG,user.toString());
+				user.setHardcore(Boolean
+						.valueOf(getValueofTag("hardcore", line)));
+				Log.i(TAG, user.toString());
 				user.setPassword(password);
 				DataClass.user = user;
 
@@ -160,7 +163,10 @@ public class MyHttpClient {
 				tmp.setDescripton(discription);
 				tmp.setfounded(Boolean.valueOf(getValueofTag("found", element)));
 				tmp.setRated(Boolean.valueOf(getValueofTag("found", element)));
+				tmp.setTeamcolor(Integer
+						.valueOf(getValueofTag("team", element)));
 				tmp.setID(Integer.valueOf(getValueofTag("id", element)));
+				tmp.setComments(parseComments(getValueofTag("comments", element)));
 				String macaddress = getValueofTag("macaddress", element);
 
 				if (macaddress.equalsIgnoreCase("00:00:00:00:00:00")) {
@@ -176,6 +182,10 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 		return toCacheArry(cachelist);
+	}
+
+	private String parseComments(String valueofTag) {
+		return valueofTag.replace("@", "\n");
 	}
 
 	private Cache[] toCacheArry(LinkedList<Cache> cachelist) {
@@ -231,7 +241,7 @@ public class MyHttpClient {
 
 		String line = "";
 		if ((line = rd.readLine()) != null) {
-			Log.i("MAIN", line);
+			// Log.i("MAIN", line);
 			try {
 				return Integer.parseInt(line);
 			} catch (NumberFormatException e) {
@@ -318,16 +328,59 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error rating";
+		return "Connection Error updateCache";
 
 	}
 
-	public String pushComment(int cachid, int userid, String comment)
+	public String getVisitedCache(String username)
 			throws ClientProtocolException, IOException {
-		String comment2 = comment.replace(" ", "%20");
 		HttpClient client = new DefaultHttpClient();
-		HttpGet request = new HttpGet(this.server + "comment.php?cacheid="
-				+ cachid + "&userid=" + userid + "&comment=" + comment2);
+		HttpGet request = new HttpGet(this.server
+				+ "myVisitedCaches.php?username=" + username);
+		HttpResponse response;
+		try {
+			response = client.execute(request);
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String line = rd.readLine();
+			// Log.i("MAIN", line);
+			String[] visited = line.split(",");
+			for (int i = 0; i < DataClass.caches.size(); i++) {
+				if (cointains(visited, DataClass.caches.get(i).getCach()
+						.get_id())) {
+					DataClass.caches.get(i).getCach().setfounded(true);
+				} else {
+					DataClass.caches.get(i).getCach().setfounded(false);
+				}
+			}
+
+			return line;
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "Connection Error updateCache";
+
+	}
+
+	private boolean cointains(String[] visited, int get_id) {
+		for (int i = 0; i < visited.length - 1; i++) {
+			if (Integer.parseInt(visited[i]) == get_id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public String pushTWITTER(String username, String comment)
+			throws ClientProtocolException, IOException {
+		String comment2 = comment.replace(" ", "__");
+		HttpClient client = new DefaultHttpClient();
+
+		HttpGet request = new HttpGet(this.server + "twitter.php?username="
+				+ username + "&message=" + comment2);
 		HttpResponse response;
 		try {
 			response = client.execute(request);
@@ -341,7 +394,31 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error";
+		return "Connection Error pushCommet";
+
+	}
+
+	public String pushComment(String username, int Cacheid, String comment)
+			throws ClientProtocolException, IOException {
+		String comment2 = comment.replace(" ", "__");
+		HttpClient client = new DefaultHttpClient();
+
+		HttpGet request = new HttpGet(this.server + "cacheComment.php?message="
+				+ username + ":" + comment2 + "@" + "&cacheID=" + Cacheid);
+		HttpResponse response;
+		try {
+			response = client.execute(request);
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String line = rd.readLine();
+			return line;
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "Connection Error pushCommet";
 
 	}
 
@@ -364,7 +441,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error";
+		return "Connection Error pointsupdate";
 
 	}
 
@@ -389,7 +466,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error";
+		return "Connection Error usersettings";
 
 	}
 
@@ -412,14 +489,14 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error";
+		return "Connection Error getUsersettings";
 
 	}
 
 	private void parsesettings(String line) {
 		String[] settings = line.split("_");
-		Log.i("MAIN", line);
-		Log.i("MAIN", Arrays.toString(settings));
+		// Log.i("MAIN", line);
+		// Log.i("MAIN", Arrays.toString(settings));
 		if (settings.length == 5) {
 			DataClass.user.setSettings_maxdistance(settings[0]);
 			DataClass.user.setSettings_unit(settings[1]);
@@ -427,7 +504,7 @@ public class MyHttpClient {
 			DataClass.user.setSettings_team(settings[3]);
 			DataClass.SortType = settings[4];
 		}
-		Log.i("MAIN", DataClass.user.getSettings_team());
+		// Log.i("MAIN", DataClass.user.getSettings_team());
 	}
 
 	public String setuserlog(String username, String log)
@@ -450,7 +527,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error";
+		return "Connection Error setUserlog";
 
 	}
 
@@ -473,15 +550,36 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error";
+		return "Connection Error getuserLog";
 
 	}
 
 	private void parselog(String line) {
-		Log.i("MAIN", line);
+		// Log.i("MAIN", line);
 		line = line.replace("__", "\n");
 		line = line.replace("_", " ");
 		DataClass.addoldtolog(line);
+	}
+
+	public String changepassword(String username, String password)
+			throws ClientProtocolException, IOException {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(this.server
+				+ "editPassword.php?username=" + username + "&password="
+				+ password);
+		HttpResponse response;
+		try {
+			response = client.execute(request);
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String line = rd.readLine();
+			return line;
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "Connection Error changePassword";
 	}
 
 }

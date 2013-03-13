@@ -1,6 +1,8 @@
 package com.game.memory;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -31,12 +33,18 @@ public class Game_memory_Time extends CountDownTimer {
 	}
 
 	public Game_memory_Time(long millisInFuture, long countDownInterval,
-			TextView t1, CheckBox[] lights) {
+			TextView t1, CheckBox[] lights,Game_memory_Activity memory) {
 		super(millisInFuture, countDownInterval);
 		this.millisInFuture = millisInFuture;
 		this.t1 = t1;
+		this.memory=memory;
 		this.lights = lights;
-		t1.setTextColor(Color.WHITE);
+		Typeface font = Typeface
+				.createFromAsset(memory.getAssets(), "fonts/bebas.ttf");
+		int textcolor = Color.parseColor("#DECD87");
+		t1.setTextColor(textcolor);
+		t1.setTypeface(font);
+		t1.setTextSize(17);
 	}
 
 	@Override
@@ -70,6 +78,7 @@ public class Game_memory_Time extends CountDownTimer {
 				return false;
 			}
 		}
+		
 		counter++;
 		memory.stop(time);
 		return true;

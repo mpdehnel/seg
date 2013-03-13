@@ -8,6 +8,8 @@ public class User {
 	private int team;
 	private int totalcaches;
 	private int totalpoints;
+	private boolean hardcore;
+
 	private String password;
 	private String settings_maxdistance = "All";
 	private String settings_unit = "m-km";
@@ -16,15 +18,15 @@ public class User {
 	private String settings_sorted = "name";
 	private int currentPoints;
 
-
 	public User(String username, String nickname, int team, int totalchaches,
-			int totalpoints, int drawable, int id, String password,int currentpoints) {
+			int totalpoints, int drawable, int id, String password,
+			int currentpoints) {
 		this.id = id;
 		this.username = username;
 		this.team = team;
 		this.totalcaches = totalchaches;
 		this.totalpoints = totalpoints;
-		this.currentPoints=currentPoints;
+		this.currentPoints = currentPoints;
 		this.password = password;
 
 	}
@@ -67,8 +69,7 @@ public class User {
 
 	public String toString() {
 		String tmp = "ID:" + id + " Name:" + username + " totalcaches:"
-				+ totalcaches + " totalpoints:" + totalpoints + " team:"
-				+ team;
+				+ totalcaches + " totalpoints:" + totalpoints + " team:" + team;
 		return tmp;
 
 	}
@@ -136,9 +137,17 @@ public class User {
 	public int getCurrentPoints() {
 		return currentPoints;
 	}
-	
+
 	public void setCurrentPoints(int points) {
-		this.currentPoints=points;
+		this.currentPoints = points;
+	}
+
+	public boolean isHardcore() {
+		return hardcore;
+	}
+
+	public void setHardcore(boolean hardcore) {
+		this.hardcore = hardcore;
 	}
 
 }

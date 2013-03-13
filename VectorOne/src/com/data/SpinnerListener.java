@@ -51,15 +51,15 @@ public class SpinnerListener implements OnItemSelectedListener {
 		if (item.equals("All")) {
 			if (parent.getId() == R.id.spinner_cache) {
 				user.setSettings_visited(item);
-				Log.i("MAIN", item + "--Cache");
+			//	Log.i("MAIN", item + "--Cache");
 			}
 			if (parent.getId() == R.id.spinner_distance) {
 				user.setSettings_maxdistance(item);
-				Log.i("MAIN", item + "--distance");
+				//Log.i("MAIN", item + "--distance");
 			}
 			if (parent.getId() == R.id.spinner_team) {
 				user.setSettings_team(item);
-				Log.i("MAIN", item + "--team");
+				//Log.i("MAIN", item + "--team");
 			}
 		}
 		if (item.equals("My")) {

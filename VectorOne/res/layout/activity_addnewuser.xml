@@ -25,7 +25,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="Username" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -37,7 +36,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPassword" />
@@ -46,11 +45,9 @@
             android:id="@+id/passwordAddNewUser"
             android:layout_width="100dp"
             android:layout_height="25dp"
-            android:layout_alignBaseline="@+id/PasswordInput"
-            android:layout_alignBottom="@+id/PasswordInput"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:text="Password" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -62,8 +59,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_weight="1"
+            android:layout_centerVertical="true"
             android:ems="10"
             android:inputType="textPassword" />
 
@@ -71,12 +67,9 @@
             android:id="@+id/PasswordConfirm"
             android:layout_width="100dp"
             android:layout_height="25dp"
-            android:layout_alignBaseline="@+id/PasswordInputConfirm"
-            android:layout_alignBottom="@+id/PasswordInputConfirm"
             android:layout_alignParentLeft="true"
-            android:layout_weight="0.06"
+            android:layout_centerVertical="true"
             android:text="Confirm:" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -89,8 +82,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_weight="1"
+            android:layout_centerVertical="true"
             android:ems="10"
             android:inputType="textEmailAddress" />
 
@@ -98,11 +90,9 @@
             android:id="@+id/Email"
             android:layout_width="100dp"
             android:layout_height="25dp"
-            android:layout_alignBaseline="@+id/EmailInput"
-            android:layout_alignBottom="@+id/EmailInput"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:text="Email" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -114,8 +104,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_weight="1"
+            android:layout_centerVertical="true"
             android:ems="10"
             android:inputType="text" />
 
@@ -123,11 +112,9 @@
             android:id="@+id/PostCode"
             android:layout_width="100dp"
             android:layout_height="25dp"
-            android:layout_alignBaseline="@+id/PostCodeInput"
-            android:layout_alignBottom="@+id/PostCodeInput"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:text="PostCode" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -140,7 +127,7 @@
             android:layout_width="100dp"
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
-            android:text="DateOfBirth" />
+            android:text="DateOfBirthe" />
 
         <TextView
             android:id="@+id/format"
@@ -158,7 +145,6 @@
             android:layout_centerVertical="true"
             android:ems="10"
             android:inputType="date" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -166,23 +152,32 @@
         android:layout_height="match_parent" >
 
         <Button
-            android:id="@+id/Cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="40dp"
-            android:text="Cancel" />
-
-        <Button
             android:id="@+id/CreateUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/Cancel"
             android:layout_alignBottom="@+id/Cancel"
-            android:layout_marginRight="28dp"
-            android:layout_toLeftOf="@+id/Cancel"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="27dp"
             android:text="Create" />
+
+        <Button
+            android:id="@+id/Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Cancel" />
+
+        <CheckBox
+            android:id="@+id/hardcoreMode"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignBaseline="@+id/Cancel"
+            android:layout_alignBottom="@+id/Cancel"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/Cancel"
+            android:text="@string/leer" />
 
     </RelativeLayout>
 

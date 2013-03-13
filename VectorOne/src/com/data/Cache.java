@@ -11,8 +11,17 @@ public class Cache {
 	private int teamcolor;
 	private boolean founded;
 	private boolean israted = false;
+	private String comments = "";
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
 	private float rating;
-	
 
 	private String macAdd = "";
 
@@ -68,7 +77,7 @@ public class Cache {
 	}
 
 	public String getDescripton() {
-		String value=""; 
+		String value = "";
 		if (DataClass.myGeoPoint != null) {
 			value = descripton
 					+ "\n"
@@ -81,8 +90,9 @@ public class Cache {
 							this.geopoint) + "\n" + "Location long/lat:   "
 					+ this.geopoint.getLongitudeE6() / Math.pow(10, 6) + "/"
 					+ this.geopoint.getLatitudeE6() / Math.pow(10, 6) + "\n"
-					+ "Team:" + this.getTeamcolour() + "\n"+"Rating:"+this.getRating()+"\n";
-
+					+ "Team:" + this.getTeamcolour() + "\n" + "Rating:"
+					+ this.getRating() + "\n" + "--Comments--" + "\n"
+					+ this.getComments();
 		}
 		if (macAdd != "") {
 			value = value + "MacAddress: " + this.macAdd;
@@ -144,7 +154,7 @@ public class Cache {
 		}
 		return false;
 	}
-	
+
 	public float getRating() {
 		return rating;
 	}
@@ -152,8 +162,9 @@ public class Cache {
 	public void setRating(Float float1) {
 		this.rating = float1;
 	}
-	public void setRated(Boolean b){
-		this.israted=b;
+
+	public void setRated(Boolean b) {
+		this.israted = b;
 	}
 
 }

@@ -30,7 +30,6 @@ public class Game_memory_Activity extends Activity {
 	private Game_memory_Time gametime;
 	private boolean withpoints;
 	private Game_memory_Activity game;
-	private int cacheid;
 	private static final String TAG = "GameMemory";
 
 	@Override
@@ -41,7 +40,6 @@ public class Game_memory_Activity extends Activity {
 		setContentView(R.layout.activity_keepopen_game);
 		Intent intent = getIntent();
 		withpoints = intent.getBooleanExtra("withpoints", true);
-		cacheid = intent.getIntExtra("cacheid", -1);
 		generatefiled(field);
 		this.game = this;
 		Log.i(TAG, field.toString());
@@ -279,6 +277,20 @@ public class Game_memory_Activity extends Activity {
 					.getCurrentPoints() + (120 - time) * 8));
 			DataClass.user.setTotalpoints((int) (DataClass.user
 					.getTotalpoints() + (120 - time) * 8));
+		
+			String msg = DataClass.user.getUsername()
+					+ " has scored in Memory: " + (120 - time) * 8;
+
+			MyHttpClient client = new MyHttpClient(DataClass.server);
+			try {
+				client.pushTWITTER(DataClass.user.getUsername(), msg);
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			Toast.makeText(getBaseContext(),
 					"Time:" + time + "good try but just training",
@@ -294,7 +306,7 @@ public class Game_memory_Activity extends Activity {
 			if (aktuell.isChecked()) {
 				if (gametime == null) {
 					gametime = new Game_memory_Time(120400, 90,
-							(TextView) findViewById(R.id.time), lights);
+							(TextView) findViewById(R.id.time), lights, game);
 					gametime.start();
 				}
 

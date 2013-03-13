@@ -111,13 +111,12 @@ public class DataClass {
 			Model addtolist = caches.get(i);
 			int maxdistance;
 			int distance;
-
 			if (filtermaxDistance.equals("All")) {
 				maxdistance = Integer.MAX_VALUE;
 			} else {
-				maxdistance = Integer.parseInt(filtermaxDistance.substring(1));
+				maxdistance = Integer.parseInt(filtermaxDistance);
 			}
-			if (filterunit.equals("m/km")) {
+			if (filterunit.equals("m-km")) {
 				distance = SegMathClass.calculateDistanceinMeter(myGeoPoint,
 						todecide.getGeopoint());
 			} else {
@@ -125,6 +124,8 @@ public class DataClass {
 						todecide.getGeopoint());
 			}
 			boolean checkdistance = false;
+			
+			
 			if (distance < maxdistance) {
 				checkdistance = true;
 			}

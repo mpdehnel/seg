@@ -11,7 +11,6 @@ import com.data.Model;
 import com.data.MyHttpClient;
 import com.findCache.MapsActivity;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +20,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -45,6 +45,8 @@ public class CacheShowActivity extends Activity {
 	private RatingBar ratebar;
 	private List<Model> listofsortetcaches;
 	private Vibrator vibrator;
+	private Button comment;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -54,13 +56,13 @@ public class CacheShowActivity extends Activity {
 		// TODO: mapsboolen handel
 		cacheindex = intent.getIntExtra("CacheIndex", -1);
 		frommap = intent.getBooleanExtra("frommaps", false);
-		listofsortetcaches=DataClass.getcacheswithfilter();
+		listofsortetcaches = DataClass.getcacheswithfilter();
 		initfields();
 		handelfrommap();
 		setupListener();
 		setupfont();
 		setupbackgroundimage();
-		Cache cache=listofsortetcaches.get(cacheindex).getCach();
+		Cache cache = listofsortetcaches.get(cacheindex).getCach();
 		CacheName.setText(cache.getName());
 		CacheDiscription.setText(cache.getDescripton());
 
@@ -90,8 +92,11 @@ public class CacheShowActivity extends Activity {
 		no_Button = (Button) findViewById(R.id.no_button);
 		rate_button = (Button) findViewById(R.id.ratethisCache);
 		question = (TextView) findViewById(R.id.doyouwant);
-		ratebar=(RatingBar) findViewById(R.id.Cacheratingbar);
-		vibrator=(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		ratebar = (RatingBar) findViewById(R.id.Cacheratingbar);
+		comment = (Button) findViewById(R.id.leaveAcomment);
+		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		CacheDiscription.setMovementMethod(ScrollingMovementMethod
+				.getInstance());
 
 	}
 
@@ -100,6 +105,7 @@ public class CacheShowActivity extends Activity {
 		yes_Button.setOnClickListener(clickhandler);
 		no_Button.setOnClickListener(clickhandler);
 		rate_button.setOnClickListener(clickhandler);
+		comment.setOnClickListener(clickhandler);
 	}
 
 	private void setupbackgroundimage() {
@@ -113,11 +119,13 @@ public class CacheShowActivity extends Activity {
 		yes_Button.setBackgroundDrawable(buttonimage);
 		yes_with_routing.setBackgroundDrawable(buttonimage);
 		no_Button.setBackgroundDrawable(buttonimage);
+		comment.setBackgroundDrawable(buttonimage);
 		if (listofsortetcaches.get(cacheindex).getCach().isFound()) {
 			rate_button.setBackgroundDrawable(buttonimage);
-			
-			ratebar.setEnabled(!listofsortetcaches.get(cacheindex).getCach().israted());
-			
+
+			ratebar.setEnabled(!listofsortetcaches.get(cacheindex).getCach()
+					.israted());
+
 		} else {
 			rate_button.setBackgroundDrawable(buttonimageinaktiv);
 			ratebar.setEnabled(false);
@@ -143,6 +151,10 @@ public class CacheShowActivity extends Activity {
 		yes_Button.setTextSize(textsize);
 		yes_Button.setTextColor(buttoncolor);
 
+		comment.setTypeface(font);
+		comment.setTextSize(textsize);
+		comment.setTextColor(buttoncolor);
+
 		no_Button.setTypeface(font);
 		no_Button.setTextSize(textsize);
 		no_Button.setTextColor(buttoncolor);
@@ -161,6 +173,16 @@ public class CacheShowActivity extends Activity {
 
 	private void clickhandle(View v) {
 		vibrator.vibrate(50);
+		if (v == comment) {
+			finish();
+			Intent intent = new Intent(getApplicationContext(),
+					CommentActivity.class);
+			intent.putExtra("Cacheid", listofsortetcaches.get(cacheindex)
+					.getCach().get_id());
+
+			startActivity(intent);
+		}
+
 		if (v == no_Button) {
 
 			finish();
@@ -185,28 +207,33 @@ public class CacheShowActivity extends Activity {
 		if (v == yes_with_routing) {
 			finish();
 			listofsortetcaches.get(cacheindex).setSelected(true);
-			DataClass.routingpoint = listofsortetcaches.get(cacheindex).getCach()
-					.getGeopoint();
+			DataClass.routingpoint = listofsortetcaches.get(cacheindex)
+					.getCach().getGeopoint();
 			startActivity(new Intent(getApplicationContext(),
 					CacheSelectActivity.class));
 		}
-		if(v==rate_button){
-			float rating=ratebar.getRating();
-			MyHttpClient http=new MyHttpClient(DataClass.server);
-			Cache cache=listofsortetcaches.get(cacheindex).getCach();
-			if(cache.isFound()&&!cache.israted()){
-			Toast.makeText(getApplicationContext(), "Rating with"+rating, Toast.LENGTH_SHORT).show();
-			try {
-				Toast.makeText(getApplicationContext(),http.pushrating(cache.get_id(), rating) , Toast.LENGTH_SHORT).show();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}else{
-				Toast.makeText(getApplicationContext(), "You have to find the cache befor you could rate it!", Toast.LENGTH_SHORT).show();
+		if (v == rate_button) {
+			float rating = ratebar.getRating();
+			MyHttpClient http = new MyHttpClient(DataClass.server);
+			Cache cache = listofsortetcaches.get(cacheindex).getCach();
+			if (cache.isFound() && !cache.israted()) {
+				Toast.makeText(getApplicationContext(), "Rating with" + rating,
+						Toast.LENGTH_SHORT).show();
+				try {
+					Toast.makeText(getApplicationContext(),
+							http.pushrating(cache.get_id(), rating),
+							Toast.LENGTH_SHORT).show();
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				Toast.makeText(getApplicationContext(),
+						"You have to find the cache befor you could rate it!",
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 	}

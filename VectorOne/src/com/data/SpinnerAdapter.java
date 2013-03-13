@@ -45,11 +45,12 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 		
 		View row = inflater.inflate(R.layout.spinner_row, parent, false);
 		RelativeLayout layout=(RelativeLayout) row.findViewById(R.id.relativspinner);
-		layout.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.backgroundsmall));
+		layout.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.backgroundsmall));
 		TextView label = (TextView) row.findViewById(R.id.spinnerElement);
 		label.setTextSize(17);
+		label.setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.buttonsmall));
 		label.setTypeface(font);
-		label.setTextColor(textcolor);
+		label.setTextColor(Color.BLACK);
 		label.setText(strings[position]);
 
 		return row;

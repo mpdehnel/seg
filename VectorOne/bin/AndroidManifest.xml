@@ -106,6 +106,10 @@
             android:name="com.vectorone.ViewActivity"
             android:label="Registration" >
         </activity>
+         <activity
+            android:name="com.vectorone.CommentActivity"
+            android:label="Registration" >
+        </activity>
 
         <uses-library android:name="com.google.android.maps" />
     </application>

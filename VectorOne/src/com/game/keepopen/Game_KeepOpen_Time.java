@@ -1,6 +1,7 @@
 package com.game.keepopen;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.CountDownTimer;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -22,7 +23,12 @@ public class Game_KeepOpen_Time extends CountDownTimer {
 		this.millisInFuture = millisInFuture / 100;
 		this.t1 = textView;
 		this.game = gameActivity;
-		t1.setTextColor(Color.WHITE);
+		Typeface font = Typeface
+				.createFromAsset(game.getAssets(), "fonts/bebas.ttf");
+		int textcolor = Color.parseColor("#DECD87");
+		t1.setTextColor(textcolor);
+		t1.setTypeface(font);
+		t1.setTextSize(17);
 	}
 
 	@Override
@@ -56,8 +62,6 @@ public class Game_KeepOpen_Time extends CountDownTimer {
 			speedfaktor = 3;
 		if (time > 450)
 			speedfaktor = 2;
-		if (time > 500)
-			speedfaktor = 1;
 
 	}
 

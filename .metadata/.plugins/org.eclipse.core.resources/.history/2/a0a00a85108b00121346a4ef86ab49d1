@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/me_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="29dp"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/team"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/name"
+        android:layout_below="@+id/name"
+        android:text="Team" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/team"
+        android:layout_below="@+id/team"
+        android:text="Location" />
+
+    <TextView
+        android:id="@+id/totalNumberOfChaches"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/location"
+        android:layout_below="@+id/location"
+        android:text="TotalCaches" />
+
+    <TextView
+        android:id="@+id/totalPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/totalNumberOfChaches"
+        android:layout_below="@+id/totalNumberOfChaches"
+        android:text="TotalPoints" />
+
+    <TextView
+        android:id="@+id/currentpoints"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/totalPoints"
+        android:layout_below="@+id/totalPoints"
+        android:text="Currentpoints" />
+
+    <Button
+        android:id="@+id/log_button"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="42dp"
+        android:layout_marginRight="28dp"
+        android:text="Log" />
+
+    <Button
+        android:id="@+id/Change"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/log_button"
+        android:layout_toLeftOf="@+id/log_button"
+        android:text="Change User Details" />
+
+</RelativeLayout>

@@ -39,24 +39,6 @@
             android:layout_marginBottom="26dp"
             android:text="Do you want to show this Cache on Map?" />
 
-        <Button
-            android:id="@+id/ratethisCache"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/doyouwant"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="14dp"
-            android:text="RATE!" />
-
-        <Button
-            android:id="@+id/yes_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/ratethisCache"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="42dp"
-            android:text="Yes" />
-
         <RatingBar
             android:id="@+id/Cacheratingbar"
             style="@style/CustomRatingBar"
@@ -70,10 +52,37 @@
         <TextView
             android:id="@+id/CacheDiscription"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_alignLeft="@+id/CachName"
             android:layout_below="@+id/CachName"
             android:layout_marginTop="16dp"
             android:text="TextView" />
+
+        <Button
+            android:id="@+id/ratethisCache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/doyouwant"
+            android:layout_alignRight="@+id/doyouwant"
+            android:layout_marginBottom="16dp"
+            android:text="RATE!" />
+
+        <Button
+            android:id="@+id/yes_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="38dp"
+            android:layout_toLeftOf="@+id/no_button"
+            android:text="Yes" />
+
+        <Button
+            android:id="@+id/leaveAcomment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/ratethisCache"
+            android:layout_alignBottom="@+id/ratethisCache"
+            android:layout_alignRight="@+id/routing_button"
+            android:text="Comment" />
 
     </RelativeLayout>

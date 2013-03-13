@@ -2,6 +2,7 @@ package com.data;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,6 +52,30 @@ public class Registrationsverify {
 		matcher = pattern.matcher(postecode);
 		boolean result = matcher.matches();
 		return result;
+	}
+	
+	public boolean olderthan13(String date) {
+		String dateStart = date;
+
+		// Custom date format
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date d1 = null;
+		Date d2 = new Date();
+		try {
+			d1 = format.parse(dateStart);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		long diff = d2.getTime() - d1.getTime();
+		double diffYears = diff / 365.25 / 24 / 60 / 60 / 1000;
+		if(diffYears>13){
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 
 }

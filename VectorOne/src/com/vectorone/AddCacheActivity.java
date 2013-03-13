@@ -150,10 +150,28 @@ public class AddCacheActivity extends Activity {
 									true, id, DataClass.user.getTeam(), "")));
 							http.pointsupdate(DataClass.user.getUsername(),
 									(-1) * cacheCosts);
+							DataClass.user.setCurrentPoints(DataClass.user
+									.getCurrentPoints() - cacheCosts);
 						}
-						DataClass.log.append("add WifiCache:" + name);
-						DataClass.log.append("Current Points:"
+						DataClass.addtolog("add Cache:" + name);
+						DataClass.addtolog("Current Points:"
 								+ DataClass.user.getCurrentPoints());
+
+						String msg = DataClass.user.getUsername()
+								+ " has added a cache:" + name;
+
+						MyHttpClient client = new MyHttpClient(DataClass.server);
+						try {
+							client.pushTWITTER(DataClass.user.getUsername(),
+									msg);
+						} catch (ClientProtocolException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
 						onBackPressed();
 					} catch (ClientProtocolException e) {
 						e.printStackTrace();
@@ -196,9 +214,9 @@ public class AddCacheActivity extends Activity {
 										.getMacAddress(getBaseContext()))));
 						MyHttpClient http = new MyHttpClient(DataClass.server);
 						try {
-							String name1 = name.replace(" ", "%20");
-							String description1 = description.replace(" ",
-									"%20");
+							String name1 = name.replace(" ", "__");
+							String description1 = description
+									.replace(" ", "__");
 							int id = http.addCacheToDatabase(name1,
 									description1,
 									wifi.getMacAddress(getBaseContext()));
@@ -216,6 +234,21 @@ public class AddCacheActivity extends Activity {
 							DataClass.log.append("add WifiCache:" + name);
 							DataClass.log.append("Current Points:"
 									+ DataClass.user.getCurrentPoints());
+							String msg = DataClass.user.getUsername()
+									+ " has added a cache:" + name;
+
+							MyHttpClient client = new MyHttpClient(
+									DataClass.server);
+							try {
+								client.pushTWITTER(
+										DataClass.user.getUsername(), msg);
+							} catch (ClientProtocolException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							onBackPressed();
 
 						} catch (ClientProtocolException e) {

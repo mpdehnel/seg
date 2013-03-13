@@ -1,6 +1,9 @@
 package com.findCache;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -27,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.data.Cache;
 import com.data.DataClass;
+import com.data.MyHttpClient;
 import com.data.SegMathClass;
 import com.game.keepopen.Game_keepopen_Activity;
 import com.game.memory.Game_memory_Activity;
@@ -277,6 +281,20 @@ public class MapsActivity extends MapActivity implements LocationListener {
 				thiscache.setfounded(true);
 				playSound();
 				DataClass.log.append("Cache found:" + thiscache.getName());
+				String msg = DataClass.user.getUsername()
+						+ " has just visited cache:" + thiscache.getName();
+
+				MyHttpClient client = new MyHttpClient(DataClass.server);
+				try {
+					client.pushTWITTER(DataClass.user.getUsername(), msg);
+					client.updateCache(DataClass.user.getUsername(), thiscache.get_id());
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				int choice = (int) (Math.random() * 2);
 
 				if (choice == 0) {

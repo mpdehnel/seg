@@ -1,13 +1,11 @@
 package com.data;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
 
 import com.game.keepopen.Game_keepopen_Activity;
 import com.game.memory.Game_memory_Activity;
-import com.vectorone.CacheShowActivity;
-
-import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +13,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 
 public class WifiSupport extends BroadcastReceiver {
@@ -66,7 +63,7 @@ public class WifiSupport extends BroadcastReceiver {
 
 			Log.i("DATACLASS", selectedCach.getMacAdd() + "-Macaddess-"
 					+ Macaddress);
-			if (context != null) {
+			if (context != null&&Macaddress!=null) {
 				if (Macaddress.length() == 17
 						&& selectedCach.getMacAdd().length() == 17) {
 					Log.i("DATACLASS", selectedCach.getMacAdd() + "-Macaddess-"
@@ -79,6 +76,20 @@ public class WifiSupport extends BroadcastReceiver {
 									+ Macaddress);
 							int choice = (int) (Math.random() * 2);
 							DataClass.log.append("WifiCache found:"+DataClass.selectedCaches.get(i).getName());
+							String msg = DataClass.user.getUsername()
+									+ " has just visited WifiCache:" +selectedCach.getName();
+
+							MyHttpClient client = new MyHttpClient(DataClass.server);
+							try {
+								client.pushTWITTER(DataClass.user.getUsername(), msg);
+								client.updateCache(DataClass.user.getUsername(), selectedCach.get_id());
+							} catch (ClientProtocolException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							if (choice == 0) {
 								DataClass.log.append("Game: KeepOpen");
 								Intent intent = new Intent(context,

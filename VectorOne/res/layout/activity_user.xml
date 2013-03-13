@@ -45,17 +45,6 @@
         android:layout_below="@+id/totalNumberOfChaches"
         android:text="TotalPoints" />
 
-    <Button
-        android:id="@+id/log_button"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="42dp"
-        android:layout_marginRight="61dp"
-        android:text="Log" />
-
     <TextView
         android:id="@+id/currentpoints"
         android:layout_width="wrap_content"
@@ -65,11 +54,22 @@
         android:text="Currentpoints" />
 
     <Button
-        android:id="@+id/Change"
+        android:id="@+id/log_button"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="42dp"
+        android:layout_marginRight="28dp"
+        android:text="Log" />
+
+    <Button
+        android:id="@+id/Change"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/log_button"
         android:layout_toLeftOf="@+id/log_button"
-        android:text="Change User Details" />
+        android:text="Change Password" />
 
 </RelativeLayout>

@@ -1,3 +1,4 @@
+
 package com.vectorone;
 
 import com.data.DataClass;
@@ -66,6 +67,7 @@ public class MeActivity extends Activity {
 		Drawable buttonimage = getResources().getDrawable(
 				R.drawable.buttonmedium);
 		logbutton.setBackgroundDrawable(buttonimage);
+		change.setBackgroundDrawable(buttonimage);
 	}
 
 	private void setupfont() {
@@ -73,7 +75,7 @@ public class MeActivity extends Activity {
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
 		int textcolor = Color.parseColor("#DECD87");
 		int buttoncolor = Color.parseColor("#45250F");
-		float textsize = 22;
+		float textsize = 17;
 
 		name.setTypeface(font);
 		name.setTextColor(textcolor);

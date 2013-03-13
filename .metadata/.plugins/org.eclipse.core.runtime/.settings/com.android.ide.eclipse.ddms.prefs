@@ -1,9 +1,9 @@
-allocPanel.Col0=25
-allocPanel.Col00=65
+allocPanel.Col0=139
+allocPanel.Col00=108
 allocPanel.Col1=86
-allocPanel.Col2=25
-allocPanel.Col3=35
-allocPanel.Col4=35
+allocPanel.Col2=90
+allocPanel.Col3=97
+allocPanel.Col4=107
 allocPanel.stack.col0=119
 allocPanel.stack.col1=100
 allocPanel.stack.col2=312

@@ -233,9 +233,8 @@ public class MenuActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-
 		dialog.show();
-
+		//finish();
 	}
 
 	private OnClickListener clickhandler = new OnClickListener() {

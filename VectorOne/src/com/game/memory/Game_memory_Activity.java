@@ -7,11 +7,16 @@ import org.apache.http.client.ClientProtocolException;
 
 import com.data.DataClass;
 import com.data.MyHttpClient;
+import com.vectorone.MenuActivity;
+import com.vectorone.PlaygroundActivity;
 import com.vectorone.R;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +34,8 @@ public class Game_memory_Activity extends Activity {
 	private int tmpBoxindex = -1;
 	private Game_memory_Time gametime;
 	private boolean withpoints;
+	private boolean finished = false;
+	// private MediaPlayer mp;
 	private Game_memory_Activity game;
 	private static final String TAG = "GameMemory";
 
@@ -65,6 +72,15 @@ public class Game_memory_Activity extends Activity {
 	}
 
 	private void intitfields() {
+		TextView t1 = (TextView) findViewById(R.id.time);
+		Typeface font = Typeface.createFromAsset(game.getAssets(),
+				"fonts/bebas.ttf");
+		int textcolor = Color.parseColor("#DECD87");
+		t1.setTextColor(textcolor);
+		t1.setTypeface(font);
+		t1.setTextSize(22);
+		t1.setText("Memory: to start click a box");
+
 		for (int i = 0; i < numberoflights; i++) {
 			lights[i] = (CheckBox) findViewById(getid("light" + (i + 1)));
 			lights[i].setChecked(false);
@@ -257,44 +273,52 @@ public class Game_memory_Activity extends Activity {
 	}
 
 	public void stop(long time) {
+		// mp.stop();
 		calculatepoints(time);
 	}
 
 	private void calculatepoints(long time) {
-		if (withpoints) {
-			Toast.makeText(getBaseContext(), "Points:" + (120 - time) * 8,
-					Toast.LENGTH_SHORT).show();
-			MyHttpClient http = new MyHttpClient(DataClass.server);
-			try {
-				http.pointsupdate(DataClass.user.getUsername(),
-						(int) ((120 - time) * 8));
-			} catch (ClientProtocolException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			DataClass.user.setCurrentPoints((int) (DataClass.user
-					.getCurrentPoints() + (120 - time) * 8));
-			DataClass.user.setTotalpoints((int) (DataClass.user
-					.getTotalpoints() + (120 - time) * 8));
-		
-			String msg = DataClass.user.getUsername()
-					+ " has scored in Memory: " + (120 - time) * 8;
+		if (!finished) {
+			if (withpoints) {
+				Toast.makeText(getBaseContext(), "Points:" + (120 - time) * 8,
+						Toast.LENGTH_SHORT).show();
+				MyHttpClient http = new MyHttpClient(DataClass.server);
+				try {
+					http.pointsupdate(DataClass.user.getUsername(),
+							(int) ((120 - time) * 8));
+				} catch (ClientProtocolException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				DataClass.user.setCurrentPoints((int) (DataClass.user
+						.getCurrentPoints() + (120 - time) * 8));
+				DataClass.user.setTotalpoints((int) (DataClass.user
+						.getTotalpoints() + (120 - time) * 8));
 
-			MyHttpClient client = new MyHttpClient(DataClass.server);
-			try {
-				client.pushTWITTER(DataClass.user.getUsername(), msg);
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				String msg = DataClass.user.getUsername()
+						+ " has scored in Memory: " + (120 - time) * 8;
+
+				MyHttpClient client = new MyHttpClient(DataClass.server);
+				try {
+					client.pushTWITTER(DataClass.user.getUsername(), msg);
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				finish();
+				startActivity(new Intent(getBaseContext(), MenuActivity.class));
+			} else {
+				Toast.makeText(getBaseContext(),
+						"Time:" + time + "good try but just training",
+						Toast.LENGTH_SHORT).show();
+				finish();
+				startActivity(new Intent(getBaseContext(),
+						PlaygroundActivity.class));
 			}
-		} else {
-			Toast.makeText(getBaseContext(),
-					"Time:" + time + "good try but just training",
-					Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -330,6 +354,26 @@ public class Game_memory_Activity extends Activity {
 			}
 		}
 
+	};
+
+	/*
+	 * private void PlaySound() { new Thread() { public void run() { mp =
+	 * MediaPlayer.create(getApplicationContext(), R.raw.gamesound); mp.start();
+	 * } }.start(); }
+	 */
+
+	@Override
+	public void onBackPressed() {
+		finished = true;
+		Toast.makeText(getBaseContext(), "Abort! no points!",
+				Toast.LENGTH_SHORT).show();
+		if (withpoints) {
+			finish();
+			startActivity(new Intent(getBaseContext(), MenuActivity.class));
+		} else {
+			finish();
+			startActivity(new Intent(getBaseContext(), PlaygroundActivity.class));
+		}
 	};
 
 }

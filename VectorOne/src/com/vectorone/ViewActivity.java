@@ -42,7 +42,7 @@ public class ViewActivity extends Activity {
 		maps = (Button) findViewById(R.id.button_maps);
 		radar = (Button) findViewById(R.id.button_radar);
 		back = (Button) findViewById(R.id.back);
-		vibrator=(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
 		int buttoncolor = Color.parseColor("#45250F");
@@ -51,10 +51,17 @@ public class ViewActivity extends Activity {
 				R.drawable.buttonsmall);
 
 		maps.setTypeface(font);
-		maps.setTextColor(buttoncolor);
+		
 		maps.setTextSize(textsize);
-		maps.setBackgroundDrawable(buttonimage);
-
+		if(DataClass.user.isHardcore()){
+		maps.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonsmallgrey));
+		maps.setTextColor(Color.BLACK);
+		maps.setEnabled(false);
+		}else{
+			maps.setBackgroundDrawable(buttonimage);
+			maps.setTextColor(buttoncolor);
+			maps.setEnabled(true);
+		}
 		radar.setTypeface(font);
 		radar.setTextColor(buttoncolor);
 		radar.setTextSize(textsize);

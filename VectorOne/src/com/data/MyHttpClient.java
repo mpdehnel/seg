@@ -163,8 +163,8 @@ public class MyHttpClient {
 				tmp.setDescripton(discription);
 				tmp.setfounded(Boolean.valueOf(getValueofTag("found", element)));
 				tmp.setRated(Boolean.valueOf(getValueofTag("found", element)));
-				tmp.setTeamcolor(Integer
-						.valueOf(getValueofTag("team", element)));
+
+				tmp.setTeamcolor(parseTeam(getValueofTag("team", element)));
 				tmp.setID(Integer.valueOf(getValueofTag("id", element)));
 				tmp.setComments(parseComments(getValueofTag("comments", element)));
 				String macaddress = getValueofTag("macaddress", element);
@@ -182,6 +182,29 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 		return toCacheArry(cachelist);
+	}
+
+	private String parseTeam(String valueofTag) {
+		int team = Integer.parseInt(valueofTag);
+		String teamName = "";
+		switch (team) {
+		case 1:
+			teamName = "Red Reefers";
+			break;
+		case 2:
+			teamName = "Green Gulls";
+			break;
+		case 3:
+			teamName = "Blue Bandits";
+			break;
+		case 4:
+			teamName = "Purple Perils";
+			break;
+		default:
+			teamName = "Unvisited";
+		}
+
+		return teamName;
 	}
 
 	private String parseComments(String valueofTag) {

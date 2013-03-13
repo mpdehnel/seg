@@ -2,6 +2,7 @@ package com.data;
 
 import java.util.List;
 
+import com.vectorone.CacheSelectActivity;
 import com.vectorone.CacheShowActivity;
 import com.vectorone.R;
 
@@ -25,11 +26,13 @@ public class ListAdapter extends ArrayAdapter<Model> {
 
 	private final List<Model> list;
 	private final Context context;
+	private final CacheSelectActivity sec;
 
-	public ListAdapter(Context context, List<Model> list) {
+	public ListAdapter(Context context, List<Model> list,CacheSelectActivity sec) {
 		super(context, R.layout.cache_list_element, list);
 		this.context = context;
 		this.list = list;
+		this.sec=sec;
 	}
 
 	@Override
@@ -63,6 +66,7 @@ public class ListAdapter extends ArrayAdapter<Model> {
 				Intent intent = new Intent();
 				intent = new Intent(getContext(), CacheShowActivity.class);
 				intent.putExtra("CacheIndex", position);
+				sec.finish();
 				getContext().startActivity(intent);
 			}
 		});

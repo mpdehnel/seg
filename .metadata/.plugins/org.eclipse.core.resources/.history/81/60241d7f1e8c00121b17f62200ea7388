@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:id="@+id/relativspinner"
+ android:layout_width="fill_parent"
+ android:layout_height="match_parent"
+ android:orientation="vertical"
+>
+
+    <TextView
+         android:padding="3dip"
+         android:layout_marginTop="2dip"
+         android:textStyle="bold"
+         android:id="@+id/spinnerElement"
+         android:layout_marginLeft="5dip"
+         android:gravity="center"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"/>
+     
+</RelativeLayout>

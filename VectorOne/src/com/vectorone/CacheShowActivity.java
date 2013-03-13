@@ -65,6 +65,8 @@ public class CacheShowActivity extends Activity {
 		Cache cache = listofsortetcaches.get(cacheindex).getCach();
 		CacheName.setText(cache.getName());
 		CacheDiscription.setText(cache.getDescripton());
+		CacheDiscription.setScrollbarFadingEnabled(false);
+		CacheDiscription.setVerticalFadingEdgeEnabled(false);
 
 	}
 
@@ -120,7 +122,7 @@ public class CacheShowActivity extends Activity {
 		yes_with_routing.setBackgroundDrawable(buttonimage);
 		no_Button.setBackgroundDrawable(buttonimage);
 		comment.setBackgroundDrawable(buttonimage);
-		if (listofsortetcaches.get(cacheindex).getCach().isFound()) {
+		if (listofsortetcaches.get(cacheindex).getCach().isFound()&&!listofsortetcaches.get(cacheindex).getCach().israted()) {
 			rate_button.setBackgroundDrawable(buttonimage);
 
 			ratebar.setEnabled(!listofsortetcaches.get(cacheindex).getCach()
@@ -140,11 +142,14 @@ public class CacheShowActivity extends Activity {
 		float textsize = 22;
 		CacheName.setTypeface(font);
 		CacheName.setTextColor(textcolor);
+		CacheName.setTextSize(textsize);
 
 		CacheDiscription.setTypeface(font);
 		CacheDiscription.setTextColor(textcolor);
-
+		CacheDiscription.setTextSize(textsize);
+		
 		question.setTypeface(font);
+		question.setTextSize(textsize);
 		question.setTextColor(textcolor);
 
 		yes_Button.setTypeface(font);
@@ -179,7 +184,7 @@ public class CacheShowActivity extends Activity {
 					CommentActivity.class);
 			intent.putExtra("Cacheid", listofsortetcaches.get(cacheindex)
 					.getCach().get_id());
-
+			intent.putExtra("CacheIndex", cacheindex);
 			startActivity(intent);
 		}
 
@@ -249,7 +254,6 @@ public class CacheShowActivity extends Activity {
 			startActivity(new Intent(getApplicationContext(),
 					MapsActivity.class));
 		}
-		super.onBackPressed();
 	}
 
 	private OnClickListener clickhandler = new OnClickListener() {

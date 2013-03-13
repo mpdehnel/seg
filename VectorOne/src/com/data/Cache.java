@@ -8,7 +8,7 @@ public class Cache {
 	private GeoPoint geopoint;
 	private String descripton;
 	private String name;
-	private int teamcolor;
+	private String teamcolor;
 	private boolean founded;
 	private boolean israted = false;
 	private String comments = "";
@@ -26,7 +26,7 @@ public class Cache {
 	private String macAdd = "";
 
 	public Cache(String name, GeoPoint geopoint, String description,
-			boolean founded, int id, int teamcolor, String macAdd) {
+			boolean founded, int id, String teamcolor, String macAdd) {
 		this.name = name;
 		this.geopoint = geopoint;
 		this.descripton = description;
@@ -34,6 +34,10 @@ public class Cache {
 		this.teamcolor = teamcolor;
 		this.macAdd = macAdd;
 		this._id = id;
+	}
+
+	public Cache() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int get_id() {
@@ -52,20 +56,12 @@ public class Cache {
 		this.israted = israted;
 	}
 
-	public int getTeamcolor() {
-		return teamcolor;
-	}
-
 	public String getMacAdd() {
 		return macAdd;
 	}
 
 	public void setMacAdd(String macAdd) {
 		this.macAdd = macAdd;
-	}
-
-	public Cache() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getID() {
@@ -79,6 +75,7 @@ public class Cache {
 	public String getDescripton() {
 		String value = "";
 		if (DataClass.myGeoPoint != null) {
+
 			value = descripton
 					+ "\n"
 					+ "Distance:   "
@@ -87,12 +84,11 @@ public class Cache {
 					+ "\n"
 					+ "Direction:   "
 					+ SegMathClass.calculateDirection(DataClass.myGeoPoint,
-							this.geopoint) + "\n" + "Location long/lat:   "
-					+ this.geopoint.getLongitudeE6() / Math.pow(10, 6) + "/"
+							this.geopoint) + "\n" + "Location:"+"\n"+"Lon:"
+					+ this.geopoint.getLongitudeE6() / Math.pow(10, 6) + "\n"+"Lat:"
 					+ this.geopoint.getLatitudeE6() / Math.pow(10, 6) + "\n"
-					+ "Team:" + this.getTeamcolour() + "\n" + "Rating:"
-					+ this.getRating() + "\n" + "--Comments--" + "\n"
-					+ this.getComments();
+					+ "Team:" + teamcolor + "\n" + "Rating:" + this.getRating()
+					+ "\n" + "--Comments--" + "\n" + this.getComments();
 		}
 		if (macAdd != "") {
 			value = value + "MacAddress: " + this.macAdd;
@@ -113,11 +109,11 @@ public class Cache {
 		this.name = name;
 	}
 
-	public int getTeamcolour() {
+	public String getTeamcolour() {
 		return teamcolor;
 	}
 
-	public void setTeamcolor(int teamcolor) {
+	public void setTeamcolor(String teamcolor) {
 		this.teamcolor = teamcolor;
 	}
 

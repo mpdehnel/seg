@@ -6,10 +6,14 @@ import org.apache.http.client.ClientProtocolException;
 
 import com.data.DataClass;
 import com.data.MyHttpClient;
+import com.vectorone.MenuActivity;
+import com.vectorone.PlaygroundActivity;
 import com.vectorone.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -26,10 +30,11 @@ public class Game_keepopen_Activity extends Activity {
 	private CheckBox[] lights = new CheckBox[numberoflights];
 	private boolean hardcore = false;
 	private Game_KeepOpen_Time gametime;
-	private MediaPlayer mp;
+	// private MediaPlayer mp;
 	private TextView t1;
 	private int cacheid;
 	private boolean withpoints;
+	private boolean finished = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,8 +44,15 @@ public class Game_keepopen_Activity extends Activity {
 		setContentView(R.layout.activity_keepopen_game);
 		Intent intent = getIntent();
 		t1 = (TextView) findViewById(R.id.time);
+		Typeface font = Typeface
+				.createFromAsset(getAssets(), "fonts/bebas.ttf");
+		int textcolor = Color.parseColor("#DECD87");
+		t1.setTextColor(textcolor);
+		t1.setTypeface(font);
+		t1.setTextSize(22);
 		withpoints = intent.getBooleanExtra("withpoints", true);
 		cacheid = intent.getIntExtra("cacheid", -1);
+		// PlaySound();
 		for (int i = 0; i < numberoflights; i++) {
 			lights[i] = (CheckBox) findViewById(getid("light" + (i + 1)));
 			lights[i].setButtonDrawable(R.drawable.checkbox_keepopen_game);
@@ -130,63 +142,76 @@ public class Game_keepopen_Activity extends Activity {
 
 	}
 
-	private void PlaySound() {
-		new Thread() {
-			public void run() {
-				mp = MediaPlayer.create(getApplicationContext(),
-						R.raw.gamesound);
-				mp.start();
-			}
-		}.start();
-	}
+	/*
+	 * private void PlaySound() { new Thread() { public void run() { mp =
+	 * MediaPlayer.create(getApplicationContext(), R.raw.gamesound); mp.start();
+	 * } }.start(); }
+	 */
 
 	public void stop(long time) {
-		mp.stop();
+		// mp.stop();
 		calculatepoints(time);
 	}
 
 	private void calculatepoints(long time) {
-		if (withpoints) {
-			Toast.makeText(getBaseContext(), "Points:" + time,
-					Toast.LENGTH_SHORT).show();
-			MyHttpClient http = new MyHttpClient(DataClass.server);
-			try {
-				http.pointsupdate(DataClass.user.getUsername(), (int) time);
-			} catch (ClientProtocolException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		if (!finished) {
+			if (withpoints) {
+				Toast.makeText(getBaseContext(), "Points:" + time,
+						Toast.LENGTH_SHORT).show();
+				MyHttpClient http = new MyHttpClient(DataClass.server);
+				try {
+					http.pointsupdate(DataClass.user.getUsername(), (int) time);
+				} catch (ClientProtocolException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 
-			String msg = DataClass.user.getUsername()
-					+ " has scored in KeepOpen: " + time;
+				String msg = DataClass.user.getUsername()
+						+ " has scored in KeepOpen: " + time;
 
-			MyHttpClient client = new MyHttpClient(DataClass.server);
-			try {
-				client.pushTWITTER(DataClass.user.getUsername(), msg);
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				MyHttpClient client = new MyHttpClient(DataClass.server);
+				try {
+					client.pushTWITTER(DataClass.user.getUsername(), msg);
+				} catch (ClientProtocolException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				DataClass.user.setCurrentPoints((int) (DataClass.user
+						.getCurrentPoints() + time));
+				DataClass.user.setTotalpoints((int) (DataClass.user
+						.getTotalpoints() + time));
+				finish();
+				startActivity(new Intent(getBaseContext(), MenuActivity.class));
+			} else {
+				Toast.makeText(getBaseContext(),
+						"Time:" + time + "good try but just training",
+						Toast.LENGTH_SHORT).show();
+				finish();
+				startActivity(new Intent(getBaseContext(),
+						PlaygroundActivity.class));
 			}
-			DataClass.user.setCurrentPoints((int) (DataClass.user
-					.getCurrentPoints() + time));
-			DataClass.user.setTotalpoints((int) (DataClass.user
-					.getTotalpoints() + time));
-		} else {
-			Toast.makeText(getBaseContext(),
-					"Time:" + time + "good try but just training",
-					Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	@Override
 	public void onBackPressed() {
-		mp.stop();
-		super.onBackPressed();
-	}
+		// if (mp.isPlaying()) {
+		// mp.stop();
+		// }
+		finished = true;
+		Toast.makeText(getBaseContext(), "Abort! no points!", Toast.LENGTH_SHORT).show();
+		if (withpoints) {
+			finish();
+			startActivity(new Intent(getBaseContext(), MenuActivity.class));
+		} else {
+			finish();
+			startActivity(new Intent(getBaseContext(), PlaygroundActivity.class));
+		}
+	};
 
 	public void setHardcodeListener(boolean hardcore) {
 		if (hardcore) {
@@ -209,13 +234,14 @@ public class Game_keepopen_Activity extends Activity {
 
 		@Override
 		public void onTick(long millisUntilFinished) {
-			t1.setText("" + (millisUntilFinished / 1000));
+			t1.setText("Time until KeepOpen Starts:"
+					+ (millisUntilFinished / 1000) + "s");
+			
 		}
 
 		@Override
 		public void onFinish() {
 			gametime.start();
-			PlaySound();
 		}
 	};
 }

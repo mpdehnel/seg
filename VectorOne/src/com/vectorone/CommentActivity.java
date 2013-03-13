@@ -36,6 +36,8 @@ public class CommentActivity extends Activity {
 	private EditText comment;
 	private Vibrator vibrator;
 	private int cacheid;
+	private int cacheindex;
+	private TextView lable;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class CommentActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_comment);
 		Intent intent = getIntent();
+		cacheindex = intent.getIntExtra("CacheIndex", -1);
 		cacheid = intent.getIntExtra("Cacheid", -1);
 		initfields();
 		setupListener();
@@ -59,9 +62,10 @@ public class CommentActivity extends Activity {
 		Drawable buttonimage = getResources().getDrawable(
 				R.drawable.buttonsmall);
 		Drawable textfieldimage = getResources().getDrawable(
-				R.drawable.textentry);
+				R.drawable.textentrybig);
 		send.setBackgroundDrawable(buttonimage);
 		cancel.setBackgroundDrawable(buttonimage);
+		comment.setBackgroundDrawable(textfieldimage);
 	}
 
 	private void setupfont() {
@@ -83,6 +87,10 @@ public class CommentActivity extends Activity {
 		comment.setTextColor(textcolor);
 		comment.setTextSize(textsize);
 
+		lable.setTypeface(font);
+		lable.setTextColor(textcolor);
+		lable.setTextSize(textsize);
+
 	}
 
 	private void setupListener() {
@@ -95,6 +103,7 @@ public class CommentActivity extends Activity {
 		send = (Button) findViewById(R.id.pushcomment);
 		cancel = (Button) findViewById(R.id.backcomment);
 		comment = (EditText) findViewById(R.id.comment);
+		lable=(TextView) findViewById(R.id.lablecomment);
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 	}
 
@@ -107,7 +116,11 @@ public class CommentActivity extends Activity {
 				if (commet.length() > 1) {
 					MyHttpClient client = new MyHttpClient(DataClass.server);
 					try {
-						Toast.makeText(getBaseContext(), client.pushComment(DataClass.user.getUsername(), cacheid, commet),Toast.LENGTH_LONG).show();
+						Toast.makeText(
+								getBaseContext(),
+								client.pushComment(
+										DataClass.user.getUsername(), cacheid,
+										commet), Toast.LENGTH_LONG).show();
 					} catch (ClientProtocolException e) {
 						Toast.makeText(getBaseContext(), "internet issus",
 								Toast.LENGTH_LONG).show();
@@ -125,4 +138,11 @@ public class CommentActivity extends Activity {
 		}
 	};
 
+	@Override
+	public void onBackPressed() {
+		finish();
+		Intent intent = new Intent(getBaseContext(), CacheShowActivity.class);
+		intent.putExtra("CacheIndex", cacheindex);
+		startActivity(intent);
+	};
 }

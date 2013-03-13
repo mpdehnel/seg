@@ -28,7 +28,8 @@ public class Game_KeepOpen_Time extends CountDownTimer {
 		int textcolor = Color.parseColor("#DECD87");
 		t1.setTextColor(textcolor);
 		t1.setTypeface(font);
-		t1.setTextSize(17);
+		t1.setTextSize(22);
+		
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class Game_KeepOpen_Time extends CountDownTimer {
 		if(!isfull()){
 		time = millisInFuture - (millisUntilFinished / 100);
 
-		t1.setText(time + "");
+		t1.setText("KeepOpenTime:"+time/10.0 + "s");
 		if (time % speedfaktor == 0) {
 			setSpeedfactor(time);
 			lights[generate()].setChecked(false);

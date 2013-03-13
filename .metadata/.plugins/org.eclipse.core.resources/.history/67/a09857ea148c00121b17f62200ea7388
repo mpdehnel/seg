@@ -1,0 +1,89 @@
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/cacheshowlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <Button
+            android:id="@+id/no_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/doyouwant"
+            android:layout_below="@+id/doyouwant"
+            android:text="No" />
+
+        <TextView
+            android:id="@+id/CachName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/doyouwant"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="37dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/doyouwant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/routing_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="26dp"
+            android:text="Do you want to show this Cache on Map?" />
+
+        <RatingBar
+            android:id="@+id/Cacheratingbar"
+            style="@style/CustomRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ratethisCache"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="19dp"
+            android:numStars="5" />
+
+        <TextView
+            android:id="@+id/CacheDiscription"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@+id/CachName"
+            android:layout_below="@+id/CachName"
+            android:layout_marginTop="16dp"
+            android:text="TextView" />
+
+        <Button
+            android:id="@+id/ratethisCache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/doyouwant"
+            android:layout_alignRight="@+id/doyouwant"
+            android:layout_marginBottom="16dp"
+            android:text="RATE!" />
+
+        <Button
+            android:id="@+id/yes_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="38dp"
+            android:layout_toLeftOf="@+id/no_button"
+            android:text="Yes" />
+
+        <Button
+            android:id="@+id/routing_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/yes_button"
+            android:layout_alignBottom="@+id/yes_button"
+            android:layout_marginRight="23dp"
+            android:layout_toLeftOf="@+id/yes_button"
+            android:text="Route" />
+
+        <Button
+            android:id="@+id/leaveAcomment"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/ratethisCache"
+            android:layout_alignBottom="@+id/ratethisCache"
+            android:layout_toLeftOf="@+id/yes_button"
+            android:text="Comment" />
+
+    </RelativeLayout>

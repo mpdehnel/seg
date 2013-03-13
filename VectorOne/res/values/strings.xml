@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">CacheCaptain</string>
+    <string name="app_name">CacheCaptains</string>
     <string name="username">Username</string>
     <string name="button_maps">View</string>
     <string name="button_settings">Settings</string>
@@ -19,7 +19,7 @@
     </string-array>
     <string-array name="Team">
         <item>My</item>
-        <item>NotMy</item>
+        <item>NotMine</item>
         <item>All</item>
     </string-array>
     <string-array name="Distance">

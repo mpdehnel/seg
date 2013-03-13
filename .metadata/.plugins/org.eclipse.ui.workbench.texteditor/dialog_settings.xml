@@ -13,16 +13,16 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="HTTPCLIENTUSER" key="selection"/>
+		<item value="t1." key="selection"/>
 		<list key="findhistory">
+			<item value="t1."/>
+			<item value="t1"/>
+			<item value="layout"/>
 			<item value="httpclientuser"/>
 			<item value="main"/>
 			<item value="addnew"/>
 			<item value="getin"/>
 			<item value="get"/>
-			<item value="des"/>
-			<item value="^^"/>
-			<item value="addUserInfo"/>
 		</list>
 		<list key="replacehistory">
 			<item value="&amp;lt;"/>

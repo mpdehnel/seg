@@ -35,8 +35,7 @@ public class PlaygroundActivity extends Activity {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_playground);
-		Intent intent=getIntent();
-		withpoints = intent.getBooleanExtra("withpoints", false);
+		Intent intent = getIntent();
 
 		initfields();
 		setupBackdrounds();
@@ -106,7 +105,8 @@ public class PlaygroundActivity extends Activity {
 	private void setupBackdrounds() {
 		Drawable buttonimage = getResources().getDrawable(
 				R.drawable.buttonmedium);
-		Drawable buttonimageinaktiv=getResources().getDrawable(R.drawable.buttonmediumgrey);
+		Drawable buttonimageinaktiv = getResources().getDrawable(
+				R.drawable.buttonmediumgrey);
 		layout.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.background));
 		memory_button.setBackgroundDrawable(buttonimage);
@@ -118,24 +118,32 @@ public class PlaygroundActivity extends Activity {
 		comingsoon5_button.setBackgroundDrawable(buttonimageinaktiv);
 		comingsoon6_button.setBackgroundDrawable(buttonimageinaktiv);
 	}
-	
-	private OnClickListener clickhandler=new OnClickListener() {
-		
+
+	private OnClickListener clickhandler = new OnClickListener() {
+
 		@Override
 		public void onClick(View v) {
 			Intent intent;
-			if(v==keepopen_button){
+			if (v == keepopen_button) {
 				finish();
-				intent = new Intent(getApplicationContext(), Game_keepopen_Activity.class);
-				intent.putExtra("withpoints", withpoints);
+				intent = new Intent(getApplicationContext(),
+						Game_keepopen_Activity.class);
+				intent.putExtra("withpoints", false);
 				startActivity(intent);
 			}
-			if(v==memory_button){
+			if (v == memory_button) {
 				finish();
-				intent = new Intent(getApplicationContext(), Game_memory_Activity.class);
-				intent.putExtra("withpoints", withpoints);
+				intent = new Intent(getApplicationContext(),
+						Game_memory_Activity.class);
+				intent.putExtra("withpoints", false);
 				startActivity(intent);
 			}
 		}
+	};
+
+	@Override
+	public void onBackPressed() {
+		finish();
+		startActivity(new Intent(getBaseContext(), MainLogInActivity.class));
 	};
 }

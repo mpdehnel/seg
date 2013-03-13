@@ -172,27 +172,21 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
 			// map points;
 
-			int teamColour = DataClass.selectedCaches.get(i).getTeamcolour();
+			String teamColour = DataClass.selectedCaches.get(i).getTeamcolour();
 			int image;
 			if (DataClass.selectedCaches.get(i).isFound()) {
 				image = R.drawable.treasureopen;// point image;
 			} else {
-				switch (teamColour) {
-				case 1:
+				if (teamColour.equals("Red Reefers")) {
 					image = R.drawable.crossred;
-					break;
-				case 2:
+				} else if (teamColour.equals("Green Gulls")) {
 					image = R.drawable.crossgreen;
-					break;
-				case 3:
+				} else if (teamColour.equals("Blue Bandits")) {
 					image = R.drawable.crossblue;
-					break;
-				case 4:
+				} else if (teamColour.equals("Purple Perils")) {
 					image = R.drawable.crosspurple;
-					break;
-				default:
+				} else {
 					image = R.drawable.treasureclosed;
-					break;
 				}
 
 			}
@@ -203,24 +197,18 @@ public class MapsActivity extends MapActivity implements LocationListener {
 
 			addOverlay(image, gp, name, description);
 		}
-		int teamColour = DataClass.user.getTeam();
+		String teamColour = DataClass.user.getTeam();
 		int image;
-		switch (teamColour) {
-		case 1:
+		if (teamColour.equals("Red Reefers")) {
 			image = R.drawable.flagred;
-			break;
-		case 2:
+		} else if (teamColour.equals("Green Gulls")) {
 			image = R.drawable.flaggreen;
-			break;
-		case 3:
+		} else if (teamColour.equals("Blue Bandits")) {
 			image = R.drawable.flagblue;
-			break;
-		case 4:
-			image = R.drawable.flagpurple;
-			break;
-		default:
+		} else if (teamColour.equals("Purple Perils")) {
 			image = R.drawable.flagred;
-			break;
+		} else {
+			image = R.drawable.treasureclosed;
 		}
 
 		addOverlay(image, new GeoPoint(DataClass.mylat, DataClass.mylng), "Hi",
@@ -255,7 +243,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	public void addOverlay(int id_image, GeoPoint where, String topic,
 			String discription) {
 		Drawable drawable = this.getResources().getDrawable(id_image);
-		ItemOverlay itemizedoverlay = new ItemOverlay(drawable, this);
+		ItemOverlay itemizedoverlay = new ItemOverlay(drawable, this,this);
 		OverlayItem overlayitem = new OverlayItem(where, topic, discription);
 
 		itemizedoverlay.addOverlay(overlayitem);
@@ -276,8 +264,9 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	private void check_If_I_Found_a_Cache() {
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
 			Cache thiscache = DataClass.selectedCaches.get(i);
-			if (thiscache.isIslessthanXXXm(20) && thiscache.isFound()
-					&& thiscache.getMacAdd().equals("")) {
+			Log.i("MAIN", "macaddress"+thiscache.getMacAdd()+"--asd");
+			if (thiscache.isIslessthanXXXm(20) && !thiscache.isFound()
+					&& thiscache.getMacAdd().equals(" ")) {
 				thiscache.setfounded(true);
 				playSound();
 				DataClass.log.append("Cache found:" + thiscache.getName());
@@ -287,7 +276,8 @@ public class MapsActivity extends MapActivity implements LocationListener {
 				MyHttpClient client = new MyHttpClient(DataClass.server);
 				try {
 					client.pushTWITTER(DataClass.user.getUsername(), msg);
-					client.updateCache(DataClass.user.getUsername(), thiscache.get_id());
+					client.updateCache(DataClass.user.getUsername(),
+							thiscache.get_id());
 				} catch (ClientProtocolException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

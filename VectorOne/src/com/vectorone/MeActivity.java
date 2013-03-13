@@ -1,4 +1,3 @@
-
 package com.vectorone;
 
 import com.data.DataClass;
@@ -48,17 +47,27 @@ public class MeActivity extends Activity {
 	}
 
 	private void setupdatafields() {
-		name.setText("Name: " + DataClass.user.getUsername());
+		name.setText("Name: " + DataClass.user.getUsername() + "\n"
+				+ "Dificulty:" + parse(DataClass.user.isHardcore()));
 		team.setText("Team: " + DataClass.user.getTeam());
 		totalpoints.setText("TotalPoints: " + DataClass.user.getTotalpoints());
 		totalcaches.setText("TotalCaches: " + DataClass.user.getTotalcaches());
-		curretentPoints.setText("CurrentPoints: "+DataClass.user.getCurrentPoints());
+		curretentPoints.setText("CurrentPoints: "
+				+ DataClass.user.getCurrentPoints());
 		double lat = Math.round(DataClass.mylat / Math.pow(10, 4)) / 100;
 		double lng = Math.round(DataClass.mylng / Math.pow(10, 4)) / 100;
 
 		location.setText("Location: " + System.getProperty("line.separator")
-				+ "Lat=" + lat + System.getProperty("line.separator")
-				+ "Long=" + lng);
+				+ "Lat=" + lat + System.getProperty("line.separator") + "Long="
+				+ lng);
+	}
+
+	private String parse(boolean hardcore) {
+		if (hardcore) {
+			return "hard";
+		} else {
+			return "easy";
+		}
 	}
 
 	private void setupbackgroundimage() {
@@ -81,7 +90,6 @@ public class MeActivity extends Activity {
 		name.setTextColor(textcolor);
 		name.setTextSize(textsize);
 
-
 		team.setTypeface(font);
 		team.setTextColor(textcolor);
 		team.setTextSize(textsize);
@@ -97,7 +105,7 @@ public class MeActivity extends Activity {
 		totalcaches.setTypeface(font);
 		totalcaches.setTextColor(textcolor);
 		totalcaches.setTextSize(textsize);
-		
+
 		curretentPoints.setTypeface(font);
 		curretentPoints.setTextColor(textcolor);
 		curretentPoints.setTextSize(textsize);
@@ -105,11 +113,10 @@ public class MeActivity extends Activity {
 		logbutton.setTypeface(font);
 		logbutton.setTextSize(textsize);
 		logbutton.setTextColor(buttoncolor);
-		
+
 		change.setTypeface(font);
 		change.setTextSize(textsize);
 		change.setTextColor(buttoncolor);
-
 
 	}
 
@@ -118,18 +125,21 @@ public class MeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				finish();
 				startActivity(new Intent(getApplicationContext(),
 						LogActivity.class));
 			}
 		});
-		
+
 		change.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Intent intent=new Intent(getApplicationContext(), AddNewUserActivity.class);
+				Intent intent = new Intent(getApplicationContext(),
+						AddNewUserActivity.class);
 				intent.putExtra("change", true);
-				startActivity(intent);				
+				finish();
+				startActivity(intent);
 			}
 		});
 	}
@@ -142,14 +152,13 @@ public class MeActivity extends Activity {
 		logbutton = (Button) findViewById(R.id.log_button);
 		layout = (RelativeLayout) findViewById(R.id.me_layout);
 		location = (TextView) findViewById(R.id.location);
-		curretentPoints=(TextView)findViewById(R.id.currentpoints);
-		change =(Button)findViewById(R.id.Change);
+		curretentPoints = (TextView) findViewById(R.id.currentpoints);
+		change = (Button) findViewById(R.id.Change);
 	}
 
 	@Override
 	public void onBackPressed() {
 		finish();
-		startActivity(new Intent(getApplicationContext(),
-				MenuActivity.class));
+		startActivity(new Intent(getApplicationContext(), MenuActivity.class));
 	}
 }

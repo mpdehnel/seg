@@ -20,7 +20,7 @@ public class CameraOverlay extends View {
 	protected void onDraw(Canvas canvas) {
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
 			// map points;
-			int teamColour = DataClass.selectedCaches.get(i).getTeamcolour();
+			String teamColour = DataClass.selectedCaches.get(i).getTeamcolour();
 			GeoPoint gp = DataClass.selectedCaches.get(i).getGeopoint();
 			String name = DataClass.selectedCaches.get(i).getName();
 			String description = DataClass.selectedCaches.get(i).getDescripton();

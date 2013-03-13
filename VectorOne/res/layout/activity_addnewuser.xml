@@ -179,6 +179,14 @@
             android:layout_toRightOf="@+id/Cancel"
             android:text="@string/leer" />
 
+        <TextView
+            android:id="@+id/Dificulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/Cancel"
+            android:text="Dificulty" />
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -43,8 +43,26 @@ public class User {
 		this.username = username;
 	}
 
-	public int getTeam() {
-		return team;
+	public String getTeam() {
+		String teamName = "";
+		switch (team) {
+		case 1:
+			teamName = "Red Reefers";
+			break;
+		case 2:
+			teamName = "Green Gulls";
+			break;
+		case 3:
+			teamName = "Blue Bandits";
+			break;
+		case 4:
+			teamName = "Purple Perils";
+			break;
+		default:
+			break;
+		}
+
+		return teamName;
 	}
 
 	public void setTeam(int team) {

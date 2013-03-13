@@ -44,7 +44,7 @@ public class Game_memory_Time extends CountDownTimer {
 		int textcolor = Color.parseColor("#DECD87");
 		t1.setTextColor(textcolor);
 		t1.setTypeface(font);
-		t1.setTextSize(17);
+		t1.setTextSize(22);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class Game_memory_Time extends CountDownTimer {
 	public void onTick(long millisUntilFinished) {
 		if (t1 != null && !finished()&&counter<1) {
 			time = (millisInFuture - millisUntilFinished) / 1000;
-			t1.setText(time + "");
+			t1.setText("MemoryTime:"+time + "s");
 		}
 	}
 

@@ -28,6 +28,7 @@ public class IntroActivity extends Activity {
 				.permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 		new DataClass();
+		
 		// PlayMovie();
 
 		DatabaseCacheHandler dbhandler = new DatabaseCacheHandler(

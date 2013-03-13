@@ -30,6 +30,7 @@ public class GoogleParser extends XMLParser implements Parser {
 	 */
 
 	public Route parse() {
+		
 		// turn the stream into a string
 		final String result = convertStreamToString(super.getInputStream());
 		Log.i("MAP", result);

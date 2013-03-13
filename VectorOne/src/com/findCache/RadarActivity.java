@@ -181,7 +181,7 @@ public class RadarActivity extends Activity implements LocationListener {
 					int distance = Math.abs(x - cachecords.get(i).x)
 							+ Math.abs(y - cachecords.get(i).y);
 					Log.i("RADAR", "b" + distance);
-					if (distance < 10) {
+					if (distance < 15) {
 						List<Model> filterlist = DataClass
 								.getcacheswithfilter();
 						for (int j = 0; j < filterlist.size(); j++) {
@@ -248,7 +248,7 @@ public class RadarActivity extends Activity implements LocationListener {
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
 			Cache cache = DataClass.selectedCaches.get(i);
 
-			if (cache.isIslessthanXXXm(20) && !cache.isFound()) {
+			if (cache.isIslessthanXXXm(20) && !cache.isFound()&&cache.getMacAdd().equals(" ")) {
 				cache.setfounded(true);
 				DataClass.log.append("Cache found:" + cache.getName());
 				String msg = DataClass.user.getUsername()

@@ -18,15 +18,17 @@ import com.vectorone.MeActivity;
 public class ItemOverlay extends ItemizedOverlay<OverlayItem> {
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	private Context mContext;
+	private MapsActivity maps;
 
 	public ItemOverlay(Drawable defaultMarker) {
 		super(defaultMarker);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ItemOverlay(Drawable defaultMarker, Context context) {
+	public ItemOverlay(Drawable defaultMarker, Context context, MapsActivity maps) {
 		super(boundCenterBottom(defaultMarker));
 		mContext = context;
+		this.maps=maps;
 	}
 
 	@Override
@@ -60,6 +62,7 @@ public class ItemOverlay extends ItemizedOverlay<OverlayItem> {
 			Intent intent = new Intent(mContext,
 					MeActivity.class);
 			intent.putExtra("frommaps", true);
+			maps.finish();
 			mContext.startActivity(intent);
 
 			return true;
@@ -74,6 +77,7 @@ public class ItemOverlay extends ItemizedOverlay<OverlayItem> {
 				CacheShowActivity.class);
 		intent.putExtra("CacheIndex", index);
 		intent.putExtra("frommaps", true);
+		maps.finish();
 		mContext.startActivity(intent);
 		return true;
 		}

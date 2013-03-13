@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.Settings.System;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -32,7 +33,7 @@ import android.widget.Toast;
 public class AddNewUserActivity extends Activity {
 
 	private LinearLayout layout;
-	private TextView[] labels = new TextView[7];
+	private TextView[] labels = new TextView[8];
 	private EditText[] entrys = new EditText[6];
 	private Button createButton;
 	private Button cancelButton;
@@ -44,6 +45,7 @@ public class AddNewUserActivity extends Activity {
 	private final int password = 4;
 	private final int passwordconfirm = 5;
 	private boolean change;
+	private Vibrator vibrator;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,11 +108,12 @@ public class AddNewUserActivity extends Activity {
 			labels[4].setVisibility(Button.INVISIBLE);
 			labels[5].setVisibility(Button.INVISIBLE);
 			labels[6].setVisibility(Button.INVISIBLE);
+			labels[7].setVisibility(Button.INVISIBLE);
+			hardcore.setVisibility(CheckBox.INVISIBLE);
 			entrys[3].setVisibility(EditText.INVISIBLE);
 			entrys[1].setVisibility(EditText.INVISIBLE);
 			entrys[2].setVisibility(EditText.INVISIBLE);
 			entrys[3].setVisibility(EditText.INVISIBLE);
-			hardcore.setVisibility(CheckBox.INVISIBLE);
 			entrys[0].setText(DataClass.user.getUsername());
 			entrys[0].setEnabled(false);
 			entrys[4].setText(DataClass.user.getPassword());
@@ -123,6 +126,7 @@ public class AddNewUserActivity extends Activity {
 			labels[4].setVisibility(Button.VISIBLE);
 			labels[5].setVisibility(Button.VISIBLE);
 			labels[6].setVisibility(Button.VISIBLE);
+			labels[7].setVisibility(Button.VISIBLE);
 			hardcore.setVisibility(CheckBox.VISIBLE);
 			entrys[0].setEnabled(true);
 			entrys[3].setVisibility(EditText.VISIBLE);
@@ -149,6 +153,7 @@ public class AddNewUserActivity extends Activity {
 		labels[4] = (TextView) findViewById(R.id.PostCode);
 		labels[5] = (TextView) findViewById(R.id.DateOfBirth);
 		labels[6] = (TextView) findViewById(R.id.format);
+		labels[7] = (TextView) findViewById(R.id.Dificulty);
 		createButton = (Button) findViewById(R.id.CreateUser);
 		cancelButton = (Button) findViewById(R.id.Cancel);
 		hardcore = (CheckBox) findViewById(R.id.hardcoreMode);
@@ -159,6 +164,7 @@ public class AddNewUserActivity extends Activity {
 		entrys[3] = (EditText) findViewById(R.id.Date);
 		entrys[4] = (EditText) findViewById(R.id.PasswordInput);
 		entrys[5] = (EditText) findViewById(R.id.PasswordInputConfirm);
+		vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
 	}
 
@@ -167,6 +173,7 @@ public class AddNewUserActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			Intent intent;
+			vibrator.vibrate(50);
 			Registrationsverify validator = new Registrationsverify();
 			if (v == cancelButton) {
 				intent = new Intent(getApplicationContext(),
@@ -304,12 +311,27 @@ public class AddNewUserActivity extends Activity {
 		}
 	};
 
+	@Override
+	public void onBackPressed() {
+		if (change) {
+			finish();
+			startActivity(new Intent(getApplicationContext(), MeActivity.class));
+		} else {
+
+			finish();
+			startActivity(new Intent(getApplicationContext(),
+					MainLogInActivity.class));
+		}
+	};
+
 	private OnCheckedChangeListener cheacklister = new OnCheckedChangeListener() {
 
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
+			vibrator.vibrate(50);
 			hardcore.setChecked(isChecked);
 		}
 	};
+
 }

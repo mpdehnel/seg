@@ -82,8 +82,8 @@ public class MainLogInActivity extends Activity {
 		passwordlabel = (TextView) findViewById(R.id.passwordlabel);
 		relativlayout = (RelativeLayout) findViewById(R.id.login_layout);
 		playgound = (Button) findViewById(R.id.playground);
-		vibrate=(Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-		
+		vibrate = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
 	}
 
 	private void setupbackgroundimage() {
@@ -148,34 +148,26 @@ public class MainLogInActivity extends Activity {
 
 			username = "martin";
 			password = "test";
-			Log.i("MAIN", "network"+DataClass.haveNetworkConnection(getApplicationContext()));
+			Log.i("MAIN",
+					"network"
+							+ DataClass
+									.haveNetworkConnection(getApplicationContext()));
 			if (DataClass.haveNetworkConnection(getApplicationContext())) {
 				try {
 					if (!username.equals("") && !password.equals("")
 							&& httpClient.isUser(username, password)) {
 						Log.i("MAIN", "online");
-							httpClient.getusersettings(username);
-							httpClient.getportiondata();
-							httpClient.getuserlog(username);
-							httpClient.getVisitedCache(username);
+						httpClient.getusersettings(username);
+						httpClient.getportiondata();
+						httpClient.getuserlog(username);
+						httpClient.getVisitedCache(username);
 						DataClass.addtolog(username + " logged in");
 
-						// ////////////////////////////////////////////////////////////
-						// ////////////////////////////////////////////////////////////
-						DataClass.caches.add(new Model(new Cache(
-								"DurhamUniversitaet", new GeoPoint(54767542,
-										-1571993), // new GeoPoint(
-								// 54767442, -1570993),
-								"thats CLC Main Entry", false, 666,2,"")));
-						
-					
-
-						// ////////////////////////////////////////////////////////////
-						// ////////////////////////////////////////////////////////////
-
+		
 						DatabaseUserHandler dbuser = new DatabaseUserHandler(
 								getApplicationContext());
-						DatabaseCacheHandler dbhandler=new DatabaseCacheHandler(getApplicationContext());
+						DatabaseCacheHandler dbhandler = new DatabaseCacheHandler(
+								getApplicationContext());
 						handdeldatabase(dbhandler);
 						dbuser.remove();
 						dbuser.addUserInfo(DataClass.user);
@@ -193,9 +185,10 @@ public class MainLogInActivity extends Activity {
 					}
 				} catch (Exception e) {
 					Toast.makeText(getApplicationContext(),
-							"ee"+e.getMessage(), Toast.LENGTH_LONG).show();
+							"ee" + e.getMessage(), Toast.LENGTH_LONG).show();
 					Toast.makeText(getApplicationContext(),
-							"Connection Problems Login", Toast.LENGTH_LONG).show();
+							"Connection Problems Login", Toast.LENGTH_LONG)
+							.show();
 
 				}
 			} else {
@@ -222,12 +215,12 @@ public class MainLogInActivity extends Activity {
 
 		}
 		if (v == registerbutton) {
-		
+
 			intent = new Intent(getApplicationContext(),
 					AddNewUserActivity.class);
 			startActivity(intent);
 		}
-		if (v == clearbutton) {		
+		if (v == clearbutton) {
 			usernameText.setText("");
 			passwordText.setText("");
 
@@ -252,7 +245,7 @@ public class MainLogInActivity extends Activity {
 	public void onBackPressed() {
 		finish();
 	}
-	
+
 	private void handdeldatabase(DatabaseCacheHandler dbhandler) {
 		dbhandler.remove();
 		dbhandler = new DatabaseCacheHandler(getApplicationContext());

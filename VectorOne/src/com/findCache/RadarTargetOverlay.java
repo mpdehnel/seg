@@ -53,23 +53,20 @@ public class RadarTargetOverlay extends View {
 			if (DataClass.selectedCaches.get(i).isFound()) {
 				image = R.drawable.treasureopen;// point image;
 			} else {
-				switch (DataClass.selectedCaches.get(i).getTeamcolour()) {
-				case 1:
+				String teamColour = DataClass.selectedCaches.get(i)
+						.getTeamcolour();
+				if (teamColour.equals("Red Reefers")) {
 					image = R.drawable.crossred;
-					break;
-				case 2:
+				} else if (teamColour.equals("Green Gulls")) {
 					image = R.drawable.crossgreen;
-					break;
-				case 3:
+				} else if (teamColour.equals("Blue Bandits")) {
 					image = R.drawable.crossblue;
-					break;
-				case 4:
+				} else if (teamColour.equals("Purple Perils")) {
 					image = R.drawable.crosspurple;
-					break;
-				default:
+				} else {
 					image = R.drawable.treasureclosed;
-					break;
 				}
+
 			}
 			Bitmap bitmap = BitmapFactory.decodeResource(res, image);
 

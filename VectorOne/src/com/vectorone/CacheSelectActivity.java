@@ -27,7 +27,6 @@ public class CacheSelectActivity extends ListActivity {
 
 	private static ArrayAdapter<Model> adapter;
 	private List<Model> caches;
-	
 
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -40,10 +39,9 @@ public class CacheSelectActivity extends ListActivity {
 			Toast.makeText(getApplicationContext(),
 					"No Cache fullfills filters", Toast.LENGTH_LONG).show();
 		} else {
-			
-			adapter = new ListAdapter(this, caches);// DataClass.caches);
+
+			adapter = new ListAdapter(this, caches,this);// DataClass.caches);
 			setListAdapter(adapter);
-			getListView().setOnItemClickListener(clickhandler);
 		}
 
 	}
@@ -55,19 +53,9 @@ public class CacheSelectActivity extends ListActivity {
 			if (caches.get(i).isSelected())
 				DataClass.selectedCaches.add(caches.get(i).getCach());
 		}
-		WifiSupport wifi=new WifiSupport();
+		WifiSupport wifi = new WifiSupport();
 		WifiSupport.checkWIFICaches(this, wifi.getMacAddress(this));
-		
+		finish();
 		startActivity(new Intent(getApplicationContext(), MenuActivity.class));
-		super.onBackPressed();
 	}
-	private OnItemClickListener clickhandler=new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			
-		}
-	};
-
 }

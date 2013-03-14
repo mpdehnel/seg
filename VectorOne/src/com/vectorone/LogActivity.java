@@ -30,12 +30,13 @@ public class LogActivity extends Activity {
 
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 
 		log = (TextView) findViewById(R.id.logText);
 		log.setMovementMethod(ScrollingMovementMethod.getInstance());
 		log.setTypeface(font);
 		log.setTextColor(textcolor);
+		log.setTextSize(20);
 		log.setText(DataClass.log.toString());
 	}
 

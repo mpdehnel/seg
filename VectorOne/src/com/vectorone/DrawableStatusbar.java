@@ -39,14 +39,14 @@ public class DrawableStatusbar extends View {
 		Paint paint = new Paint();
 		paint.setStyle(Paint.Style.FILL);
 		paint.setColor(red);
-		canvas.drawRect(18, 10, redportion, hight, paint);
+		canvas.drawRect(14, 10, redportion, hight, paint);
 		paint.setColor(blue);
 		canvas.drawRect(redportion, 10, redportion + blueportion, hight, paint);
 		paint.setColor(green);
 		canvas.drawRect(redportion + blueportion, 10, redportion + blueportion
 				+ greenportion, hight, paint);
 		paint.setColor(purple);
-		canvas.drawRect(redportion + blueportion + greenportion, 10, 300, hight,
+		canvas.drawRect(redportion + blueportion + greenportion, 10, 305, hight,
 				paint);
 
 		super.onDraw(canvas);

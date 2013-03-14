@@ -78,7 +78,7 @@ public class DatabaseUserHandler extends SQLiteOpenHelper {
 
 		// Inserting Row
 		db.insert(TABLE_USER, null, values);
-		Log.i("MAIN", user.toString());
+		//Log.i("MAIN", user.toString());
 		db.close(); // Closing database connection
 	}
 
@@ -97,16 +97,16 @@ public class DatabaseUserHandler extends SQLiteOpenHelper {
 			user.setTotalcaches(Integer.parseInt(cursor.getString(2)));
 			user.setTotalpoints(Integer.parseInt(cursor.getString(3)));
 			user.setCurrentPoints(Integer.parseInt(cursor.getString(3)));
-			user.setTeam(Integer.parseInt(cursor.getString(5)));
+			user.setTeam(cursor.getString(5));
 			user.setPassword(cursor.getString(6));
 			DataClass.redportion = Integer.parseInt(cursor.getString(7));
 			DataClass.greenportion = Integer.parseInt(cursor.getString(8));
 			DataClass.blueportion = Integer.parseInt(cursor.getString(9));
 			DataClass.purpleportion = Integer.parseInt(cursor.getString(10));
-			Log.i("MAIN", user.toString());
+			//Log.i("MAIN", user.toString());
 			DataClass.user = user;
 		} else {
-			Log.i("MAIN", "no database");
+			//Log.i("MAIN", "no database");
 		}
 		db.close();
 	}

@@ -75,7 +75,7 @@ public class WifiSupport extends BroadcastReceiver {
 							Log.i("DATACLASS", selectedCach.getMacAdd() + "-Macaddess-"
 									+ Macaddress);
 							int choice = (int) (Math.random() * 2);
-							DataClass.log.append("WifiCache found:"+DataClass.selectedCaches.get(i).getName());
+							DataClass.addtolog("WifiCache found:"+DataClass.selectedCaches.get(i).getName());
 							String msg = DataClass.user.getUsername()
 									+ " has just visited WifiCache:" +selectedCach.getName();
 
@@ -91,16 +91,18 @@ public class WifiSupport extends BroadcastReceiver {
 								e.printStackTrace();
 							}
 							if (choice == 0) {
-								DataClass.log.append("Game: KeepOpen");
+								DataClass.addtolog("Game: KeepOpen");
 								Intent intent = new Intent(context,
 										Game_keepopen_Activity.class);
 								intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+								intent.putExtra("value",selectedCach.getValue());
 								context.startActivity(intent);
 							} else {
-								DataClass.log.append("Game: Memory");
+								DataClass.addtolog("Game: Memory");
 								Intent intent = new Intent(context,
 										Game_memory_Activity.class);
 								intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+								intent.putExtra("value",selectedCach.getValue());
 								context.startActivity(intent);
 							}
 						}

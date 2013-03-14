@@ -36,7 +36,7 @@ public class IntroActivity extends Activity {
 
 		// //////////////////////////////////////////////////////////
 		// //////////////////////////////////////////////////////////
-		Log.i("MAIN", "network"+DataClass.haveNetworkConnection(this));
+		//Log.i("MAIN", "network"+DataClass.haveNetworkConnection(this));
 		if (DataClass.haveNetworkConnection(this)) {
 			try {
 				Log.i("HTTPCLIENTUSER", " have to pull from database Online");
@@ -46,12 +46,12 @@ public class IntroActivity extends Activity {
 				Log.i("HTTPCLIENTUSER", " pull from database Online");
 
 			} catch (Exception e) {
-				Log.i("MAIN", "Caches error pull from database");
+				//Log.i("MAIN", "Caches error pull from database");
 				dbhandler.getAllCache();
 				e.printStackTrace();
 			}
 		} else {
-			Log.i("MAIN", "Caches error pull from database");
+		//	Log.i("MAIN", "Caches error pull from database");
 			dbhandler.getAllCache();
 		}
 

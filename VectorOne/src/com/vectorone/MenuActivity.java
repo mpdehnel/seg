@@ -105,7 +105,7 @@ public class MenuActivity extends Activity {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
 		int buttoncolor = Color.parseColor("#45250F");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		float textsize = 22;
 
 		cachesSelectButton.setTypeface(font);
@@ -222,10 +222,10 @@ public class MenuActivity extends Activity {
 		try {
 			http.setuserlog(DataClass.user.getUsername(), DataClass.log.toString());
 		} catch (ClientProtocolException e) {
-			Toast.makeText(getBaseContext(),e.getMessage(), Toast.LENGTH_LONG).show();
+		//	Toast.makeText(getBaseContext(),e.getMessage(), Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		} catch (IOException e) {
-			Toast.makeText(getBaseContext(),e.getMessage(), Toast.LENGTH_LONG).show();
+			//Toast.makeText(getBaseContext(),e.getMessage(), Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
 

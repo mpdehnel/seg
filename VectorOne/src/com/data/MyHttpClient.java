@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -24,19 +23,14 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import android.content.Context;
-import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.google.android.maps.GeoPoint;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class MyHttpClient {
 	private String server;
 	private Cache[] tmp;
-	private String TAG = "HTTPCLIENTUSER";
+
+	// private String TAG = "HTTPCLIENTUSER";
 
 	public MyHttpClient(String server) {
 		this.server = server;
@@ -74,9 +68,9 @@ public class MyHttpClient {
 			User user = new User();
 
 			try {
-				Log.i(TAG, line);
+				// Log.i(TAG, line);
 				user.setUsername(username);
-				user.setTeam(Integer.parseInt(getValueofTag("team", line)));
+				user.setTeam(parseTeam(getValueofTag("team", line)));
 				user.setTotalcaches(Integer.valueOf(getValueofTag(
 						"totalcaches", line)));
 				user.setTotalpoints(Integer.valueOf(getValueofTag(
@@ -86,7 +80,7 @@ public class MyHttpClient {
 				user.setId(Integer.valueOf(getValueofTag("id", line)));
 				user.setHardcore(Boolean
 						.valueOf(getValueofTag("hardcore", line)));
-				Log.i(TAG, user.toString());
+				// Log.i(TAG, user.toString());
 				user.setPassword(password);
 				DataClass.user = user;
 
@@ -127,10 +121,10 @@ public class MyHttpClient {
 
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response
 				.getEntity().getContent()));
-		Log.i("HTTPCLIENTUSER", "Caches ------");
+		// Log.i("HTTPCLIENTUSER", "Caches ------");
 		String line = "";
 		while ((line = rd.readLine()) != null) {
-			Log.i(TAG, "Caches ------" + line);
+			// Log.i(TAG, "Caches ------" + line);
 			return parseCache(line);
 		}
 		return null;
@@ -163,7 +157,7 @@ public class MyHttpClient {
 				tmp.setDescripton(discription);
 				tmp.setfounded(Boolean.valueOf(getValueofTag("found", element)));
 				tmp.setRated(Boolean.valueOf(getValueofTag("found", element)));
-
+				tmp.setValue(Integer.valueOf(getValueofTag("value", element)));
 				tmp.setTeamcolor(parseTeam(getValueofTag("team", element)));
 				tmp.setID(Integer.valueOf(getValueofTag("id", element)));
 				tmp.setComments(parseComments(getValueofTag("comments", element)));
@@ -178,7 +172,7 @@ public class MyHttpClient {
 
 			}
 		} catch (Exception e) {
-			Log.i(TAG, "Caches ------" + e.getMessage());
+			// Log.i(TAG, "Caches ------" + e.getMessage());
 			e.printStackTrace();
 		}
 		return toCacheArry(cachelist);
@@ -208,7 +202,11 @@ public class MyHttpClient {
 	}
 
 	private String parseComments(String valueofTag) {
-		return valueofTag.replace("@", "\n");
+		valueofTag = valueofTag.replace("@", "\n");
+		valueofTag = valueofTag.replace(":", ":\n");
+		valueofTag = valueofTag.replace("__", " ");
+
+		return valueofTag;
 	}
 
 	private Cache[] toCacheArry(LinkedList<Cache> cachelist) {
@@ -285,7 +283,7 @@ public class MyHttpClient {
 					response.getEntity().getContent()));
 
 			String line = rd.readLine();
-			Log.i("HTTPCLIENTUSER", line);
+			// Log.i("HTTPCLIENTUSER", line);
 			return parsenewUser(username, password, line);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -293,7 +291,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error AddUser";
+		return "Cannot add user: Offline";
 
 	}
 
@@ -328,7 +326,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error rating";
+		return "Cannot rate: Offline";
 
 	}
 
@@ -351,7 +349,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error updateCache";
+		return "Cannot update Cache: Offline ";
 
 	}
 
@@ -362,17 +360,24 @@ public class MyHttpClient {
 				+ "myVisitedCaches.php?username=" + username);
 		HttpResponse response;
 		try {
+			for (int i = 0; i < DataClass.caches.size(); i++) {
+				DataClass.caches.get(i).getCach().setfounded(false);
+			}
 			response = client.execute(request);
 			BufferedReader rd = new BufferedReader(new InputStreamReader(
 					response.getEntity().getContent()));
 			String line = rd.readLine();
+
 			// Log.i("MAIN", line);
+			// Log.i(TAG,line);
 			String[] visited = line.split(",");
 			for (int i = 0; i < DataClass.caches.size(); i++) {
 				if (cointains(visited, DataClass.caches.get(i).getCach()
 						.get_id())) {
 					DataClass.caches.get(i).getCach().setfounded(true);
+					DataClass.caches.get(i).getCach().setRated(true);
 				} else {
+					DataClass.caches.get(i).getCach().setRated(false);
 					DataClass.caches.get(i).getCach().setfounded(false);
 				}
 			}
@@ -384,12 +389,14 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error updateCache";
+		return "Cannot get visited caches: Offline ";
 
 	}
 
 	private boolean cointains(String[] visited, int get_id) {
-		for (int i = 0; i < visited.length - 1; i++) {
+
+		for (int i = 0; i < visited.length; i++) {
+			// Log.i(TAG,visited[i]+"--"+get_id);
 			if (Integer.parseInt(visited[i]) == get_id) {
 				return true;
 			}
@@ -417,7 +424,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error pushCommet";
+		return "Cannot Tweet: Offline";
 
 	}
 
@@ -441,7 +448,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error pushCommet";
+		return "Cannot pushCommet: Offline";
 
 	}
 
@@ -449,7 +456,7 @@ public class MyHttpClient {
 			throws ClientProtocolException, IOException {
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(this.server
-				+ "updatePoints.php?username=" + username + "&points"
+				+ "updatePoints.php?username=" + username + "&points="
 				+ pointschange);
 		HttpResponse response;
 		try {
@@ -464,7 +471,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error pointsupdate";
+		return "Cannot update Points: Offline";
 
 	}
 
@@ -489,7 +496,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error usersettings";
+		return "Cannot update user settings: Offline";
 
 	}
 
@@ -512,7 +519,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error getUsersettings";
+		return "Cannot get user settings: Offline";
 
 	}
 
@@ -550,7 +557,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error setUserlog";
+		return "Cannot send user log: Offline";
 
 	}
 
@@ -573,7 +580,7 @@ public class MyHttpClient {
 			e.printStackTrace();
 		}
 
-		return "Connection Error getuserLog";
+		return "Cannot get User Log: Offline";
 
 	}
 
@@ -602,7 +609,27 @@ public class MyHttpClient {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "Connection Error changePassword";
+		return "Cannot change password: Offline";
+	}
+
+	public String sendReport(int get_id) throws ClientProtocolException,
+			IOException {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(this.server + "reportCache.php?cacheID="
+				+ get_id);
+		HttpResponse response;
+		try {
+			response = client.execute(request);
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String line = rd.readLine();
+			return line;
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "Cannot send a report: Offline";
 	}
 
 }

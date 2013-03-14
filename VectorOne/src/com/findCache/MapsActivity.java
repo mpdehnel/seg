@@ -153,12 +153,12 @@ public class MapsActivity extends MapActivity implements LocationListener {
 		zoomin.setBackgroundDrawable(zoombuttonimage);
 		zoomin.setTypeface(font);
 		zoomin.setTextColor(buttontextcolor);
-		zoomin.setTextSize(textsize);
+		zoomin.setTextSize(32);
 
 		zoomout.setBackgroundDrawable(zoombuttonimage);
 		zoomout.setTypeface(font);
 		zoomout.setTextColor(buttontextcolor);
-		zoomout.setTextSize(textsize);
+		zoomout.setTextSize(39);
 
 		satelitenmode.setButtonDrawable(getResources().getDrawable(
 				R.drawable.checkbox_satelitemode));
@@ -243,7 +243,7 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	public void addOverlay(int id_image, GeoPoint where, String topic,
 			String discription) {
 		Drawable drawable = this.getResources().getDrawable(id_image);
-		ItemOverlay itemizedoverlay = new ItemOverlay(drawable, this,this);
+		ItemOverlay itemizedoverlay = new ItemOverlay(drawable, this, this);
 		OverlayItem overlayitem = new OverlayItem(where, topic, discription);
 
 		itemizedoverlay.addOverlay(overlayitem);
@@ -264,12 +264,12 @@ public class MapsActivity extends MapActivity implements LocationListener {
 	private void check_If_I_Found_a_Cache() {
 		for (int i = 0; i < DataClass.selectedCaches.size(); i++) {
 			Cache thiscache = DataClass.selectedCaches.get(i);
-			Log.i("MAIN", "macaddress"+thiscache.getMacAdd()+"--asd");
+			//Log.i("MAIN", "macaddress" + thiscache.getMacAdd() + "--asd");
 			if (thiscache.isIslessthanXXXm(20) && !thiscache.isFound()
 					&& thiscache.getMacAdd().equals(" ")) {
 				thiscache.setfounded(true);
 				playSound();
-				DataClass.log.append("Cache found:" + thiscache.getName());
+				DataClass.addtolog("Cache found:" + thiscache.getName());
 				String msg = DataClass.user.getUsername()
 						+ " has just visited cache:" + thiscache.getName();
 
@@ -288,14 +288,16 @@ public class MapsActivity extends MapActivity implements LocationListener {
 				int choice = (int) (Math.random() * 2);
 
 				if (choice == 0) {
-					DataClass.log.append("Game: KeepOpen");
+					DataClass.addtolog("Game: KeepOpen");
 					Intent intent = new Intent(getApplicationContext(),
 							Game_keepopen_Activity.class);
+					intent.putExtra("value", thiscache.getValue());
 					startActivity(intent);
 				} else {
-					DataClass.log.append("Game: Memory");
+					DataClass.addtolog("Game: Memory");
 					Intent intent = new Intent(getApplicationContext(),
 							Game_memory_Activity.class);
+					intent.putExtra("value", thiscache.getValue());
 					startActivity(intent);
 				}
 
@@ -421,13 +423,13 @@ public class MapsActivity extends MapActivity implements LocationListener {
 				}
 
 			}
-			if (v == zoomin && mapView.getZoomLevel() < 17) {
+			if (v == zoomin && mapView.getZoomLevel() < 18) {
 				Log.i("MAP", mapView.getZoomLevel() + "asd");
 				zoomout.setBackgroundDrawable(getResources().getDrawable(
 						R.drawable.buttonsmall));
 				mc.zoomIn();
 				retextScale(mapView.getZoomLevel());
-				if (mapView.getZoomLevel() == 17) {
+				if (mapView.getZoomLevel() == 18) {
 					zoomin.setBackgroundDrawable(getResources().getDrawable(
 							R.drawable.buttonsmallgrey));
 					zoomin.setEnabled(false);

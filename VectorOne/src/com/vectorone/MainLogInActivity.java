@@ -47,6 +47,7 @@ public class MainLogInActivity extends Activity {
 
 	private MyHttpClient httpClient = new MyHttpClient(DataClass.server);
 	private Button playgound;
+	private Button help;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class MainLogInActivity extends Activity {
 		clearbutton.setOnClickListener(clickhandler);
 		registerbutton.setOnClickListener(clickhandler);
 		playgound.setOnClickListener(clickhandler);
+		help.setOnClickListener(clickhandler);
 
 	}
 
@@ -82,13 +84,14 @@ public class MainLogInActivity extends Activity {
 		passwordlabel = (TextView) findViewById(R.id.passwordlabel);
 		relativlayout = (RelativeLayout) findViewById(R.id.login_layout);
 		playgound = (Button) findViewById(R.id.playground);
+		help = (Button) findViewById(R.id.tutorial);
 		vibrate = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 	}
 
 	private void setupbackgroundimage() {
 		Drawable buttonimage = getResources().getDrawable(
-				R.drawable.buttonmedium);
+				R.drawable.buttonsmall);
 
 		Drawable textfieldbackground = getResources().getDrawable(
 				R.drawable.textentry);
@@ -101,13 +104,15 @@ public class MainLogInActivity extends Activity {
 		clearbutton.setBackgroundDrawable(buttonimage);
 		registerbutton.setBackgroundDrawable(buttonimage);
 		playgound.setBackgroundDrawable(buttonimage);
+		help.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.buttonreallysmall));
 
 	}
 
 	private void setupfont() {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		int buttoncolor = Color.parseColor("#45250F");
 		float textsize = 22;
 		usernameText.setTypeface(font);
@@ -124,6 +129,11 @@ public class MainLogInActivity extends Activity {
 		registerbutton.setTypeface(font);
 		registerbutton.setTextSize(textsize);
 		registerbutton.setTextColor(buttoncolor);
+
+		help.setTypeface(font);
+		help.setTextSize(textsize);
+		help.setTextColor(buttoncolor);
+
 		usernamelabel.setTextColor(textcolor);
 		usernamelabel.setTextSize(textsize);
 		usernamelabel.setTypeface(font);
@@ -144,26 +154,23 @@ public class MainLogInActivity extends Activity {
 			String username = usernameText.getText().toString();
 			String password = ((EditText) findViewById(R.id.PasswordTextField))
 					.getText().toString();
-			Log.i("MAIN", "username:" + username + "---password:" + password);
+		//	Log.i("MAIN", "username:" + username + "---password:" + password);
 
-			username = "martin";
-			password = "test";
-			Log.i("MAIN",
-					"network"
-							+ DataClass
-									.haveNetworkConnection(getApplicationContext()));
+			//Log.i("MAIN",
+				//	"network"
+					//		+ DataClass
+						//			.haveNetworkConnection(getApplicationContext()));
 			if (DataClass.haveNetworkConnection(getApplicationContext())) {
 				try {
 					if (!username.equals("") && !password.equals("")
 							&& httpClient.isUser(username, password)) {
-						Log.i("MAIN", "online");
+					//	Log.i("MAIN", "online");
 						httpClient.getusersettings(username);
 						httpClient.getportiondata();
 						httpClient.getuserlog(username);
 						httpClient.getVisitedCache(username);
 						DataClass.addtolog(username + " logged in");
 
-		
 						DatabaseUserHandler dbuser = new DatabaseUserHandler(
 								getApplicationContext());
 						DatabaseCacheHandler dbhandler = new DatabaseCacheHandler(
@@ -184,11 +191,11 @@ public class MainLogInActivity extends Activity {
 								Toast.LENGTH_LONG).show();
 					}
 				} catch (Exception e) {
-					Toast.makeText(getApplicationContext(),
-							"ee" + e.getMessage(), Toast.LENGTH_LONG).show();
-					Toast.makeText(getApplicationContext(),
-							"Connection Problems Login", Toast.LENGTH_LONG)
-							.show();
+				//	Toast.makeText(getApplicationContext(),
+					//		"ee" + e.getMessage(), Toast.LENGTH_LONG).show();
+					//Toast.makeText(getApplicationContext(),
+						//	"Connection Problems Login", Toast.LENGTH_LONG)
+							//.show();
 
 				}
 			} else {
@@ -215,7 +222,7 @@ public class MainLogInActivity extends Activity {
 
 		}
 		if (v == registerbutton) {
-
+			finish();
 			intent = new Intent(getApplicationContext(),
 					AddNewUserActivity.class);
 			startActivity(intent);
@@ -226,9 +233,19 @@ public class MainLogInActivity extends Activity {
 
 		}
 		if (v == playgound) {
+			finish();
 			intent = new Intent(getApplicationContext(),
 					PlaygroundActivity.class);
 			startActivity(intent);
+		}
+		if (v == help) {
+			Toast.makeText(
+					getBaseContext(),
+					"Please have a look on our website for a Tutorial \n http://www.cachecaptains.co.uk/tutorial.pdf",
+					Toast.LENGTH_LONG * 2).show();
+			/*
+			Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.cachecaptains.co.uk/tutorial.pdf""));
+			startActivity(browserIntent);*/
 		}
 
 	}

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.vectorone"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <receiver android:name="com.data.WifiSupport" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.vectorone.IntroActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.vectorone.MainLogInActivity"
+            android:label="@string/app_name" >
+            
+        </activity>
+        <activity
+            android:name="com.vectorone.CacheSelectActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.findCache.MapsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.vectorone.SettingsActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.vectorone.MeActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.vectorone.MenuActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.vectorone.CamActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.findCache.RadarActivity"
+            android:label="@string/app_name" >
+              
+        </activity>
+        <activity
+            android:name="com.vectorone.LogActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.vectorone.CacheShowActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.vectorone.AddCacheActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.game.keepopen.Game_keepopen_Activity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.game.memory.Game_memory_Activity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.vectorone.PlaygroundActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.vectorone.AddNewUserActivity"
+            android:label="Registration" >
+        </activity>
+        <activity
+            android:name="com.vectorone.ViewActivity"
+            android:label="Registration" >
+        </activity>
+         <activity
+            android:name="com.vectorone.CommentActivity"
+            android:label="Registration" >
+        </activity>
+
+        <uses-library android:name="com.google.android.maps" />
+    </application>
+
+</manifest>

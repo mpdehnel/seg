@@ -65,8 +65,20 @@ public class User {
 		return teamName;
 	}
 
-	public void setTeam(int team) {
-		this.team = team;
+	public void setTeam(String team) {
+		if (team.equals("Red Reefers")) {
+			this.team = 1;
+		}
+		if (team.equals("Green Gulls")) {
+			this.team = 2;
+		}
+		if (team.equals("Blue Bandits")) {
+			this.team = 3;
+		}
+		if (team.equals("Purple Perils")) {
+			this.team = 4;
+		}
+
 	}
 
 	public int getTotalcaches() {
@@ -87,7 +99,7 @@ public class User {
 
 	public String toString() {
 		String tmp = "ID:" + id + " Name:" + username + " totalcaches:"
-				+ totalcaches + " totalpoints:" + totalpoints + " team:" + team;
+				+ totalcaches + " totalpoints:" + totalpoints + " team:" + team+"-----hardcore"+hardcore;
 		return tmp;
 
 	}

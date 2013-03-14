@@ -79,7 +79,7 @@ public class AddNewUserActivity extends Activity {
 	private void setupfont() {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		int buttoncolor = Color.parseColor("#45250F");
 		float textsize = 22;
 		for (int i = 0; i < entrys.length - 2; i++) {
@@ -232,16 +232,15 @@ public class AddNewUserActivity extends Activity {
 									.getText().toString(), entrys[password]
 									.getText().toString(),
 									calculateHTTPrequest());
-							Toast.makeText(getApplicationContext(),
-									"result:" + result, Toast.LENGTH_LONG)
-									.show();
+							Toast.makeText(getApplicationContext(), result,
+									Toast.LENGTH_LONG).show();
 							if (result.equals("Sucsessfully Created")) {
 								client.getportiondata();
-								DataClass.log
-										.append("Welcome: "
+								DataClass
+										.addtolog("Welcome: "
 												+ entrys[username].getText()
 														.toString());
-								DataClass.addtolog(username + " logged in");
+								DataClass.addtolog(entrys[username] + " logged in");
 								DatabaseUserHandler dbuser = new DatabaseUserHandler(
 										getApplicationContext());
 								dbuser.remove();
@@ -253,8 +252,8 @@ public class AddNewUserActivity extends Activity {
 								startActivity(intent);
 							}
 						} catch (Exception e) {
-							Toast.makeText(getBaseContext(), e.getMessage(),
-									Toast.LENGTH_SHORT).show();
+							// Toast.makeText(getBaseContext(), e.getMessage(),
+							// Toast.LENGTH_SHORT).show();
 						}
 					}
 				} else {
@@ -269,12 +268,12 @@ public class AddNewUserActivity extends Activity {
 											password), Toast.LENGTH_SHORT)
 									.show();
 						} catch (ClientProtocolException e) {
-							Toast.makeText(getApplicationContext(),
-									e.getMessage(), Toast.LENGTH_SHORT).show();
+							// Toast.makeText(getApplicationContext(),
+							// e.getMessage(), Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
 						} catch (IOException e) {
-							Toast.makeText(getApplicationContext(),
-									e.getMessage(), Toast.LENGTH_SHORT).show();
+							// Toast.makeText(getApplicationContext(),
+							// e.getMessage(), Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
 						}
 					} else {

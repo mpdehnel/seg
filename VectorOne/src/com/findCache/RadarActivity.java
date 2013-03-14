@@ -103,16 +103,18 @@ public class RadarActivity extends Activity implements LocationListener {
 		float textsize = 22;
 		Drawable buttonimage = getResources().getDrawable(
 				R.drawable.buttonsmall);
+		Drawable buttonimage2 = getResources().getDrawable(
+				R.drawable.buttonreallysmall);
 
 		ZoomIn.setTypeface(font);
 		ZoomIn.setTextColor(buttoncolor);
 		ZoomIn.setTextSize(textsize);
-		ZoomIn.setBackgroundDrawable(buttonimage);
+		ZoomIn.setBackgroundDrawable(buttonimage2);
 
 		ZoomOut.setTypeface(font);
 		ZoomOut.setTextColor(buttoncolor);
 		ZoomOut.setTextSize(textsize);
-		ZoomOut.setBackgroundDrawable(buttonimage);
+		ZoomOut.setBackgroundDrawable(buttonimage2);
 
 		addnewCache.setTypeface(font);
 		addnewCache.setTextColor(buttoncolor);
@@ -165,7 +167,7 @@ public class RadarActivity extends Activity implements LocationListener {
 
 				startActivity(intent);
 			}
-
+			
 		}
 	};
 	private OnTouchListener touchhandler = new OnTouchListener() {
@@ -203,6 +205,7 @@ public class RadarActivity extends Activity implements LocationListener {
 
 				Log.i("RADAR", event.getX() + "x---y" + event.getY());
 			}
+			
 			return false;
 		}
 	};
@@ -250,7 +253,7 @@ public class RadarActivity extends Activity implements LocationListener {
 
 			if (cache.isIslessthanXXXm(20) && !cache.isFound()&&cache.getMacAdd().equals(" ")) {
 				cache.setfounded(true);
-				DataClass.log.append("Cache found:" + cache.getName());
+				DataClass.addtolog("Cache found:" + cache.getName());
 				String msg = DataClass.user.getUsername()
 						+ " has just visited cache:" + cache.getName();
 
@@ -268,14 +271,16 @@ public class RadarActivity extends Activity implements LocationListener {
 
 				int choice = (int) (Math.random() * 2);
 				if (choice == 0) {
-					DataClass.log.append("Game: KeepOpen");
+					DataClass.addtolog("Game: KeepOpen");
 					Intent intent = new Intent(getApplicationContext(),
 							Game_keepopen_Activity.class);
+					intent.putExtra("value", cache.getValue());
 					startActivity(intent);
 				} else {
-					DataClass.log.append("Game: Memory");
+					DataClass.addtolog("Game: Memory");
 					Intent intent = new Intent(getApplicationContext(),
 							Game_memory_Activity.class);
+					intent.putExtra("value", cache.getValue());
 					startActivity(intent);
 				}
 

@@ -53,7 +53,7 @@ public class ListAdapter extends ArrayAdapter<Model> {
 		if (list.get(position).getCach().isFound()) {
 			text.setTextColor(Color.GREEN);
 		} else {
-			text.setTextColor(Color.parseColor("#DECD87"));
+			text.setTextColor(Color.parseColor("#45250F"));
 		}
 			box.setChecked(list.get(position).isSelected());
 		

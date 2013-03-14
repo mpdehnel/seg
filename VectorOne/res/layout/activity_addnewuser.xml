@@ -24,6 +24,7 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:text="Username" />
     </RelativeLayout>
 
@@ -47,6 +48,7 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:text="Password" />
     </RelativeLayout>
 
@@ -69,6 +71,7 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:text="Confirm:" />
     </RelativeLayout>
 
@@ -92,6 +95,7 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:text="Email" />
     </RelativeLayout>
 
@@ -114,6 +118,7 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:text="PostCode" />
     </RelativeLayout>
 
@@ -127,6 +132,7 @@
             android:layout_width="100dp"
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
             android:text="DateOfBirthe" />
 
         <TextView
@@ -135,6 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/DateOfBirth"
+            android:layout_marginLeft="10dp"
             android:text="yyyy-mm-dd" />
 
         <EditText
@@ -186,7 +193,6 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/Cancel"
             android:text="Dificulty" />
-
     </RelativeLayout>
 
 </LinearLayout>

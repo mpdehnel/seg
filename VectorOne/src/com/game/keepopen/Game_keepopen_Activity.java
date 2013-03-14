@@ -35,6 +35,7 @@ public class Game_keepopen_Activity extends Activity {
 	private int cacheid;
 	private boolean withpoints;
 	private boolean finished = false;
+	private int cachevalue;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,11 @@ public class Game_keepopen_Activity extends Activity {
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.activity_keepopen_game);
 		Intent intent = getIntent();
+		cachevalue=intent.getIntExtra("value", 0);
 		t1 = (TextView) findViewById(R.id.time);
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		t1.setTextColor(textcolor);
 		t1.setTypeface(font);
 		t1.setTextSize(22);
@@ -156,8 +158,8 @@ public class Game_keepopen_Activity extends Activity {
 	private void calculatepoints(long time) {
 		if (!finished) {
 			if (withpoints) {
-				Toast.makeText(getBaseContext(), "Points:" + time,
-						Toast.LENGTH_SHORT).show();
+				time=time+cachevalue;
+				
 				MyHttpClient http = new MyHttpClient(DataClass.server);
 				try {
 					http.pointsupdate(DataClass.user.getUsername(), (int) time);
@@ -169,7 +171,7 @@ public class Game_keepopen_Activity extends Activity {
 
 				String msg = DataClass.user.getUsername()
 						+ " has scored in KeepOpen: " + time;
-
+				DataClass.addtolog(" has scored in KeepOpen: " + time);
 				MyHttpClient client = new MyHttpClient(DataClass.server);
 				try {
 					client.pushTWITTER(DataClass.user.getUsername(), msg);
@@ -184,11 +186,13 @@ public class Game_keepopen_Activity extends Activity {
 						.getCurrentPoints() + time));
 				DataClass.user.setTotalpoints((int) (DataClass.user
 						.getTotalpoints() + time));
+				Toast.makeText(getBaseContext(), "Points:" + time,
+						Toast.LENGTH_SHORT).show();
 				finish();
 				startActivity(new Intent(getBaseContext(), MenuActivity.class));
 			} else {
 				Toast.makeText(getBaseContext(),
-						"Time:" + time + "good try but just training",
+						"Time:" + time + " s good try but just training",
 						Toast.LENGTH_SHORT).show();
 				finish();
 				startActivity(new Intent(getBaseContext(),

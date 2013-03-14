@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/playground_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/KeepOpen_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="36dp"
+        android:layout_marginTop="45dp"
+        android:text="KeepOpen" />
+
+    <Button
+        android:id="@+id/memory_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/KeepOpen_button"
+        android:layout_alignBottom="@+id/KeepOpen_button"
+        android:layout_marginRight="38dp"
+        android:layout_toLeftOf="@+id/KeepOpen_button"
+        android:text="Memory" />
+
+    <Button
+        android:id="@+id/ComingSoon1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/memory_button"
+        android:layout_below="@+id/memory_button"
+        android:layout_marginTop="28dp"
+        android:enabled="false"
+        android:text="ComingSoon" />
+
+    <Button
+        android:id="@+id/ComingSoon4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ComingSoon1"
+        android:layout_alignBottom="@+id/ComingSoon1"
+        android:layout_toRightOf="@+id/memory_button"
+        android:enabled="false"
+        android:text="ComingSoon" />
+
+    <Button
+        android:id="@+id/ComingSoon2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ComingSoon1"
+        android:layout_below="@+id/ComingSoon1"
+        android:layout_marginTop="26dp"
+        android:enabled="false"
+        android:text="ComingSoon" />
+
+    <Button
+        android:id="@+id/ComingSoon5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ComingSoon2"
+        android:layout_below="@+id/ComingSoon2"
+        android:layout_marginTop="30dp"
+        android:enabled="false"
+        android:text="ComingSoon" />
+
+    <Button
+        android:id="@+id/ComingSoon6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ComingSoon5"
+        android:layout_alignBottom="@+id/ComingSoon5"
+        android:layout_toRightOf="@+id/memory_button"
+        android:enabled="false"
+        android:text="ComingSoon" />
+
+    <Button
+        android:id="@+id/ComingSoon3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ComingSoon5"
+        android:layout_toRightOf="@+id/memory_button"
+        android:enabled="false"
+        android:text="ComingSoon" />
+
+</RelativeLayout>

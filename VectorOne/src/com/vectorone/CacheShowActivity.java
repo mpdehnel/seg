@@ -46,6 +46,7 @@ public class CacheShowActivity extends Activity {
 	private List<Model> listofsortetcaches;
 	private Vibrator vibrator;
 	private Button comment;
+	private TextView report;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -97,6 +98,7 @@ public class CacheShowActivity extends Activity {
 		ratebar = (RatingBar) findViewById(R.id.Cacheratingbar);
 		comment = (Button) findViewById(R.id.leaveAcomment);
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		report=(TextView) findViewById(R.id.report);
 		CacheDiscription.setMovementMethod(ScrollingMovementMethod
 				.getInstance());
 
@@ -108,6 +110,7 @@ public class CacheShowActivity extends Activity {
 		no_Button.setOnClickListener(clickhandler);
 		rate_button.setOnClickListener(clickhandler);
 		comment.setOnClickListener(clickhandler);
+		report.setOnClickListener(clickhandler);
 	}
 
 	private void setupbackgroundimage() {
@@ -117,7 +120,7 @@ public class CacheShowActivity extends Activity {
 				R.drawable.buttonsmall);
 		Drawable buttonimageinaktiv = getResources().getDrawable(
 				R.drawable.buttonmediumgrey);
-
+		report.setBackgroundDrawable(buttonimage);
 		yes_Button.setBackgroundDrawable(buttonimage);
 		yes_with_routing.setBackgroundDrawable(buttonimage);
 		no_Button.setBackgroundDrawable(buttonimage);
@@ -137,7 +140,7 @@ public class CacheShowActivity extends Activity {
 	private void setupfont() {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		int buttoncolor = Color.parseColor("#45250F");
 		float textsize = 22;
 		CacheName.setTypeface(font);
@@ -172,6 +175,10 @@ public class CacheShowActivity extends Activity {
 		yes_with_routing.setTextSize(textsize);
 		yes_with_routing.setTextColor(buttoncolor);
 
+		
+		report.setTypeface(font);
+		report.setTextSize(textsize);
+		report.setTextColor(buttoncolor);
 		// yes_with_routing.setVisibility(Button.INVISIBLE);
 
 	}
@@ -217,12 +224,24 @@ public class CacheShowActivity extends Activity {
 			startActivity(new Intent(getApplicationContext(),
 					CacheSelectActivity.class));
 		}
+		if(v==report){
+			MyHttpClient client=new MyHttpClient(DataClass.server);
+			try {
+				Toast.makeText(getBaseContext(), client.sendReport(listofsortetcaches.get(cacheindex).getCach().get_id()),Toast.LENGTH_LONG).show();
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		if (v == rate_button) {
 			float rating = ratebar.getRating();
 			MyHttpClient http = new MyHttpClient(DataClass.server);
 			Cache cache = listofsortetcaches.get(cacheindex).getCach();
 			if (cache.isFound() && !cache.israted()) {
-				Toast.makeText(getApplicationContext(), "Rating with" + rating,
+				Toast.makeText(getApplicationContext(), "Rated: " + rating,
 						Toast.LENGTH_SHORT).show();
 				try {
 					Toast.makeText(getApplicationContext(),
@@ -235,7 +254,11 @@ public class CacheShowActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else {
+			} else if(cache.isFound() && cache.israted()){
+				Toast.makeText(getApplicationContext(),
+						"Has been rated",
+						Toast.LENGTH_SHORT).show();
+			}else{
 				Toast.makeText(getApplicationContext(),
 						"You have to find the cache befor you could rate it!",
 						Toast.LENGTH_SHORT).show();

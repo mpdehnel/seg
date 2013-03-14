@@ -28,7 +28,6 @@
 <fullyQualifiedTypeName name="com.vectorone.AddNewUserActivity"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="com.game.memory.Game_memory_Activity"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="com.data.DatabaseCacheHandler"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="android.graphics.Color"/>
 <fullyQualifiedTypeName name="com.vectorone.R"/>
 <fullyQualifiedTypeName name="com.vectorone.R.drawable"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
 </qualifiedTypeNameHistroy>

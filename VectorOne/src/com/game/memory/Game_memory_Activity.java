@@ -37,6 +37,7 @@ public class Game_memory_Activity extends Activity {
 	private boolean finished = false;
 	// private MediaPlayer mp;
 	private Game_memory_Activity game;
+	private int cachevalue;
 	private static final String TAG = "GameMemory";
 
 	@Override
@@ -47,6 +48,7 @@ public class Game_memory_Activity extends Activity {
 		setContentView(R.layout.activity_keepopen_game);
 		Intent intent = getIntent();
 		withpoints = intent.getBooleanExtra("withpoints", true);
+		cachevalue = intent.getIntExtra("value", 0);
 		generatefiled(field);
 		this.game = this;
 		Log.i(TAG, field.toString());
@@ -75,7 +77,7 @@ public class Game_memory_Activity extends Activity {
 		TextView t1 = (TextView) findViewById(R.id.time);
 		Typeface font = Typeface.createFromAsset(game.getAssets(),
 				"fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		t1.setTextColor(textcolor);
 		t1.setTypeface(font);
 		t1.setTextSize(22);
@@ -280,8 +282,7 @@ public class Game_memory_Activity extends Activity {
 	private void calculatepoints(long time) {
 		if (!finished) {
 			if (withpoints) {
-				Toast.makeText(getBaseContext(), "Points:" + (120 - time) * 8,
-						Toast.LENGTH_SHORT).show();
+
 				MyHttpClient http = new MyHttpClient(DataClass.server);
 				try {
 					http.pointsupdate(DataClass.user.getUsername(),
@@ -292,13 +293,14 @@ public class Game_memory_Activity extends Activity {
 					e.printStackTrace();
 				}
 				DataClass.user.setCurrentPoints((int) (DataClass.user
-						.getCurrentPoints() + (120 - time) * 8));
+						.getCurrentPoints() + (120 - time) * 8 + cachevalue));
 				DataClass.user.setTotalpoints((int) (DataClass.user
-						.getTotalpoints() + (120 - time) * 8));
+						.getTotalpoints() + (120 - time) * 8 + cachevalue));
 
 				String msg = DataClass.user.getUsername()
-						+ " has scored in Memory: " + (120 - time) * 8;
-
+						+ " has scored in Memory: " + (120 - time) * 8
+						+ cachevalue;
+				DataClass.addtolog(" has scored in KeepOpen: " + time);
 				MyHttpClient client = new MyHttpClient(DataClass.server);
 				try {
 					client.pushTWITTER(DataClass.user.getUsername(), msg);
@@ -309,6 +311,9 @@ public class Game_memory_Activity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				Toast.makeText(getBaseContext(),
+						"Points:" + (120 - time) * 8 + cachevalue,
+						Toast.LENGTH_SHORT).show();
 				finish();
 				startActivity(new Intent(getBaseContext(), MenuActivity.class));
 			} else {

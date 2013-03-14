@@ -5,52 +5,12 @@
     android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/KeepOpen_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/memory_button"
-        android:layout_alignBottom="@+id/memory_button"
-        android:layout_marginLeft="22dp"
-        android:layout_toRightOf="@+id/memory_button"
-        android:text="KeepOpen" />
-
-    <Button
-        android:id="@+id/ComingSoon6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ComingSoon3"
-        android:layout_alignBottom="@+id/ComingSoon3"
-        android:layout_alignLeft="@+id/ComingSoon4"
-        android:enabled="false"
-        android:text="ComingSoon" />
-
-    <Button
-        android:id="@+id/ComingSoon4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ComingSoon1"
-        android:layout_alignBottom="@+id/ComingSoon1"
-        android:layout_alignLeft="@+id/KeepOpen_button"
-        android:enabled="false"
-        android:text="ComingSoon" />
-
-    <Button
-        android:id="@+id/ComingSoon3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ComingSoon2"
-        android:layout_marginTop="30dp"
-        android:layout_toLeftOf="@+id/KeepOpen_button"
-        android:enabled="false"
-        android:text="ComingSoon" />
-
-    <Button
         android:id="@+id/ComingSoon2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/ComingSoon1"
         android:layout_below="@+id/ComingSoon1"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="26dp"
         android:enabled="false"
         android:text="ComingSoon" />
 
@@ -58,30 +18,67 @@
         android:id="@+id/ComingSoon5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ComingSoon2"
-        android:layout_alignBottom="@+id/ComingSoon2"
-        android:layout_alignLeft="@+id/ComingSoon4"
+        android:layout_alignLeft="@+id/ComingSoon2"
+        android:layout_below="@+id/ComingSoon2"
+        android:layout_marginTop="30dp"
         android:enabled="false"
         android:text="ComingSoon" />
 
     <Button
-        android:id="@+id/ComingSoon1"
+        android:id="@+id/KeepOpen_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/memory_button"
-        android:layout_below="@+id/memory_button"
-        android:layout_marginTop="23dp"
-        android:enabled="false"
-        android:text="ComingSoon" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="39dp"
+        android:layout_marginTop="46dp"
+        android:text="KeepOpen" />
 
     <Button
         android:id="@+id/memory_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_alignBaseline="@+id/KeepOpen_button"
+        android:layout_alignBottom="@+id/KeepOpen_button"
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/KeepOpen_button"
         android:text="Memory" />
+
+    <Button
+        android:id="@+id/ComingSoon1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/KeepOpen_button"
+        android:layout_marginTop="21dp"
+        android:layout_toLeftOf="@+id/memory_button"
+        android:enabled="false"
+        android:text="ComingSoon" />
+
+    <Button
+        android:id="@+id/ComingSoon4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/memory_button"
+        android:layout_alignTop="@+id/ComingSoon1"
+        android:enabled="false"
+        android:text="ComingSoon" />
+
+    <Button
+        android:id="@+id/ComingSoon3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ComingSoon4"
+        android:layout_alignTop="@+id/ComingSoon2"
+        android:enabled="false"
+        android:text="ComingSoon" />
+
+    <Button
+        android:id="@+id/ComingSoon6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ComingSoon3"
+        android:layout_alignTop="@+id/ComingSoon5"
+        android:enabled="false"
+        android:text="ComingSoon" />
 
 </RelativeLayout>

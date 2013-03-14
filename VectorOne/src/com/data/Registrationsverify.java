@@ -48,6 +48,7 @@ public class Registrationsverify {
 	}
 
 	public boolean isProperPostCode(String postecode) {
+		postecode=postecode.toUpperCase();
 		pattern = Pattern.compile(Postcode_PATTERN);
 		matcher = pattern.matcher(postecode);
 		boolean result = matcher.matches();

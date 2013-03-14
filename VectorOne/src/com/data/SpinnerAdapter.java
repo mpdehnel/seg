@@ -38,7 +38,7 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 	public View getCustomView(int position, View convertView, ViewGroup parent) {
 		Typeface font = Typeface
 				.createFromAsset(context.getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

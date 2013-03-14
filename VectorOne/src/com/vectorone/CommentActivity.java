@@ -71,7 +71,7 @@ public class CommentActivity extends Activity {
 	private void setupfont() {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		int buttoncolor = Color.parseColor("#45250F");
 		float textsize = 17;
 
@@ -89,7 +89,7 @@ public class CommentActivity extends Activity {
 
 		lable.setTypeface(font);
 		lable.setTextColor(textcolor);
-		lable.setTextSize(textsize);
+		lable.setTextSize(25);
 
 	}
 

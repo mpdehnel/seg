@@ -22,6 +22,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.ContactsContract.Contacts.Data;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,8 +43,9 @@ public class AddCacheActivity extends Activity {
 	private TextView cacheNameView;
 	private TextView CacheDiscriptionView;
 	private Button addMac_button;
-	private int cacheCosts = 10;
+	private int cacheCosts = 200;
 	private boolean frommaps;
+	private Vibrator vibrator;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class AddCacheActivity extends Activity {
 	private void setupfonts() {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		int buttoncolor = Color.parseColor("#45250F");
 		float textsize = 22;
 
@@ -127,10 +129,12 @@ public class AddCacheActivity extends Activity {
 		CacheDiscriptionView = (TextView) findViewById(R.id.CacheDiscription);
 		cacheNameView = (TextView) findViewById(R.id.CacheName);
 		addMac_button = (Button) findViewById(R.id.addNetworkCache);
+		vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
 	}
 
 	private void clickhandle(View v) {
+		vibrator.vibrate(50);
 		if (v == add_button) {
 			if (DataClass.user.getCurrentPoints() > cacheCosts) {
 				String name = cacheNameText.getText().toString();
@@ -178,11 +182,11 @@ public class AddCacheActivity extends Activity {
 					} catch (IOException e) {
 						e.printStackTrace();
 					} catch (Exception e) {
-						Toast.makeText(
+					/*	Toast.makeText(
 								getBaseContext(),
 								"No internet Connection Add cache Canceld"
 										+ e.getMessage(), Toast.LENGTH_SHORT)
-								.show();
+								.show();*/
 					}
 				} else {
 					Toast.makeText(getBaseContext(),
@@ -231,8 +235,10 @@ public class AddCacheActivity extends Activity {
 								http.pointsupdate(DataClass.user.getUsername(),
 										(-1) * cacheCosts);
 							}
-							DataClass.log.append("add WifiCache:" + name);
-							DataClass.log.append("Current Points:"
+							DataClass.user.setCurrentPoints(DataClass.user
+									.getCurrentPoints() - cacheCosts);
+							DataClass.addtolog("add WifiCache:" + name);
+							DataClass.addtolog("Current Points:"
 									+ DataClass.user.getCurrentPoints());
 							String msg = DataClass.user.getUsername()
 									+ " has added a cache:" + name;

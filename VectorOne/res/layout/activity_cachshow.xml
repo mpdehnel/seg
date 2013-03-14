@@ -87,4 +87,13 @@
             android:layout_alignLeft="@+id/routing_button"
             android:text="Comment" />
 
+        <Button
+            android:id="@+id/report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/CacheDiscription"
+            android:layout_alignBottom="@+id/CacheDiscription"
+            android:layout_toRightOf="@+id/leaveAcomment"
+            android:text="Report" />
+
     </RelativeLayout>

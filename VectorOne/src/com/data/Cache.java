@@ -12,6 +12,7 @@ public class Cache {
 	private boolean founded;
 	private boolean israted = false;
 	private String comments = "";
+	private int value;
 
 	public String getComments() {
 		return comments;
@@ -161,6 +162,14 @@ public class Cache {
 
 	public void setRated(Boolean b) {
 		this.israted = b;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 
 }

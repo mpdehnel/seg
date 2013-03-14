@@ -11,6 +11,7 @@
     <string name="button_registration">Register</string>
     <string name="lable_username">username:</string>
     <string name="lable_password">password:</string>
+    <string name="question">Help</string>
 
     <string-array name="Cachs">
         <item>Yes</item>

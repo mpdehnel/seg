@@ -54,12 +54,11 @@ public class MeActivity extends Activity {
 		totalcaches.setText("TotalCaches: " + DataClass.user.getTotalcaches());
 		curretentPoints.setText("CurrentPoints: "
 				+ DataClass.user.getCurrentPoints());
-		double lat = Math.round(DataClass.mylat / Math.pow(10, 4)) / 100;
-		double lng = Math.round(DataClass.mylng / Math.pow(10, 4)) / 100;
 
 		location.setText("Location: " + System.getProperty("line.separator")
-				+ "Lat=" + lat + System.getProperty("line.separator") + "Long="
-				+ lng);
+				+ "Lat=" + DataClass.mylat / 1000000.0
+				+ System.getProperty("line.separator") + "Long="
+				+ DataClass.mylng / 1000000.0);
 	}
 
 	private String parse(boolean hardcore) {
@@ -82,7 +81,7 @@ public class MeActivity extends Activity {
 	private void setupfont() {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		int buttoncolor = Color.parseColor("#45250F");
 		float textsize = 17;
 

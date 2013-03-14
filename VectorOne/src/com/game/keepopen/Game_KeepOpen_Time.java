@@ -14,6 +14,7 @@ public class Game_KeepOpen_Time extends CountDownTimer {
 	private long time;
 	private int counter=0;
 	private int speedfaktor = 15;
+	private boolean withpoints;
 	private Game_keepopen_Activity game;
 
 	public Game_KeepOpen_Time(long millisInFuture, long countDownInterval,
@@ -25,16 +26,17 @@ public class Game_KeepOpen_Time extends CountDownTimer {
 		this.game = gameActivity;
 		Typeface font = Typeface
 				.createFromAsset(game.getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		t1.setTextColor(textcolor);
 		t1.setTypeface(font);
 		t1.setTextSize(22);
+		this.withpoints=withpoints;
 		
 	}
 
 	@Override
 	public void onFinish() {
-		// TODO
+		game.stop(millisInFuture/100);
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public class SettingsActivity extends Activity {
 	private void setupfont() {
 		Typeface font = Typeface
 				.createFromAsset(getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		int textcolor = Color.parseColor("#45250F");
 		int buttoncolor = Color.parseColor("#45250F");
 		float textsize = 22;
 
@@ -113,30 +113,30 @@ public class SettingsActivity extends Activity {
 	}
 
 	private void setupdatafields() {
-		Log.i("MAIN", "setupFields");
+		// Log.i("MAIN", "setupFields");
 		if (user.getSettings_unit() != null) {
 			if (user.getSettings_unit().equals("m-km")) {
-				Log.i("MAIN", "km");
+				// Log.i("MAIN", "km");
 				spinner_unit.setSelection(0);
 			} else {
-				Log.i("MAIN", "feet");
+				// Log.i("MAIN", "feet");
 				spinner_unit.setSelection(1);
 			}
 		}
 		if (user.getSettings_team() != null) {
-			Log.i("MAIN", "team");
+			// Log.i("MAIN", "team");
 			spinner_team.setSelection(getPosinArray(getResources()
 					.getStringArray(R.array.Team), user.getSettings_team()));
 		}
 		if (user.getSettings_maxdistance() != null) {
-			Log.i("MAIN", "distance");
+			// Log.i("MAIN", "distance");
 			spinner_distance.setSelection(getPosinArray(getResources()
 					.getStringArray(R.array.Distance), user
 					.getSettings_maxdistance()));
 		}
 
 		if (user.getSettings_visited() != null) {
-			Log.i("MAIN", "visited");
+			// Log.i("MAIN", "visited");
 			spinner_cache
 					.setSelection(getPosinArray(
 							getResources().getStringArray(R.array.Cachs),
@@ -144,7 +144,7 @@ public class SettingsActivity extends Activity {
 		}
 
 		if (user.getSettings_sorted() != null) {
-			Log.i("MAIN", "sorted");
+			// Log.i("MAIN", "sorted");
 			spinner_sort.setSelection(getPosinArray(getResources()
 					.getStringArray(R.array.sort), DataClass.SortType));
 		}
@@ -154,7 +154,7 @@ public class SettingsActivity extends Activity {
 	private int getPosinArray(String[] data, String date) {
 		for (int i = 0; i < data.length; i++) {
 			if (data[i].equals(date)) {
-				Log.i("MAIN", "inarray-date-" + i + "--" + date + "---");
+				// Log.i("MAIN", "inarray-date-" + i + "--" + date + "---");
 				return i;
 			}
 		}
@@ -167,25 +167,35 @@ public class SettingsActivity extends Activity {
 		lable_team = (TextView) findViewById(R.id.team_lable);
 		lable_maxdistance = (TextView) findViewById(R.id.max_distance);
 		spinner_unit = (Spinner) findViewById(R.id.spinner_unit);
-		spinner_unit.setAdapter(new SpinnerAdapter(getApplicationContext(), R.layout.spinner_row, getResources().getStringArray(R.array.Unit)));
+		spinner_unit.setAdapter(new SpinnerAdapter(getApplicationContext(),
+				R.layout.spinner_row, getResources().getStringArray(
+						R.array.Unit)));
 		spinner_team = (Spinner) findViewById(R.id.spinner_team);
-		spinner_team.setAdapter(new SpinnerAdapter(getApplicationContext(), R.layout.spinner_row, getResources().getStringArray(R.array.Team)));
+		spinner_team.setAdapter(new SpinnerAdapter(getApplicationContext(),
+				R.layout.spinner_row, getResources().getStringArray(
+						R.array.Team)));
 		spinner_distance = (Spinner) findViewById(R.id.spinner_distance);
-		spinner_distance.setAdapter(new SpinnerAdapter(getApplicationContext(), R.layout.spinner_row, getResources().getStringArray(R.array.Distance)));
+		spinner_distance.setAdapter(new SpinnerAdapter(getApplicationContext(),
+				R.layout.spinner_row, getResources().getStringArray(
+						R.array.Distance)));
 		spinner_listener = new SpinnerListener(DataClass.user, this);
 		button_apply = (Button) findViewById(R.id.set);
 		lable_cache = (TextView) findViewById(R.id.settings_cache);
 		spinner_cache = (Spinner) findViewById(R.id.spinner_cache);
-		spinner_cache.setAdapter(new SpinnerAdapter(getApplicationContext(), R.layout.spinner_row, getResources().getStringArray(R.array.Cachs)));
+		spinner_cache.setAdapter(new SpinnerAdapter(getApplicationContext(),
+				R.layout.spinner_row, getResources().getStringArray(
+						R.array.Cachs)));
 		lable_sort = (TextView) findViewById(R.id.settings_Sortby);
 		spinner_sort = (Spinner) findViewById(R.id.spinner_SortBy);
-		spinner_sort.setAdapter(new SpinnerAdapter(getApplicationContext(), R.layout.spinner_row, getResources().getStringArray(R.array.sort)));
+		spinner_sort.setAdapter(new SpinnerAdapter(getApplicationContext(),
+				R.layout.spinner_row, getResources().getStringArray(
+						R.array.sort)));
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 	}
 
 	@Override
 	public void onBackPressed() {
-		Log.i("MAIN", "Update User online and database");
+		// Log.i("MAIN", "Update User online and database");
 		upload();
 		vibrator.vibrate(50);
 		Intent intent = new Intent(getBaseContext(), MenuActivity.class);
@@ -195,15 +205,23 @@ public class SettingsActivity extends Activity {
 	}
 
 	private void upload() {
-		MyHttpClient http=new MyHttpClient(DataClass.server);
-		User user=DataClass.user;
+		MyHttpClient http = new MyHttpClient(DataClass.server);
+		User user = DataClass.user;
 		try {
-			http.usersettings(user.getUsername(), user.getSettings_unit(), user.getSettings_maxdistance(), user.getSettings_visited(), user.getSettings_team(),DataClass.SortType);
+			http.usersettings(user.getUsername(), user.getSettings_unit(),
+					user.getSettings_maxdistance(), user.getSettings_visited(),
+					user.getSettings_team(), DataClass.SortType);
 		} catch (ClientProtocolException e) {
-			Toast.makeText(getBaseContext(), "Connection Error settings not online next login you have to re-set it", Toast.LENGTH_LONG).show();
+			Toast.makeText(
+					getBaseContext(),
+					"Connection Error settings not online next login you have to re-set it",
+					Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		} catch (IOException e) {
-			Toast.makeText(getBaseContext(), "Connection Error settings not online next login you have to re-set it", Toast.LENGTH_LONG).show();
+			Toast.makeText(
+					getBaseContext(),
+					"Connection Error settings not online next login you have to re-set it",
+					Toast.LENGTH_LONG).show();
 			e.printStackTrace();
 		}
 	}
@@ -215,7 +233,7 @@ public class SettingsActivity extends Activity {
 			vibrator.vibrate(50);
 			if (v == button_apply) {
 				upload();
-				Log.i("MAIN", "Update User online and database");
+				// Log.i("MAIN", "Update User online and database");
 				Intent intent = new Intent(getBaseContext(), MenuActivity.class);
 				startActivity(intent);
 				finish();

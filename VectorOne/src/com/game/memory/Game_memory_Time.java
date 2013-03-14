@@ -16,7 +16,7 @@ public class Game_memory_Time extends CountDownTimer {
 	private CheckBox[] lights;
 	private Game_memory_Activity memory;
 	private long time;
-	private int counter=0;
+	private int counter = 0;
 
 	public Game_memory_Time(long millisInFuture, long countDownInterval,
 			CheckBox click1, CheckBox click2, CheckBox[] lights,
@@ -33,15 +33,15 @@ public class Game_memory_Time extends CountDownTimer {
 	}
 
 	public Game_memory_Time(long millisInFuture, long countDownInterval,
-			TextView t1, CheckBox[] lights,Game_memory_Activity memory) {
+			TextView t1, CheckBox[] lights, Game_memory_Activity memory) {
 		super(millisInFuture, countDownInterval);
 		this.millisInFuture = millisInFuture;
 		this.t1 = t1;
-		this.memory=memory;
+		this.memory = memory;
 		this.lights = lights;
-		Typeface font = Typeface
-				.createFromAsset(memory.getAssets(), "fonts/bebas.ttf");
-		int textcolor = Color.parseColor("#DECD87");
+		Typeface font = Typeface.createFromAsset(memory.getAssets(),
+				"fonts/bebas.ttf");
+		int textcolor = Color.parseColor("#45250F");
 		t1.setTextColor(textcolor);
 		t1.setTypeface(font);
 		t1.setTextSize(22);
@@ -60,25 +60,28 @@ public class Game_memory_Time extends CountDownTimer {
 			for (int i = 0; i < lights.length; i++) {
 				lights[i].setChecked(false);
 			}
-
+			
+		}
+		if(time==120){
+			memory.stop(120);
 		}
 	}
 
 	@Override
 	public void onTick(long millisUntilFinished) {
-		if (t1 != null && !finished()&&counter<1) {
+		if (t1 != null && counter < 1 && !isfinished()) {
 			time = (millisInFuture - millisUntilFinished) / 1000;
-			t1.setText("MemoryTime:"+time + "s");
+			t1.setText("MemoryTime:" + time + "s");
 		}
 	}
 
-	private boolean finished() {
+	private boolean isfinished() {
 		for (int i = 0; i < lights.length; i++) {
 			if (!lights[i].isChecked()) {
 				return false;
 			}
 		}
-		
+
 		counter++;
 		memory.stop(time);
 		return true;
